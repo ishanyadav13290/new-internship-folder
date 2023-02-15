@@ -40,8 +40,8 @@ export default function Cards({ data, index }) {
       display={["block", "flex"]}
       p={["10px 20px", "10px 40px"]}
       justifyContent={"space-evenly"}
-      width={["90%", "80%"]}
-      m={["10% 0", "2% auto"]}
+      width={["80%", "80%"]}
+      m={["10% auto", "2% auto"]}
       sx={{
         boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",

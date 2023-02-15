@@ -39,7 +39,7 @@ export default function Login(){
     <Box m={"2% 0"} height={"100vh"}>
       <Box
         boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-        width={["80%","40%"]}
+        width={["80%","80%","30%"]}
         m={"auto"}
         p={"15px"}
         borderRadius={"10px"}
@@ -75,7 +75,18 @@ export default function Login(){
           Login
         </Button>
         <br />
+        <br />
+        <Box display={"flex"} justifyContent={"space-between"} textAlign="left">
+        <NavLink>Forgot Password?</NavLink>
         <NavLink to="/signup" >Don't have an account? Sign Up!</NavLink>
+        </Box>
+        <br />
+        <Divider />
+        <br />
+        <Box display={"flex"} justifyContent={"space-between"} sx={{objectFit:"cover"}}>
+          <img src="https://www.mirraw.com/assets/facebook_sign_in-e998b55d7d821ba819897132537e42149cee923ea215a5eaf0e2a6335efe6c67.png" alt="login with google" style={{maxWidth:"40%"}} />
+          <img src="https://www.mirraw.com/assets/google_sing_in-3426a2d2b760db2be7127653d216d7578e499c5e7df25fea1f861a56108d7d5b.png" alt="login with google" style={{maxWidth:"40%"}} />
+        </Box>
       </Box>
     </Box>
   );

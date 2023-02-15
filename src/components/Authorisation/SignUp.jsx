@@ -68,11 +68,12 @@ export default function SignUp() {
     <Box m={"2% 0"} height={"100vh"}>
       <Box
         boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-        width={["80%","40%"]}
+        width={["80%","80%","30%"]}
         m={"auto"}
         p={"15px"}
         borderRadius={"10px"}
       >
+      <Box width={"95%"} m={"auto"}>
       <Typography fontWeight={700} variant={"h5"}>Create a New Account</Typography>
       <Divider />
         <Box
@@ -145,6 +146,7 @@ export default function SignUp() {
           display={"flex"}
           alignItems={"center"}
           justifyContent={"space-between"}
+          textAlign="left"
         >
           <label>Confirm Password: </label>
           <Box width={"70%"}>
@@ -175,16 +177,31 @@ export default function SignUp() {
         <Box
           display={"flex"}
           alignItems={"center"}
-          // justifyContent={"space-between"}
+          justifyContent={"flex-start"}
         >
-          <Box width={"7%"}>
-            <Input ref={isSelling} type={"checkbox"} sx={{ width: "100%" }} placeholder="GST" />
+          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+            <Input ref={isSelling} type={"checkbox"} />
+          <Typography variant="body2">Want to Sell? </Typography>
           </Box>
-          <label>Want to Sell? </label>
         </Box>
+        <br />
+        <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
+          <Input type="checkbox" />
+          <Typography variant="body2">I Agree to Recieve NewsLetters from Gofra</Typography>
+        </Box>
+        <br />
+        <Divider />
+        <br />
         <Button variant="contained" onClick={SignUp}>
           SignUp
         </Button>
+        <br />
+        <br />
+        <Box display={"flex"} justifyContent={"space-between"} sx={{objectFit:"cover"}}>
+          <img src="https://www.mirraw.com/assets/facebook_sign_in-e998b55d7d821ba819897132537e42149cee923ea215a5eaf0e2a6335efe6c67.png" alt="login with google" style={{maxWidth:"40%"}} />
+          <img src="https://www.mirraw.com/assets/google_sing_in-3426a2d2b760db2be7127653d216d7578e499c5e7df25fea1f861a56108d7d5b.png" alt="login with google" style={{maxWidth:"40%"}} />
+        </Box>
+      </Box>
       </Box>
     </Box>
   );
