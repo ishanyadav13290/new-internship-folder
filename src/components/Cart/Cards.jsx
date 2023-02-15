@@ -48,7 +48,7 @@ export default function Cards({ data, index }) {
             borderRadius:"25px",
         "&:hover": {
           boxShadow:"rgba(0, 0, 0, 0.35) 0px 5px 15px",
-          borderRadius: "35px",
+          borderRadius: "5px",
           transition:"0.2s ease-in"
         },
       }}
