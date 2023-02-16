@@ -2,8 +2,10 @@ import { Box } from "@mui/system";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
 
 export default function NewArrivalCard({ el }) {
+  console.log(el)
   return (
     <Box
+    position={'reltive'}
       mb={["30px", "10px"]}
       display={["block", "flex"]}
       justifyContent={"space-around"}
@@ -19,6 +21,16 @@ export default function NewArrivalCard({ el }) {
           alt="blank"
           style={{ height: "100%", width: "100%" }}
         />
+      </Box>
+      <Box
+        bgcolor={"rgb(203, 255, 80)"}
+        borderRadius={"5px"}
+        p={"5px"}
+        position={"absolute"}
+        sx={{ top: 15, right: 15 }}
+        variant={"span"}
+      >
+        <b>Category:</b> {el.category}
       </Box>
       <Box width={["100%", "70%"]} textAlign={"left"}>
         <Box display={"flex"} justifyContent={"flex-start"}>

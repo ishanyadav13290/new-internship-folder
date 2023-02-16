@@ -26,13 +26,12 @@ export default function Footer(){
             right={10}
             bgcolor="white"
             zIndex={1}
-            p="10px 15px"
+            p="5px 10px"
             borderRadius="50%"
             border="2px solid rgb(246, 126, 34)"
             fontWeight={700}
-            fontSize="xl"
           >
-            <ArrowUpwardIcon style={{color:"rgb(246, 126, 34)"}} />
+            <ArrowUpwardIcon  style={{color:"rgb(246, 126, 34)"}} />
           </Box>
         </a>
         {isSeller?<NavLink to="/admin" >

@@ -14,7 +14,7 @@ export default function MediaCard({ el, loading }) {
   let temp = useAddToCart();
 
   return (
-    <Card sx={{ minWidth: 330, padding: "10px 0","&:hover": {
+    <Card sx={{ minWidth: 330,position:"relative", padding: "10px 0","&:hover": {
       boxShadow:
       "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
 ,
@@ -27,6 +27,16 @@ export default function MediaCard({ el, loading }) {
         image={el.Img}
         title="green iguana"
       />}
+      {!loading?<Box
+        bgcolor={"rgb(246, 126, 34)"}
+        borderRadius={"5px"}
+        p={"5px"}
+        position={"absolute"}
+        sx={{ top: 0, right: 0 }}
+        variant={"span"}
+      >
+        <b>Category: </b>{el.category}
+      </Box>:null}
       <NavLink
         to={`/newarrivals/${el.id}`}
         style={{ color: "black", textDecoration: "none" }}

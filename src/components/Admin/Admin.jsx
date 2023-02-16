@@ -1,33 +1,54 @@
-import { AttachFile } from "@mui/icons-material";
-import { Button, Input, Typography } from "@mui/material";
+import { AttachFile, Delete } from "@mui/icons-material";
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { v4 as uid} from "uuid";
+import Cards from "../Cart/Cards";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
+import AdminCards from "./AdminCards";
 
 export default function Admin() {
-  let { isAuth, userName, userID } = useContext(AuthContext);
+  let { isAuth, userName, userID,allSellerItems, setAllSellerItems } = useContext(AuthContext);
   let imgInput = useRef(null);
   let prodName = useRef(null);
   let prodDesc = useRef(null);
   let prodPrice = useRef(0);
   let sellerAddress = useRef(null);
   let [Img, setImg] = useState("https://i.stack.imgur.com/mwFzF.png");
+  let [isLoading, setIsLoading] = useState(false);
 
   // temporarily storing seller items to show in the panel
   let [tempSellerItems, setTempSellerITems] = useState([]);
 
+  // Category funtion
+  const [category, setCategory] = useState("");
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       let temp = await axios.get(
         `https://sedate-laced-chestnut.glitch.me/users/${userID}`
       );
-      // console.log(temp.data.sellerItems)
       setTempSellerITems(temp.data.sellerItems);
+      setAllSellerItems(temp.data.sellerItems)
+      setIsLoading(false);
     })();
-  }, [tempSellerItems,userID]);
+  }, []);
 
   function imageSelect() {
     imgInput.current.click();
@@ -51,27 +72,25 @@ export default function Admin() {
     let obj = {
       sellerItems: [
         ...tempSellerItems,
-        { name, description, address, price, Img },
+        { id:uid() ,name, description, address, price, Img, category },
       ],
     };
-
+    setTempSellerITems(obj.sellerItems);
+    setAllSellerItems(obj.sellerItems)
     await axios.patch(
       `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
       obj
     );
-    axios.post("https://sedate-laced-chestnut.glitch.me/allItems", {
-      name,
-      description,
-      address,
-      price,
-      Img,
-    });
+    axios.post("https://sedate-laced-chestnut.glitch.me/allItems",
+      obj.sellerItems[obj.sellerItems.length-1]
+    );
     prodName.current.childNodes[0].value = "";
     prodDesc.current.value = "";
     sellerAddress.current.childNodes[0].value = "";
     prodPrice.current.childNodes[0].value = "";
     setImg("https://i.stack.imgur.com/mwFzF.png");
-    setTempSellerITems(obj.sellerItems);
+    
+    alert("Item Added");
   }
   return !isAuth ? (
     <Navigate to="/" />
@@ -112,7 +131,7 @@ export default function Admin() {
               zIndex={1}
             >
               Attach Image
-              <AttachFile />
+              <AttachFile sx={{ fontSize: "25px" }} />
             </Box>
           </Box>
         </Box>
@@ -149,6 +168,35 @@ export default function Admin() {
             alignItems={"center"}
             justifyContent={"space-between"}
           >
+            <label>Category </label>
+            <Box width={"70%"}>
+              <FormControl variant="standard" fullWidth >
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select 
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Category"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"reinforcedSteel"}>Reinforced Steel</MenuItem>
+                  <MenuItem value={"iBeam"}>I Beam</MenuItem>
+                  <MenuItem value={"Angles"}>Angles</MenuItem>
+                  <MenuItem value={"diPipes"}>DI Pipes</MenuItem>
+                  <MenuItem value={"redOxidePrimar"}>Red Oxide Primar</MenuItem>
+                  <MenuItem value={"plyboard"}>Plyboard</MenuItem>
+                  <MenuItem value={"nails"}>Nails</MenuItem>
+                  <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
+                  <MenuItem value={"wires&Cables"}>Wires & Cables</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
             <label>Seller's Address: </label>
             <Box width={"70%"}>
               <Input
@@ -175,7 +223,11 @@ export default function Admin() {
             </Box>
           </Box>
           <br />
-          <Button sx={{backgroundColor:"rgb(246, 126, 34)"}} onClick={ListItem} variant={"contained"}>
+          <Button
+            sx={{ backgroundColor: "rgb(246, 126, 34)" }}
+            onClick={ListItem}
+            variant={"contained"}
+          >
             Add
           </Button>
         </Box>
@@ -190,12 +242,28 @@ export default function Admin() {
           <Typography variant="h5">No Additions Yet</Typography>
         </Box>
       ) : (
-        <Box minHeight={"200px"}>
-          {tempSellerItems.map((el, i) => {
+        <Box
+          minHeight={"200px"}
+          maxHeight={"600px"}
+          width={"90%"}
+          margin={"auto"}
+          sx={{ overflowX: "hidden" }}
+        >
+        {/* <AdminCards  /> */}
+          {allSellerItems.map((el, i) => {
             return (
-              <Box
+              <AdminCards data={el}  />
+            );
+          })}
+        </Box>
+      )}
+    </Box>
+  );
+}
+
+{/* <Box
                 key={i}
-                width={["100%","80%"]}
+                width={["100%", "90%"]}
                 display={["block", "flex"]}
                 justifyContent={"space-between"}
                 m={"1% auto "}
@@ -203,9 +271,8 @@ export default function Admin() {
                 sx={{
                   "&:hover": {
                     boxShadow:
-                    "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
-,
-                    borderRadius:"50px"
+                      "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
+                    borderRadius: "50px",
                   },
                 }}
               >
@@ -223,27 +290,38 @@ export default function Admin() {
                     style={{ height: "80%", maxWidth: "100%" }}
                   />
                 </Box>
-                <Box m={"auto"} width={["60%","60%","80%"]} height={["100%"]}  textAlign={"left"}>
-                  <Box display={"flex"}  minHeight={["auto","auto","50px"]}>
-                  <Box minWidth={"100px"}><b>Name:</b></Box> 
-                  <Box>{el.name}</Box>
+                <Box
+                  m={"auto"}
+                  width={["60%", "60%", "80%"]}
+                  height={["100%"]}
+                  textAlign={"left"}
+                >
+                  <Box display={"flex"} minHeight={["auto", "auto", "50px"]}>
+                    <Box minWidth={"100px"}>
+                      <b>Name:</b>
+                    </Box>
+                    <Box>{el.name}</Box>
                   </Box>
-                  <Box maxHeight={"100px"} sx={{overflowY:"scroll"}} >
-                  <Box display={"flex"} minHeight={["auto","auto","50px"]}>
-                    <Box minWidth={"100px"}><b>Describe:</b></Box> 
-                    <Box width={"100%"}>{el.description}</Box>
+                  <Box maxHeight={"100px"} sx={{ overflowY: "scroll" }}>
+                    <Box display={"flex"} minHeight={["auto", "auto", "50px"]}>
+                      <Box minWidth={"100px"}>
+                        <b>Describe:</b>
+                      </Box>
+                      <Box width={"100%"}>{el.description}</Box>
+                    </Box>
                   </Box>
+                  <Box display={"flex"} minHeight={["auto", "auto", "50px"]}>
+                    <Box minWidth={"100px"}>
+                      <b>Price:</b>
+                    </Box>
+                    <Box>
+                      <b>
+                        <em>{toIndianNumberingSystem(el.price)}</em>
+                      </b>
+                    </Box>
                   </Box>
-                  <Box display={"flex"} minHeight={["auto","auto","50px"]}>
-                  <Box minWidth={"100px"}><b>Price:</b></Box> 
-                  <Box><b><em>{toIndianNumberingSystem(el.price)}</em></b></Box>
-                   </Box>
                 </Box>
-              </Box>
-            );
-          })}
-        </Box>
-      )}
-    </Box>
-  );
-}
+                <Box display={"flex"} alignItems={"center"}>
+                <Delete />
+                </Box>
+              </Box> */}

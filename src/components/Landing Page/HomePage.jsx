@@ -5,6 +5,7 @@ import { AuthContext } from "../Context/Contexts";
 import { BrandImgs, BrandNames, cardImgs, cardNames } from "../Static Data/db";
 import Carousel from "./Carousel/Carousel";
 import Cards from "./Categories Card/CategoriesCard";
+import OurPromise from "./OurPromises/OurPromises";
 import ShopByBrands from "./ShopByBrands/ShopByBrands";
 import ShopByCategory from "./ShopByCategory/ShopByCategory";
 
@@ -21,6 +22,8 @@ export default function HomePage() {
       <ShopByCategory />
 
       <ShopByBrands />
+
+      <OurPromise />
     </Box>
   );
 }

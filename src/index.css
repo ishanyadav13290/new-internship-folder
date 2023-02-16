@@ -37,3 +37,7 @@ code {
   background-color: #444342;
 }
 
+.carouselContainer::-webkit-scrollbar{
+  display: none;
+}
+
