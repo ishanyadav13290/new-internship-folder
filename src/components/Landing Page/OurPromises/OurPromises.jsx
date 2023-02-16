@@ -12,7 +12,7 @@ import PromiseCard from "./PromiseCard";
 
 export default function OurPromise() {
   let iconStyle = {
-    color: "rgb(246, 126, 34)",
+    color: "white",
     fontSize: "2.5rem",
   };
   function scrollToPosition(position) {

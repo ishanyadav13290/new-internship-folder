@@ -1,5 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import { lightBlue } from "@mui/material/colors";
 import { NavLink } from "react-router-dom";
+import { db, lb } from "../Static Data/theme";
 import Hamburger from "./Hamburger/Hamburger";
 import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";
@@ -15,8 +17,8 @@ export let styles = {
 export let styles2 = { textDecoration: "none" };
 export default function Navbar() {
   return (
-    <Box display={"flex"} justifyContent={"center"} mb={["30%","10%"]}>
-      <Box  width={["100%","90%"]} position={"fixed"} top={0} zIndex={"2"}  borderRadius={"0 0 20px 20px"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"} bgcolor={"white"}>
+    <Box display={"flex"} color={"white"} justifyContent={"center"} mb={["30%","10%"]} >
+      <Box  width={["100%","90%"]} bgcolor={lb} position={"fixed"} top={0} zIndex={"2"}  borderRadius={"0 0 20px 20px"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
       <Box
         sx={styles}
         fontSize={["13px", "15px", "20px"]}
@@ -26,7 +28,7 @@ export default function Navbar() {
         <Box width={["100%","90%"]}>
         <Box display={"flex"} alignItems={"center"} >
         <Hamburger  />
-        <NavLink to={"/"} style={{color:"rgb(246, 126, 34)",textDecoration:"none"}}>
+        <NavLink to={"/"} style={{color:"white",textDecoration:"none"}}>
           <Box display={"flex"} height={"100%"} alignItems={"center"}>
           <Typography fontWeight={700} variant="h4">
             Gofra

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 import { Sell } from "@mui/icons-material";
+import { lb } from "../Static Data/theme";
 
 export default function Footer(){
   let {isSeller} = useContext(AuthContext)
@@ -28,10 +29,10 @@ export default function Footer(){
             zIndex={1}
             p="5px 10px"
             borderRadius="50%"
-            border="2px solid rgb(246, 126, 34)"
+            border="1px solid rgb(72, 98, 208)"
             fontWeight={700}
           >
-            <ArrowUpwardIcon  style={{color:"rgb(246, 126, 34)"}} />
+            <ArrowUpwardIcon  style={{color:lb}} />
           </Box>
         </a>
         {isSeller?<NavLink to="/admin" >
