@@ -9,26 +9,28 @@ import { NavLink } from "react-router-dom";
 import useAddToCart from "../addToCartFunction";
 import { Box } from "@mui/system";
 import { Skeleton } from "@mui/material";
+import { db, lb } from "../../Static Data/theme";
 
 export default function MediaCard({ el, loading }) {
   let temp = useAddToCart();
 
   return (
-    <Card sx={{ minWidth: 330,position:"relative", padding: "10px 0","&:hover": {
+    <Card sx={{ minWidth:"300px",maxWidth:"300px",position:"relative", padding: "10px 0",margin:"auto","&:hover": {
       boxShadow:
       "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
 ,
       borderRadius:"25px",
     transition:" 0.2s ease-in"
     } }} >
-      {loading?<Skeleton sx={{ height: 140 }} animation="wave" variant="rectangular" />:
+      {loading?<Skeleton sx={{ height: 140, width:"100%" }} animation="wave" variant="rectangular" />:
       <CardMedia
         sx={{ height: 140, width: "80%", margin: "auto" }}
         image={el.Img}
         title="green iguana"
       />}
       {!loading?<Box
-        bgcolor={"rgb(246, 126, 34)"}
+        bgcolor={db}
+        color="white"
         borderRadius={"5px"}
         p={"5px"}
         position={"absolute"}
@@ -48,10 +50,12 @@ export default function MediaCard({ el, loading }) {
             {el.name.length > 20 ? "..." : null}
           </Typography>}
           {loading?<br />:null}
-          {loading?<Skeleton sx={{ height: 30 }} animation="wave" variant="rectangular" />:<Typography variant="body2" color="text.secondary">
+          {loading?<Skeleton sx={{ height: 30, width:"100%" }} animation="wave" variant="rectangular" />:<Typography variant="body2" color="text.secondary">
             {el.description.slice(0, 40)}
             {el.name.length > 30 ? "..." : null}
           </Typography>}
+          <br />
+          {loading?<Skeleton sx={{height:30, width:"100%"}} />:<Typography variant="h6" fontWeight={700}>{el.price}</Typography>}
         </CardContent>
       </NavLink>
       <CardActions>
@@ -60,7 +64,7 @@ export default function MediaCard({ el, loading }) {
         <Button
           size="small"
           variant="contained"
-          sx={{ backgroundColor: "rgb(246, 126, 34)" }}
+          sx={{ backgroundColor: lb }}
           onClick={() => {
             let data1 = {
               Img: el.Img,

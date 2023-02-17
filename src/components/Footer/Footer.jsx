@@ -44,10 +44,10 @@ export default function Footer(){
             zIndex={1}
             p="10px 15px"
             borderRadius="50%"
-            border="2px solid rgb(246, 126, 34)"
+            border="2px solid rgb(72, 98, 208)"
             fontWeight={700}
             fontSize="xl">
-            <Sell style={{color:"rgb(246, 126, 34)"}} />
+            <Sell style={{color:lb}} />
         </Box>
         </NavLink>:null}
     </Box>

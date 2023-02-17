@@ -4,6 +4,7 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
+import { db, lb } from "../Static Data/theme";
 
 export default function Login(){
     let {isAuth,setAuth,setCart, setUserName,setUserID, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
@@ -71,7 +72,7 @@ export default function Login(){
         </Box>
        
         <br />
-        <Button variant="contained" onClick={Login}>
+        <Button variant="contained" sx={{bgcolor:lb}} onClick={Login}>
           Login
         </Button>
         <br />

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useContext, useRef } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
+import { lb } from "../Static Data/theme";
 
 export default function SignUp() {
   let {isAuth,setAuth, cart, setUserName, walletBalance, setIsSeller, sellerItems} = useContext(AuthContext)
@@ -192,7 +193,7 @@ export default function SignUp() {
         <br />
         <Divider />
         <br />
-        <Button variant="contained" onClick={SignUp}>
+        <Button variant="contained" sx={{bgcolor:lb}} onClick={SignUp}>
           SignUp
         </Button>
         <br />
