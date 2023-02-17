@@ -11,7 +11,16 @@ export default function ContextProvider({ children }) {
   let [isSeller, setIsSeller]= useState(false)
   let [userEmail, setUserEmail] = useState("")
   let [userPassword, setUserPassword] = useState("")
-  let [allSellerItems, setAllSellerItems] = useState([])
+  let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
+    "id": "lksadjf;lasdj;lfaksjdfkdflakfsd",
+    "name": "kjsajdflajsdla;kjdf",
+    "description": "kljasdhflajsd",
+    "address": "asfdasdfasdf",
+    "price": 659087,
+    "Img": "imgdata",
+    "category": "Angles"
+    }))
+  let [isInputSearch, setIsInputSearch] = useState(false)
   let value = {
     isAuth,
     setAuth,
@@ -30,7 +39,9 @@ export default function ContextProvider({ children }) {
     userPassword,
     setUserPassword,
     allSellerItems,
-    setAllSellerItems
+    setAllSellerItems,
+    isInputSearch, 
+    setIsInputSearch
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

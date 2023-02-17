@@ -56,6 +56,7 @@ export default function Nav2() {
       {arr.map((el, i) => {
         return (
           <NavLink
+          key={i}
             to={routes[i]}
             style={{
               textDecoration: "none",

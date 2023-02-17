@@ -16,6 +16,7 @@ import { v4 as uid} from "uuid";
 import Cards from "../Cart/Cards";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
+import { lb } from "../Static Data/theme";
 import AdminCards from "./AdminCards";
 
 export default function Admin() {
@@ -224,7 +225,7 @@ export default function Admin() {
           </Box>
           <br />
           <Button
-            sx={{ backgroundColor: "rgb(246, 126, 34)" }}
+            sx={{ backgroundColor: lb }}
             onClick={ListItem}
             variant={"contained"}
           >
@@ -252,7 +253,7 @@ export default function Admin() {
         {/* <AdminCards  /> */}
           {allSellerItems.map((el, i) => {
             return (
-              <AdminCards data={el}  />
+              <AdminCards key={i} data={el}  />
             );
           })}
         </Box>
@@ -260,68 +261,3 @@ export default function Admin() {
     </Box>
   );
 }
-
-{/* <Box
-                key={i}
-                width={["100%", "90%"]}
-                display={["block", "flex"]}
-                justifyContent={"space-between"}
-                m={"1% auto "}
-                padding={"10px 0"}
-                sx={{
-                  "&:hover": {
-                    boxShadow:
-                      "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
-                    borderRadius: "50px",
-                  },
-                }}
-              >
-                <Box
-                  sx={{ objectFit: "cover" }}
-                  width={"30%"}
-                  display={"flex"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  m={["auto", "0 5%"]}
-                >
-                  <img
-                    src={el.Img}
-                    alt="List"
-                    style={{ height: "80%", maxWidth: "100%" }}
-                  />
-                </Box>
-                <Box
-                  m={"auto"}
-                  width={["60%", "60%", "80%"]}
-                  height={["100%"]}
-                  textAlign={"left"}
-                >
-                  <Box display={"flex"} minHeight={["auto", "auto", "50px"]}>
-                    <Box minWidth={"100px"}>
-                      <b>Name:</b>
-                    </Box>
-                    <Box>{el.name}</Box>
-                  </Box>
-                  <Box maxHeight={"100px"} sx={{ overflowY: "scroll" }}>
-                    <Box display={"flex"} minHeight={["auto", "auto", "50px"]}>
-                      <Box minWidth={"100px"}>
-                        <b>Describe:</b>
-                      </Box>
-                      <Box width={"100%"}>{el.description}</Box>
-                    </Box>
-                  </Box>
-                  <Box display={"flex"} minHeight={["auto", "auto", "50px"]}>
-                    <Box minWidth={"100px"}>
-                      <b>Price:</b>
-                    </Box>
-                    <Box>
-                      <b>
-                        <em>{toIndianNumberingSystem(el.price)}</em>
-                      </b>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box display={"flex"} alignItems={"center"}>
-                <Delete />
-                </Box>
-              </Box> */}

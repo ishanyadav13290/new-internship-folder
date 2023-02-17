@@ -14,10 +14,12 @@ export default function AllRoutes(){
     <Route path="/login" element=<Login /> />
     <Route path="/cart" element=<Cart /> />
     <Route path="/cart" element=<h1>Cart</h1> />
+    {/* <Route path="/signup" element=<SignUp2 /> /> */}
     <Route path="/signup" element=<SignUp /> />
     <Route path="/wallet" element=<Wallet /> />
     <Route path="/admin" element=<Admin /> />
     <Route path="/:category" element=<Products/> />
+    <Route path="/search/:query" element=<Products/> />
     <Route path="/newarrivals/:id" element= <SingleProductPage /> />
 </Routes>
 }

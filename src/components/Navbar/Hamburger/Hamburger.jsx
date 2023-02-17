@@ -19,6 +19,9 @@ import {
 } from "@mui/icons-material";
 import { AuthContext } from "../../Context/Contexts";
 import { NavLink } from "react-router-dom";
+import { db, lb } from "../../Static Data/theme";
+import { Typography } from "@mui/material";
+import { cardNames, routeNames } from "../../Static Data/db";
 
 export default function Hamburger() {
   let { isAuth, setAuth, userName, setIsSeller, setUserID } =
@@ -59,7 +62,7 @@ export default function Hamburger() {
           textAlign={"center"}
           p={"5px"}
           color={"white"}
-          bgcolor="rgb(246, 126, 34)"
+          bgcolor={lb}
         >{`Welcome ${userName}`}</Box>
 
         {isAuth ? (
@@ -84,7 +87,7 @@ export default function Hamburger() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <ShoppingBag sx={{ color: "rgb(246, 126, 34)" }} />
+                    <ShoppingBag sx={{ color: lb }} />
                   </ListItemIcon>
                   <ListItemText>Previous Orders</ListItemText>
                 </ListItemButton>
@@ -97,7 +100,7 @@ export default function Hamburger() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <Wallet sx={{ color: "rgb(246, 126, 34)" }} />
+                    <Wallet sx={{ color: lb }} />
                   </ListItemIcon>
                   <ListItemText>Wallet</ListItemText>
                 </ListItemButton>
@@ -106,7 +109,7 @@ export default function Hamburger() {
             <ListItem disablePadding onClick={LogOut}>
               <ListItemButton>
                 <ListItemIcon>
-                  <Logout sx={{ color: "rgb(246, 126, 34)" }} />
+                  <Logout sx={{ color: lb }} />
                 </ListItemIcon>
                 <ListItemText>LogOut</ListItemText>
               </ListItemButton>
@@ -114,6 +117,40 @@ export default function Hamburger() {
           </>
         ) : (
           <>
+          <Typography ml="8%" fontWeight={700}>Shop Now</Typography>
+          <Divider />
+          <NavLink
+              to="/newarrivals"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ShoppingBag sx={{ color: lb }} />
+                  </ListItemIcon>
+                  <ListItemText>New Arrivals</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            {routeNames.map((el,i)=>{
+              return <NavLink
+              key={i}
+              to={`/${el}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ShoppingBag sx={{ color: lb }} />
+                  </ListItemIcon>
+                  <ListItemText>{cardNames[i]}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            })}
+            <Divider />
+            <Typography ml="8%" fontWeight={700}>Account</Typography>
+            <Divider />
             <NavLink
               to="/login"
               style={{ textDecoration: "none", color: "black" }}
@@ -121,7 +158,7 @@ export default function Hamburger() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <Login sx={{ color: "rgb(246, 126, 34)" }} />
+                    <Login sx={{ color: lb }} />
                   </ListItemIcon>
                   <ListItemText>Log In</ListItemText>
                 </ListItemButton>
@@ -134,7 +171,7 @@ export default function Hamburger() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <Login sx={{ color: "rgb(246, 126, 34)" }} />
+                    <Login sx={{ color: lb }} />
                   </ListItemIcon>
                   <ListItemText>Signup</ListItemText>
                 </ListItemButton>
@@ -145,7 +182,7 @@ export default function Hamburger() {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <Share sx={{ color: "rgb(246, 126, 34)" }} />
+              <Share sx={{ color: lb }} />
             </ListItemIcon>
             <ListItemText>Refer</ListItemText>
           </ListItemButton>
@@ -159,7 +196,7 @@ export default function Hamburger() {
     <Box display={["block", "block", "none"]}>
       <React.Fragment>
         <Button onClick={toggleDrawer("left", true)}>
-          <MenuIcon sx={{ color: "rgb(246, 126, 34)" }} />
+          <MenuIcon sx={{ color: "white" }} />
         </Button>
         <Drawer
           anchor={"left"}

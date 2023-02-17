@@ -12,6 +12,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
+import { lb } from "../Static Data/theme";
 
 export default function AdminCards({ data }) {
   let { userID, allSellerItems, setAllSellerItems } = useContext(AuthContext);
@@ -52,7 +53,8 @@ export default function AdminCards({ data }) {
         <img src={data.Img} width={"100%"} alt="cover" />
       </Box>
       <Box
-        bgcolor={"rgb(203, 255, 80)"}
+        bgcolor={lb}
+        color={"white"}
         borderRadius={"5px"}
         p={"5px"}
         position={"absolute"}
@@ -70,7 +72,7 @@ export default function AdminCards({ data }) {
         <Divider />
         <br />
         <Button
-          sx={{ backgroundColor: "rgb(246, 126, 34)" }}
+          sx={{ backgroundColor: lb }}
           onClick={() => {
             removeItem(data);
           }}

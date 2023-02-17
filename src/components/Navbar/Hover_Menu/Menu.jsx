@@ -36,7 +36,7 @@ export default function BasictMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: ["block"], alignItems: "center", textAlign: "center" }}>
-      <Person onClick={handleClick} sx={{color:"rgb(246, 126, 34)"}} />
+      <Person onClick={handleClick} sx={{color:"white"}} />
         <Typography
           fontSize={"14px"}
           onClick={handleClick}
@@ -44,7 +44,7 @@ export default function BasictMenu() {
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
-          color={"black"}
+          color={"white"}
           sx={{ cursor: "pointer" }}
           fontWeight={700}
           

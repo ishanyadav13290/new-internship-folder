@@ -1,35 +1,57 @@
-import { Button, Divider, Input, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import axios from "axios";
-import { useContext, useRef } from "react";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
-import { lb } from "../Static Data/theme";
+import axios from "axios";
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="">
+        Gofra
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
 
 export default function SignUp() {
-  let {isAuth,setAuth, cart, setUserName, walletBalance, setIsSeller, sellerItems} = useContext(AuthContext)
-  let Name = useRef(null);
-  let Address1 = useRef(null);
-  let Address2 = useRef(null);
-  let Email = useRef(null);
-  let Pan = useRef(null);
-  let Gst = useRef(null);
-  let Pass = useRef("");
-  let ConPass = useRef("");
-  let isSelling = useRef(false);
+  let { isAuth, setAuth, setUserName, setIsSeller, cart, walletBalance } =
+    React.useContext(AuthContext);
+  let [sell, setSell] = React.useState(false);
 
-  async function SignUp() {
-    let name = Name.current.childNodes[0].value;
-    let address1 = Address1.current.childNodes[0].value;
-    let address2 = Address2.current.childNodes[0].value;
-    let email = Email.current.childNodes[0].value;
-    let pan = Pan.current.childNodes[0].value;
-    let gst = Gst.current.childNodes[0].value;
-    let password=Pass.current.childNodes[0].value;
-    let confPass = ConPass.current.childNodes[0].value;
-    let sells = isSelling.current.childNodes[0].checked;
 
-    
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    let name = data.get("firstName") + " " + data.get("lastName");
+    let address = data.get("Address");
+    let email = data.get("email");
+    let password = data.get("password");
+    let confPass = data.get("conPassword");
+    let isSelling = sell;
 
     let letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
     let specialChar = /[!@#$%^&*(),.?":{}|<>]/;
@@ -39,171 +61,159 @@ export default function SignUp() {
     if(!password.match(specialChar)) return alert ("Provide atleast one Special Case Character")
     if(confPass!= password) return alert("Password Mismatched")
 
+
+    
     let obj = {
       name,
-      address1,
-      address2,
+      address,
       email,
       password,
-      pan,
-      gst,
       cart,
       walletBalance,
-      "isSelling":sells,
-      "sellerItems":sells?[]:null
+      isSelling,
+      sellerItems: sell ? [] : null,
     };
-    setUserName(name)
-    sells===true?setIsSeller(true):setIsSeller(false)
+    setUserName(name);
+    sell === true ? setIsSeller(true) : setIsSeller(false);
 
     await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
-    Name.current.childNodes[0].value = "";
-    Address1.current.childNodes[0].value = "";
-    Address2.current.childNodes[0].value = "";
-    Email.current.childNodes[0].value = "";
-    Pan.current.childNodes[0].value = "";
-    Gst.current.childNodes[0].value = "";
-    setAuth(true)
-  }
-  if(isAuth) return <Navigate to="/" />
+
+    // after uploading
+    setAuth(true);
+  };
+
+  if (isAuth) return <Navigate to="/" />;
   return (
-    <Box m={"2% 0"} height={"100vh"}>
-      <Box
-        boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-        width={["80%","80%","30%"]}
-        m={"auto"}
-        p={"15px"}
-        borderRadius={"10px"}
-      >
-      <Box width={"95%"} m={"auto"}>
-      <Typography fontWeight={700} variant={"h5"}>Create a New Account</Typography>
-      <Divider />
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
         <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <label>Full Name: </label>
-          <Box width={"70%"}>
-            <Input
-              ref={Name}
-              sx={{ width: "100%" }}
-              placeholder="Write Your Name"
-            />
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="conPassword"
+                  label="Confirm Password"
+                  type="password"
+                  id="conPassword"
+                  autoComplete="confirm-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Address"
+                  label="Address"
+                  type="text"
+                  id="address"
+                  autoComplete="address"
+                />
+              </Grid>
+              <Grid item xs={12} width={"100%"}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={() => {
+                        setSell(!sell);
+                      }}
+                      color="primary"
+                    />
+                  }
+                  label="Want To Sell?"
+                  name="sell"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <Box>
-            <label width={"50%"}>Address 1: </label>
-          </Box>
-          <Box width={"70%"}>
-            <Input
-              ref={Address1}
-              sx={{ width: "100%" }}
-              placeholder="Address Line 1"
-            />
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <Box>
-            <label width={"50%"}>Address 2: </label>
-          </Box>
-          <Box width={"70%"}>
-            <Input
-              ref={Address2}
-              sx={{ width: "100%" }}
-              placeholder="Address Line 2"
-            />
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <label>Email: </label>
-          <Box width={"70%"}>
-            <Input ref={Email} sx={{ width: "100%" }} placeholder="Email ID" />
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <label>Password: </label>
-          <Box width={"70%"}>
-            <Input type="password" ref={Pass} sx={{ width: "100%" }} placeholder="Password" />
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          textAlign="left"
-        >
-          <label>Confirm Password: </label>
-          <Box width={"70%"}>
-            <Input type="password" ref={ConPass} sx={{ width: "100%" }} placeholder="Confirm Your Password" />
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <label>PAN: </label>
-          <Box width={"70%"}>
-            <Input ref={Pan} sx={{ width: "100%" }} placeholder="PAN" />
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <label>GST: </label>
-          <Box width={"70%"}>
-            <Input ref={Gst} sx={{ width: "100%" }} placeholder="GST" />
-          </Box>
-        </Box>
-        <br />
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"flex-start"}
-        >
-          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-            <Input ref={isSelling} type={"checkbox"} />
-          <Typography variant="body2">Want to Sell? </Typography>
-          </Box>
-        </Box>
-        <br />
-        <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
-          <Input type="checkbox" />
-          <Typography variant="body2">I Agree to Recieve NewsLetters from Gofra</Typography>
-        </Box>
-        <br />
-        <Divider />
-        <br />
-        <Button variant="contained" sx={{bgcolor:lb}} onClick={SignUp}>
-          SignUp
-        </Button>
-        <br />
-        <br />
-        <Box display={"flex"} justifyContent={"space-between"} sx={{objectFit:"cover"}}>
-          <img src="https://www.mirraw.com/assets/facebook_sign_in-e998b55d7d821ba819897132537e42149cee923ea215a5eaf0e2a6335efe6c67.png" alt="login with google" style={{maxWidth:"40%"}} />
-          <img src="https://www.mirraw.com/assets/google_sing_in-3426a2d2b760db2be7127653d216d7578e499c5e7df25fea1f861a56108d7d5b.png" alt="login with google" style={{maxWidth:"40%"}} />
-        </Box>
-      </Box>
-      </Box>
-    </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   );
 }

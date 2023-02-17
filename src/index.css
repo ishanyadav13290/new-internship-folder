@@ -41,3 +41,6 @@ code {
   display: none;
 }
 
+input:focus{
+  outline: none;
+}

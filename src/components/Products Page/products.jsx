@@ -1,4 +1,4 @@
-import { Expand, ExpandMore } from "@mui/icons-material";
+import { Add, Expand, ExpandMore, Remove } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
@@ -10,6 +10,7 @@ import {
   InputLabel,
   MenuItem,
   MenuList,
+  Pagination,
   Paper,
   Popper,
   Select,
@@ -20,106 +21,29 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
+import NoData from "./NoData";
 import MediaCard from "./ProductsCards/ProductsCards";
+import s from "./ProductsCards/products.module.css"
 
 export default function Products() {
-  let { allSellerItems, setAllSellerItems } = useContext(AuthContext);
+  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch } = useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
-  let { category } = useParams();
-  // reinforcedSteel
-  // iBeam
-  // Angles
-  // diPipes
-  // redOxidePrimar
-  // plyboard
-  // nails
-  // hdpePipes
-  // wires&Cables
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef(null);
+  let { category,query } = useParams();
   let [filterCategory, setFilterCategory] = useState("all");
   let [sortPrice, setSortPrice] = useState("");
 
-  // filter functions
-  let cat=filterCategory
-  const handleCategory = async (event) => {
-    let val = event.target.value;
-    cat=val
-    setFilterCategory(val);
-    // console.log(event.target.value)
-    setIsLoading(true)
-    let temp =
-      val == "all"
-        ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
-        : await axios.get(
-            `https://sedate-laced-chestnut.glitch.me/allItems?category=${val}`
-          );
-          setIsLoading(false)
-    // console.log(temp.data)
-    setAllSellerItems(temp.data);
-  };
+  //Pagination
+  let [page, setPage] = useState(1);
+  let [totalPage, setTotalPage]= useState(1);
 
-  let sort=""
-  const handlePrice = async (event) => {
-    let val = event.target.value;
-    sort=val
-    setSortPrice(val);
-    let temp
-    // ?_sort=price&_order=desc
-    if(cat=="all"){
-      setIsLoading(true)
-      if(val == "default" && category == "newarrivals"){
-        setIsLoading(true)
-        temp= await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
-        console.log("Ye")
-        setIsLoading(false)
-      } else if(val != "default" && category == "newarrivals"){
-        setIsLoading(true)
-         temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/allItems?&_sort=price&_order=${val}`
-        )
-        setIsLoading(false)
-        console.log("Ye")
-      } else if(val!="default" && category!="newarrivals"){
-        setIsLoading(true)
-         temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}`
-        )
-        console.log("Ye")
-        setIsLoading(false)
-      } else {
-        setIsLoading(true)
-         temp = await axios.get(
-            `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}`
-          )
-          console.log("Ye")
-          setIsLoading(false)
-      }
-    } 
-    if(cat!=="all") {
-      setIsLoading(true)
-      temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}`)
-      console.log("Ye")
-      setIsLoading(false)
-    }
-    
+  //material UI
+  const anchorRef = useRef(null);
+  // for filter feature
+  const [open, setOpen] = useState(false);
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(open);
 
-
-    // let temp = val == "default" && category == "newarrivals" ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
-        // : val != "default" && category == "newarrivals"
-        // ? await axios.get(
-        //     `https://sedate-laced-chestnut.glitch.me/allItems?&_sort=price&_order=${val}`
-        //   )
-          // :val!="default" && category!="newarrivals"?await axios.get(
-          //   `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}`
-          // )
-          // :await axios.get(
-          //   `https://sedate-laced-chestnut.glitch.me/allItems?&_sort=price&_order=${val}`
-          // )
-    console.log(temp);
-    setAllSellerItems(temp.data)
-  };
-
+  // **************** inbuilt from Material UI for Filter UI
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -128,7 +52,6 @@ export default function Products() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -141,12 +64,100 @@ export default function Products() {
     }
   }
 
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = useRef(open);
+  // *********************************************************
+
+  // filter functions
+  let cat = filterCategory;
+  const handleCategory = async (event) => {
+    let val = event.target.value;
+    cat = val;
+    setFilterCategory(val);
+    let temp
+    // console.log(event.target.value)
+    if(query.length!=0 && val!="all"){
+      setIsLoading(true)
+      temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&category=${val}&_page=1&_limit=16`)
+      setAllSellerItems(temp.data)
+      setIsLoading(false)
+    }
+    else{
+      setIsLoading(true);
+     temp =
+      val == "all"
+        ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
+        : await axios.get(
+            `https://sedate-laced-chestnut.glitch.me/allItems?category=${val}`
+          );
+    setIsLoading(false);}
+    // console.log(temp.data)
+    setAllSellerItems(temp.data);
+  };
+
+  // sorting function
+  let sort = "";
+  const handlePrice = async (event) => {
+    let val = event.target.value;
+    sort = val;
+    setSortPrice(val);
+    let temp;
+    // ?_sort=price&_order=desc
+    if (cat == "all") {
+      setIsLoading(true);
+      if (val == "default" && category == "newarrivals") {
+        setIsLoading(true);
+        temp = await axios.get(
+          `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
+        );
+        console.log("Ye");
+        setIsLoading(false);
+      } else if (val != "default" && category == "newarrivals") {
+        setIsLoading(true);
+        temp = await axios.get(
+          `https://sedate-laced-chestnut.glitch.me/allItems?&_sort=price&_order=${val}&_page=${page}&_limit=16`
+        );
+        setIsLoading(false);
+        console.log("Ye");
+      } else if (val != "default" && category != "newarrivals") {
+        setIsLoading(true);
+        temp = await axios.get(
+          `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}&_page=${page}&_limit=16`
+        );
+        console.log("Ye");
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        temp = await axios.get(
+          `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}&_page=${page}&_limit=16`
+        );
+        console.log("Ye");
+        setIsLoading(false);
+      }
+    }
+    if (cat !== "all") {
+      setIsLoading(true);
+      temp = await axios.get(
+        `https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}$_page=${page}&_limit=16`
+      );
+      console.log("Ye");
+      setIsLoading(false);
+    }
+    console.log(temp);
+    setAllSellerItems(temp.data);
+  };
 
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
+    }
+
+    if(isInputSearch){
+      (async ()=>{
+        setIsLoading(true)
+        let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&_page=${page}&_limit=16`)
+        setTotalPage(temp.headers["x-total-count"])
+      setAllSellerItems(temp.data);
+      console.log(temp)
+      })()
     }
 
     prevOpen.current = open;
@@ -154,16 +165,18 @@ export default function Products() {
       setIsLoading(true);
       let temp =
         category == "newarrivals"
-          ? await axios.get("https://sedate-laced-chestnut.glitch.me/allItems")
+          ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`)
           : await axios.get(
-              `https://sedate-laced-chestnut.glitch.me/allItems?&category=${category}`
+              `https://sedate-laced-chestnut.glitch.me/allItems?&category=${category}&_page=${page}&_limit=16`
             );
+            // console.log(temp.headers["x-total-count"])
+            setTotalPage(temp.headers["x-total-count"])
       setAllSellerItems(temp.data);
       setIsLoading(false);
     })();
-  }, [category]);
+  }, [category,page,query]);
   return (
-    <Box mt={["30%", "20%", "10%"]} display={["block", "block", "flex"]}>
+    <Box mt={["30%", "20%", "10%"]} display={["block", "block", "block"]}>
       <Box width={["100%", "100%", "20%"]}>
         {/* <Accordion>
         <AccordionSummary
@@ -281,13 +294,16 @@ export default function Products() {
         </div>
       </Box>
       <Box
+      // className={s.productsGrid}
         minHeight={"100vh"}
-        display={["block", "block", "flex"]}
-        width={["100%", "100%", "80%"]}
-        ml={"auto"}
-        flexWrap={"wrap"}
+        // width={["100%", "100%", "90%"]}
+        display={["grid","grid","grid"]}
+        gridTemplateColumns={["repeat(2,1fr)","repeat(3,1fr)","repeat(4,1fr)"]}
+        m={"auto"}
+        // mr={"1%"}
+        // flexWrap={"wrap"}
       >
-        {allSellerItems.map((el, i) => {
+        {allSellerItems.length===0 ?<NoData />:allSellerItems.map((el, i) => {
           return (
             <Box
               key={i}
@@ -297,12 +313,18 @@ export default function Products() {
                 display: "flex",
                 margin: "1% auto",
                 justifyContent: "center",
+                padding:"0px"
               }}
             >
               <MediaCard el={el} loading={isLoading} />
             </Box>
           );
         })}
+      </Box>
+      <Box display={"flex"} justifyContent={"center"} m={"1% 0"}>
+        <Pagination sx={{color:"black"}} count={(Math.ceil(totalPage/16))} showFirstButton showLastButton variant="contained" page={page} onChange={(event,value)=>{
+          setPage(value)
+        }} />
       </Box>
     </Box>
   );
