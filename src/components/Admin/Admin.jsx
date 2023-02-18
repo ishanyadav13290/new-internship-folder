@@ -26,7 +26,7 @@ export default function Admin() {
   let prodDesc = useRef(null);
   let prodPrice = useRef(0);
   let sellerAddress = useRef(null);
-  let [Img, setImg] = useState("https://i.stack.imgur.com/mwFzF.png");
+  let [Img, setImg] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png");
   let [isLoading, setIsLoading] = useState(false);
 
   // temporarily storing seller items to show in the panel
@@ -78,6 +78,12 @@ export default function Admin() {
     };
     setTempSellerITems(obj.sellerItems);
     setAllSellerItems(obj.sellerItems)
+
+    prodName.current.childNodes[0].value = "";
+    prodDesc.current.value = "";
+    sellerAddress.current.childNodes[0].value = "";
+    prodPrice.current.childNodes[0].value = "";
+    setImg("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png");
     await axios.patch(
       `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
       obj
@@ -85,13 +91,6 @@ export default function Admin() {
     axios.post("https://sedate-laced-chestnut.glitch.me/allItems",
       obj.sellerItems[obj.sellerItems.length-1]
     );
-    prodName.current.childNodes[0].value = "";
-    prodDesc.current.value = "";
-    sellerAddress.current.childNodes[0].value = "";
-    prodPrice.current.childNodes[0].value = "";
-    setImg("https://i.stack.imgur.com/mwFzF.png");
-    
-    alert("Item Added");
   }
   return !isAuth ? (
     <Navigate to="/" />

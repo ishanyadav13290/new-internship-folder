@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import axios from 'axios';
+import { AuthContext } from '../Context/Contexts';
 
 function Copyright() {
   return (
@@ -48,6 +50,7 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  let {userID,setCart} = React.useContext(AuthContext)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -109,13 +112,25 @@ export default function Checkout() {
                     Back
                   </Button>
                 )}
-
+                <Button
+                  variant="contained"
+                  onClick={async ()=>{
+                    setCart([])
+                    handleNext()
+                    await axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{
+                      cart:[]
+                    })
+                  }}
+                  sx={{ mt: 3, ml: 1,display:activeStep===steps.length-1?"block":"none" }}
+                >
+                  Place Order
+                </Button>
                 <Button
                   variant="contained"
                   onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
+                  sx={{ mt: 3, ml: 1,display:activeStep===steps.length-1?"none":"block" }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  Next
                 </Button>
               </Box>
             </React.Fragment>

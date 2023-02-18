@@ -38,7 +38,7 @@ export default function Nav1() {
       >
         <Box m={"0 10px"} height="100%">
           <NavLink style={styles2} to={"/cart"}>
-            <ShoppingCartIcon fontSize="small" sx={{color:"white"}} />
+            <ShoppingCartIcon fontSize="small" sx={{color:"white",pb:"1px"}} />
           </NavLink>
           <Box display={["none", "none", "flex", "flex"]} fontSize={"15px"}>
             <NavLink style={styles2} to={"/cart"}>

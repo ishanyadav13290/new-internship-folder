@@ -1,8 +1,5 @@
-import { Add, Expand, ExpandMore, Remove } from "@mui/icons-material";
+
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Button,
   // ClickAwayListener,
   FormControl,
@@ -21,20 +18,22 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
-import NoData from "./NoData";
 import MediaCard from "./ProductsCards/ProductsCards";
-import s from "./ProductsCards/products.module.css"
+import SkeletonCard from "./ProductsCards/Skeleton";
+
+let LoadingArray= new Array(16).fill("a")
 
 export default function Products() {
-  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch } = useContext(AuthContext);
+  let { allSellerItems, setAllSellerItems, isInputSearch} =
+    useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
-  let { category,query } = useParams();
+  let { category, query } = useParams();
   let [filterCategory, setFilterCategory] = useState("all");
   let [sortPrice, setSortPrice] = useState("");
 
   //Pagination
   let [page, setPage] = useState(1);
-  let [totalPage, setTotalPage]= useState(1);
+  let [totalPage, setTotalPage] = useState(1);
 
   //material UI
   const anchorRef = useRef(null);
@@ -72,23 +71,26 @@ export default function Products() {
     let val = event.target.value;
     cat = val;
     setFilterCategory(val);
-    let temp
+    let temp;
     // console.log(event.target.value)
-    if(query.length!=0 && val!="all"){
-      setIsLoading(true)
-      temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&category=${val}&_page=1&_limit=16`)
-      setAllSellerItems(temp.data)
-      setIsLoading(false)
-    }
-    else{
+    if (query !== undefined && val != "all") {
       setIsLoading(true);
-     temp =
-      val == "all"
-        ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
-        : await axios.get(
-            `https://sedate-laced-chestnut.glitch.me/allItems?category=${val}`
-          );
-    setIsLoading(false);}
+      temp = await axios.get(
+        `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&category=${val}&_page=1&_limit=16`
+      );
+      setAllSellerItems(temp.data);
+      console.log("1");
+      setIsLoading(false);
+    } else {
+      console.log("ye");
+      temp =
+        val == "all"
+          ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
+          : await axios.get(
+              `https://sedate-laced-chestnut.glitch.me/allItems?category=${val}`
+            );
+      setIsLoading(false);
+    }
     // console.log(temp.data)
     setAllSellerItems(temp.data);
   };
@@ -138,7 +140,7 @@ export default function Products() {
       temp = await axios.get(
         `https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}$_page=${page}&_limit=16`
       );
-      console.log("Ye");
+      console.log(cat,val);
       setIsLoading(false);
     }
     console.log(temp);
@@ -150,14 +152,15 @@ export default function Products() {
       anchorRef.current.focus();
     }
 
-    if(isInputSearch){
-      (async ()=>{
-        setIsLoading(true)
-        let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&_page=${page}&_limit=16`)
-        setTotalPage(temp.headers["x-total-count"])
-      setAllSellerItems(temp.data);
-      console.log(temp)
-      })()
+    if (isInputSearch) {
+      (async () => {
+        setIsLoading(true);
+        let temp = await axios.get(
+          `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&_page=${page}&_limit=16`
+        );
+        setTotalPage(temp.headers["x-total-count"]);
+        setAllSellerItems(temp.data);
+      })();
     }
 
     prevOpen.current = open;
@@ -165,34 +168,21 @@ export default function Products() {
       setIsLoading(true);
       let temp =
         category == "newarrivals"
-          ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`)
+          ? await axios.get(
+              `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
+            )
           : await axios.get(
               `https://sedate-laced-chestnut.glitch.me/allItems?&category=${category}&_page=${page}&_limit=16`
             );
-            // console.log(temp.headers["x-total-count"])
-            setTotalPage(temp.headers["x-total-count"])
+      // console.log(temp.headers["x-total-count"])
+      setTotalPage(temp.headers["x-total-count"]);
       setAllSellerItems(temp.data);
       setIsLoading(false);
     })();
-  }, [category,page,query]);
+  }, [category, page, query]);
   return (
     <Box mt={["30%", "20%", "10%"]} display={["block", "block", "block"]}>
       <Box width={["100%", "100%", "20%"]}>
-        {/* <Accordion>
-        <AccordionSummary
-          expandIcon={<Expand />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Accordion 1</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion> */}
         <div>
           <Button
             sx={{ width: "100%" }}
@@ -294,62 +284,44 @@ export default function Products() {
         </div>
       </Box>
       <Box
-      // className={s.productsGrid}
+        // className={s.productsGrid}
         minHeight={"100vh"}
-        // width={["100%", "100%", "90%"]}
-        display={["grid","grid","grid"]}
-        gridTemplateColumns={["repeat(2,1fr)","repeat(3,1fr)","repeat(4,1fr)"]}
+        width={["90%"]}
+        display={["grid", "grid", "grid"]}
+        gridTemplateColumns={[
+          "repeat(1,1fr)",
+          "repeat(2,1fr)",
+          "repeat(3,1fr)",
+          "repeat(4,1fr)",
+        ]}
         m={"auto"}
+        gap={"20px"}
         // mr={"1%"}
         // flexWrap={"wrap"}
       >
-        {allSellerItems.length===0 ?<NoData />:allSellerItems.map((el, i) => {
-          return (
-            <Box
-              key={i}
-              sx={{
-                textDecoration: "none",
-                color: "black",
-                display: "flex",
-                margin: "1% auto",
-                justifyContent: "center",
-                padding:"0px"
-              }}
-            >
-              <MediaCard el={el} loading={isLoading} />
-            </Box>
-          );
-        })}
+        { isLoading ? (
+          LoadingArray.map((el, i) => {
+            return <SkeletonCard key={i} />;
+          })
+        ): (
+          allSellerItems.map((el, i) => {
+            return <MediaCard key={i} el={el} />;
+          })
+        )}
       </Box>
       <Box display={"flex"} justifyContent={"center"} m={"1% 0"}>
-        <Pagination sx={{color:"black"}} count={(Math.ceil(totalPage/16))} showFirstButton showLastButton variant="contained" page={page} onChange={(event,value)=>{
-          setPage(value)
-        }} />
+        <Pagination
+          sx={{ color: "black" }}
+          count={Math.ceil(totalPage / 16)}
+          showFirstButton
+          showLastButton
+          variant="contained"
+          page={page}
+          onChange={(event, value) => {
+            setPage(value);
+          }}
+        />
       </Box>
     </Box>
   );
-}
-
-{
-  /* <Accordion sx={{ width: "100%" }}>
-  <AccordionSummary
-    expandIcon={<ExpandMore />}
-    aria-controls="panel1a-content"
-    id="panel1a-header"
-  >
-    <Typography>By Category</Typography>
-  </AccordionSummary>
-  <AccordionDetails>
-    <Box>
-      <Button sx={{ display: "block" }}>reinforcedSteel</Button>
-      <Button sx={{ display: "block" }}>iBeam Angles </Button>
-      <Button sx={{ display: "block" }}>diPipes </Button>
-      <Button sx={{ display: "block" }}>redOxidePrimar</Button>
-      <Button sx={{ display: "block" }}>plyboard </Button>
-      <Button sx={{ display: "block" }}>nails </Button>
-      <Button sx={{ display: "block" }}>hdpePipes </Button>
-      <Button sx={{ display: "block" }}>wires&Cables</Button>
-    </Box>
-  </AccordionDetails>
-</Accordion>; */
 }

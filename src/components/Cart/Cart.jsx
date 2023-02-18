@@ -14,9 +14,10 @@ import toIndianNumberingSystem from "../Features/RupeeConversion";
 import Cards from "./Cards";
 import EmptyCart from "../../components/Static Data/Imgs/emptycart.png"
 import { lb } from "../Static Data/theme";
+import axios from "axios";
 
 export default function Cart() {
-  let { isAuth, cart, walletBalance, setWalletBalance,total, setTotal } = useContext(AuthContext);
+  let {userID, isAuth, cart, walletBalance, setWalletBalance,total, setTotal } = useContext(AuthContext);
   let [subTotal,setSubTotal] = useState(0)
   // let [total,setTotal] = useState(0)
   let [walletDiscount, setWalletDiscount] = useState(0);
@@ -128,8 +129,12 @@ export default function Cart() {
       <Typography variant="body2" fontSize={"12px"} ><b>Alert:</b> Clicking Checkout will deduct your wallet balance. You'll have to pay the remaining amount using other mode.</Typography>
       </Box>
       <br />
-      <Button sx={{ backgroundColor: lb }} variant="contained" onClick={()=>{
+      <Button sx={{ backgroundColor: lb }} variant="contained" onClick={async()=>{
         setWalletBalance(walletBalance-walletDiscount)
+        await axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{
+          walletBalance:walletBalance-walletDiscount
+        })
+
       }}>
         <NavLink to="/checkout" style={{color:"white",textDecoration:"none", display:"flex",alignItems:"center"}} >
         <CheckOutlined />
