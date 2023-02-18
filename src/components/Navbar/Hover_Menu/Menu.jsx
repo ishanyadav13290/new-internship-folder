@@ -19,7 +19,7 @@ let exportedMenu;
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setAuth,setIsSeller, setUserID } = React.useContext(AuthContext);
+  let { setAuth,setIsSeller,isSeller, setUserID } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,6 +32,16 @@ export default function BasictMenu() {
     handleClose();
     setIsSeller(false)
     setUserID("")
+    localStorage.setItem(`userName`, JSON.stringify(""));
+    localStorage.setItem(`isAuth`, JSON.stringify(false));
+    localStorage.setItem(`userID`, JSON.stringify(""));
+    localStorage.setItem(`cart`, JSON.stringify([]));
+    localStorage.setItem(`isSeller`, JSON.stringify(false));
+    if (isSeller)
+      localStorage.setItem(
+        `allSellerItems`,
+        JSON.stringify([])
+      );
   }
   return (
     <React.Fragment>

@@ -25,7 +25,7 @@ const theme = createTheme();
 
 
 export default function Login(){
-    let {isAuth,setAuth,setCart, setUserName,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart, setUserName,userID,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -36,7 +36,25 @@ export default function Login(){
         let temp=await axios.get("https://sedate-laced-chestnut.glitch.me/users")
         setUsers(temp.data)
     })()
+
   },[])
+  useEffect(()=>{
+
+    if(isAuth) {
+    (async()=>{
+      let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/users/${userID}`)
+      let data = temp.data
+      console.log(data)
+      setUserName(data.name)
+      setWalletBalance(data.walletBalance)
+      setCart(data.cart)
+      setIsSeller(data.isSelling)
+      setUserEmail(data.email)
+      setUserPassword(data.password)
+      setUserAddress(data.address)
+    })()
+    }
+  },[userID])
     // function Login(){
     //    let email= Email.current.childNodes[0].value;
     //    let pass = Pass.current.childNodes[0].value;
@@ -64,15 +82,20 @@ export default function Login(){
         // console.log(element.address)
         if(email == element.email && pass == element.password){
             setAuth(true)
-            setUserName(element.name)
-            setWalletBalance(element.walletBalance)
-            setCart(element.cart)
-            setIsSeller(element.isSelling)
-            setUserEmail(element.email)
-            setUserPassword(element.password)
             setUserID(Number(element.id))
-            setUserAddress(element.address)
-            console.log(element)
+            localStorage.setItem(`userName`,JSON.stringify(element.name))
+            localStorage.setItem(`isAuth`,JSON.stringify(true))
+            localStorage.setItem(`userID`,JSON.stringify(element.id))
+            localStorage.setItem(`cart`,JSON.stringify(element.cart))
+            localStorage.setItem(`isSeller`,JSON.stringify(element.isSelling))
+           if(element.isSelling) localStorage.setItem(`allSellerItems`,JSON.stringify(element.sellerItems))
+            // setUserName(element.name)
+            // setWalletBalance(element.walletBalance)
+            // setCart(element.cart)
+            // setIsSeller(element.isSelling)
+            // setUserEmail(element.email)
+            // setUserPassword(element.password)
+            // setUserAddress(element.address)
         }
     });
     };

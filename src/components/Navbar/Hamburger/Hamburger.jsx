@@ -24,7 +24,7 @@ import { Typography } from "@mui/material";
 import { cardNames, routeNames } from "../../Static Data/db";
 
 export default function Hamburger() {
-  let { isAuth, setAuth, userName, setIsSeller, setUserID } =
+  let { isAuth, setAuth, userName,isSeller, setIsSeller, setUserID } =
     React.useContext(AuthContext);
   const [state, setState] = React.useState({
     top: false,
@@ -37,6 +37,16 @@ export default function Hamburger() {
     setAuth(false);
     setIsSeller(false);
     setUserID("");
+    localStorage.setItem(`userName`, JSON.stringify(""));
+    localStorage.setItem(`isAuth`, JSON.stringify(false));
+    localStorage.setItem(`userID`, JSON.stringify(""));
+    localStorage.setItem(`cart`, JSON.stringify([]));
+    localStorage.setItem(`isSeller`, JSON.stringify(false));
+    if (isSeller)
+      localStorage.setItem(
+        `allSellerItems`,
+        JSON.stringify([])
+      );
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -67,21 +77,23 @@ export default function Hamburger() {
 
         {isAuth ? (
           <>
-          {routeNames.map((el,i)=>{
-              return <NavLink
-              key={i}
-              to={`/${el}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ShoppingBag sx={{ color: lb }} />
-                  </ListItemIcon>
-                  <ListItemText>{cardNames[i]}</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </NavLink>
+            {routeNames.map((el, i) => {
+              return (
+                <NavLink
+                  key={i}
+                  to={`/${el}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <ShoppingBag sx={{ color: lb }} />
+                      </ListItemIcon>
+                      <ListItemText>{cardNames[i]}</ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                </NavLink>
+              );
             })}
             <NavLink
               to="/cart"
@@ -133,9 +145,11 @@ export default function Hamburger() {
           </>
         ) : (
           <>
-          <Typography ml="8%" fontWeight={700}>Shop Now</Typography>
-          <Divider />
-          <NavLink
+            <Typography ml="8%" fontWeight={700}>
+              Shop Now
+            </Typography>
+            <Divider />
+            <NavLink
               to="/newarrivals"
               style={{ textDecoration: "none", color: "black" }}
             >
@@ -149,7 +163,9 @@ export default function Hamburger() {
               </ListItem>
             </NavLink>
             <Divider />
-            <Typography ml="8%" fontWeight={700}>Account</Typography>
+            <Typography ml="8%" fontWeight={700}>
+              Account
+            </Typography>
             <Divider />
             <NavLink
               to="/login"
@@ -179,7 +195,7 @@ export default function Hamburger() {
             </NavLink>
           </>
         )}
-        
+
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
