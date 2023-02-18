@@ -25,7 +25,7 @@ const theme = createTheme();
 
 
 export default function Login(){
-    let {isAuth,setAuth,setCart, setUserName,setUserID, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart, setUserName,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -37,22 +37,22 @@ export default function Login(){
         setUsers(temp.data)
     })()
   },[])
-    function Login(){
-       let email= Email.current.childNodes[0].value;
-       let pass = Pass.current.childNodes[0].value;
-        users.forEach(element => {
-            if(email == element.email && pass == element.password){
-                setAuth(true)
-                setUserName(element.name)
-                setWalletBalance(element.walletBalance)
-                setCart(element.cart)
-                setIsSeller(element.isSelling)
-                setUserEmail(element.email)
-                setUserPassword(element.password)
-                setUserID(Number(element.id))
-            }
-        });
-    }
+    // function Login(){
+    //    let email= Email.current.childNodes[0].value;
+    //    let pass = Pass.current.childNodes[0].value;
+    //     users.forEach(element => {
+    //         if(email == element.email && pass == element.password){
+    //             setAuth(true)
+    //             setUserName(element.name)
+    //             setWalletBalance(element.walletBalance)
+    //             setCart(element.cart)
+    //             setIsSeller(element.isSelling)
+    //             setUserEmail(element.email)
+    //             setUserPassword(element.password)
+    //             setUserID(Number(element.id))
+    //         }
+    //     });
+    // }
     const handleSubmit = (event) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
@@ -61,6 +61,7 @@ export default function Login(){
        let pass = data.get('password')
       // });
       users.forEach(element => {
+        // console.log(element.address)
         if(email == element.email && pass == element.password){
             setAuth(true)
             setUserName(element.name)
@@ -70,6 +71,8 @@ export default function Login(){
             setUserEmail(element.email)
             setUserPassword(element.password)
             setUserID(Number(element.id))
+            setUserAddress(element.address)
+            console.log(element)
         }
     });
     };

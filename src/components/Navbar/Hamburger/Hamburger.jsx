@@ -67,6 +67,22 @@ export default function Hamburger() {
 
         {isAuth ? (
           <>
+          {routeNames.map((el,i)=>{
+              return <NavLink
+              key={i}
+              to={`/${el}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ShoppingBag sx={{ color: lb }} />
+                  </ListItemIcon>
+                  <ListItemText>{cardNames[i]}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            })}
             <NavLink
               to="/cart"
               style={{ textDecoration: "none", color: "black" }}
@@ -74,7 +90,7 @@ export default function Hamburger() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <ShoppingCart sx={{ color: "rgb(246, 126, 34)" }} />
+                    <ShoppingCart sx={{ color: lb }} />
                   </ListItemIcon>
                   <ListItemText>Cart</ListItemText>
                 </ListItemButton>
@@ -132,22 +148,6 @@ export default function Hamburger() {
                 </ListItemButton>
               </ListItem>
             </NavLink>
-            {routeNames.map((el,i)=>{
-              return <NavLink
-              key={i}
-              to={`/${el}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ShoppingBag sx={{ color: lb }} />
-                  </ListItemIcon>
-                  <ListItemText>{cardNames[i]}</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </NavLink>
-            })}
             <Divider />
             <Typography ml="8%" fontWeight={700}>Account</Typography>
             <Divider />
@@ -179,6 +179,7 @@ export default function Hamburger() {
             </NavLink>
           </>
         )}
+        
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>

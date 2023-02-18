@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export let AuthContext = createContext();
 
 export default function ContextProvider({ children }) {
-  let [isAuth, setAuth] = useState(false);
+  let [isAuth, setAuth] = useState((JSON.parse(localStorage.getItem("loginStatus")) || false));
   let [cart, setCart] = useState([]);
   let [userName, setUserName] = useState("");
   let [userID, setUserID] = useState("")
@@ -11,6 +11,8 @@ export default function ContextProvider({ children }) {
   let [isSeller, setIsSeller]= useState(false)
   let [userEmail, setUserEmail] = useState("")
   let [userPassword, setUserPassword] = useState("")
+  let [total, setTotal] = useState(0)
+  let [userAddress, setUserAddress] = useState("")
   let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
     "id": "lksadjf;lasdj;lfaksjdfkdflakfsd",
     "name": "kjsajdflajsdla;kjdf",
@@ -38,6 +40,8 @@ export default function ContextProvider({ children }) {
     setUserEmail,
     userPassword,
     setUserPassword,
+    total, setTotal,
+    userAddress, setUserAddress,
     allSellerItems,
     setAllSellerItems,
     isInputSearch, 

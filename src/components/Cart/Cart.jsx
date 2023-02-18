@@ -1,6 +1,7 @@
 import { CheckOutlined } from "@mui/icons-material";
 import {
   Button,
+  Divider,
   Input,
   Slider,
   Typography,
@@ -12,16 +13,18 @@ import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
 import Cards from "./Cards";
 import EmptyCart from "../../components/Static Data/Imgs/emptycart.png"
+import { lb } from "../Static Data/theme";
 
 export default function Cart() {
-  let { isAuth, cart, walletBalance } = useContext(AuthContext);
+  let { isAuth, cart, walletBalance, setWalletBalance,total, setTotal } = useContext(AuthContext);
   let [subTotal,setSubTotal] = useState(0)
-  let [total,setTotal] = useState(0)
+  // let [total,setTotal] = useState(0)
   let [walletDiscount, setWalletDiscount] = useState(0);
-  let [useDiscount, setUseDiscount] = useState(true)
+  let [useDiscount, setUseDiscount] = useState(false)
   let [shippingTax, setShippingTax] = useState(40)
 
   useEffect(()=>{
+    console.log(useDiscount)
     cart.map((el,i)=>{
       let Totaltemp = 0;
     for (const items of cart) {
@@ -61,8 +64,9 @@ export default function Cart() {
     </Box>
     <Box
     bgcolor={"rgb(245, 245, 245)"}
-      height={"300px"}
+      height={"fit-content"}
       width={["100%", "100%", "40%"]}
+      pb={"10px"}
       mr={["0","0","3%"]}
       ml={["0","0","2%"]}
       boxShadow={"rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"}
@@ -112,17 +116,25 @@ export default function Cart() {
       <br />
       <Box width={"80%"} m={"auto"} >
       <Box display={"flex"}>
-      <Input type="checkbox" onChange={()=>{setUseDiscount(false)}} />
+      <Input type="checkbox" onChange={()=>{setUseDiscount(!useDiscount)}} />
       <Typography fontWeight={700}> Pay using Wallet Balance</Typography>
       </Box>
-      <Slider valueLabelDisplay="auto" defaultValue={0} step={100} marks min={0} max={walletBalance} disabled={useDiscount} onChange={(e)=>{
+      <Slider valueLabelDisplay="auto" defaultValue={0} step={100} marks min={0} max={walletBalance} disabled={!useDiscount} onChange={(e)=>{
         setWalletDiscount((prev)=>prev=e.target.value)
       }} />
+      <Typography variant="body2">Remaining Wallet Balance: <b>{walletBalance-walletDiscount}</b></Typography>
+      {/* <br /> */}
+      <Divider />
+      <Typography variant="body2" fontSize={"12px"} ><b>Alert:</b> Clicking Checkout will deduct your wallet balance. You'll have to pay the remaining amount using other mode.</Typography>
       </Box>
       <br />
-      <Button sx={{ backgroundColor: "rgb(246, 126, 34)" }} variant="contained">
+      <Button sx={{ backgroundColor: lb }} variant="contained" onClick={()=>{
+        setWalletBalance(walletBalance-walletDiscount)
+      }}>
+        <NavLink to="/checkout" style={{color:"white",textDecoration:"none", display:"flex",alignItems:"center"}} >
         <CheckOutlined />
         Checkout
+        </NavLink>
       </Button>
     </Box>
   </Box>

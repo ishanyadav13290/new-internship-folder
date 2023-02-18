@@ -3,6 +3,7 @@ import Admin from "../Admin/Admin";
 import Login from "../Authorisation/Login";
 import SignUp from "../Authorisation/SignUp";
 import Cart from "../Cart/Cart";
+import Checkout from "../Checkout/Checkout";
 import HomePage from "../Landing Page/HomePage";
 import Products from "../Products Page/products";
 import SingleProductPage from "../Products Page/SingleProductPage";
@@ -14,7 +15,7 @@ export default function AllRoutes(){
     <Route path="/login" element=<Login /> />
     <Route path="/cart" element=<Cart /> />
     <Route path="/cart" element=<h1>Cart</h1> />
-    {/* <Route path="/signup" element=<SignUp2 /> /> */}
+    <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
     <Route path="/wallet" element=<Wallet /> />
     <Route path="/admin" element=<Admin /> />

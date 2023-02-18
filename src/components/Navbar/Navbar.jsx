@@ -26,10 +26,10 @@ export default function Navbar() {
         position={["static", "static", "static", "static"]}
       >
         <Box width={["100%","90%"]}>
-        <Box display={"flex"} alignItems={"center"} >
+        <Box display={"flex"} alignItems={"center"}  >
         <Hamburger  />
         <NavLink to={"/"} style={{color:"white",textDecoration:"none"}}>
-          <Box display={"flex"} height={"100%"} alignItems={"center"}>
+          <Box  display={"flex"} height={"100%"} alignItems={"center"}>
           <Typography fontWeight={700} variant="h4">
             Gofra
           </Typography>

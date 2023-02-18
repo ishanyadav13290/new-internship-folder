@@ -3,10 +3,10 @@ import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 
 export default function useAddToCart() {
-    let {userID,setCart,cart} = useContext(AuthContext)
-    if(userID==undefined) return
-
-   return (newItem)=>{
+    let {isAuth,userID,setCart,cart} = useContext(AuthContext)
+    if(userID==undefined) return alert("Login First")
+    
+    return (newItem)=>{
     let tempCartItems = [...cart];
     for (let i = 0; i < tempCartItems.length; i++) {
         if (tempCartItems[i].name == newItem.name) {

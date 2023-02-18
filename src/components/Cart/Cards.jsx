@@ -12,10 +12,11 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
+import { lb } from "../Static Data/theme";
 
 export default function Cards({ data, index }) {
   const [Qty, setQty] = useState(1);
-  let { cart, setCart, userID } = useContext(AuthContext);
+  let { isAuth,cart, setCart, userID } = useContext(AuthContext);
   const handleChange = (event) => {
     let temp = [...cart];
     temp[index].qty = event.target.value;
@@ -82,7 +83,7 @@ export default function Cards({ data, index }) {
         <Divider />
         <br />
         <Button
-        sx={{ backgroundColor: "rgb(246, 126, 34)" }} 
+        sx={{ backgroundColor: lb }} 
           onClick={() => {
             removeItem();
           }}
