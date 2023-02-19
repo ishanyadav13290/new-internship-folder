@@ -1,45 +1,63 @@
-import { AttachFile, Delete } from "@mui/icons-material";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { AuthContext } from "../Context/Contexts";
+import axios from "axios";
+import { v4 as uid} from "uuid";
 import {
-  Button,
   FormControl,
-  Input,
   InputLabel,
   MenuItem,
   Select,
-  Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import axios from "axios";
-import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { v4 as uid} from "uuid";
-import Cards from "../Cart/Cards";
-import { AuthContext } from "../Context/Contexts";
-import toIndianNumberingSystem from "../Features/RupeeConversion";
+import { AttachFile, Sell } from "@mui/icons-material";
 import { lb } from "../Static Data/theme";
 import AdminCards from "./AdminCards";
 
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="">
+        Gofra
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+
 export default function Admin() {
-  let { isAuth, userName, userID,allSellerItems, setAllSellerItems } = useContext(AuthContext);
-  let imgInput = useRef(null);
-  let prodName = useRef(null);
-  let prodDesc = useRef(null);
-  let prodPrice = useRef(0);
-  let sellerAddress = useRef(null);
-  let [Img, setImg] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png");
-  let [isLoading, setIsLoading] = useState(false);
-
+  let {
+    userName,
+    userID,
+    allSellerItems,
+    setAllSellerItems
+  } = React.useContext(AuthContext);
+  let imgInput = React.useRef(null);
+  let [isLoading, setIsLoading] = React.useState(false)
+  let [Img, setImg] = React.useState(
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+  );
   // temporarily storing seller items to show in the panel
-  let [tempSellerItems, setTempSellerITems] = useState([]);
+  let [tempSellerItems, setTempSellerITems] = React.useState([]);
 
-  // Category funtion
-  const [category, setCategory] = useState("");
-
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
-
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       setIsLoading(true);
       let temp = await axios.get(
@@ -50,6 +68,13 @@ export default function Admin() {
       setIsLoading(false);
     })();
   }, []);
+
+  // Category funtion
+  const [category, setCategory] = React.useState("");
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
 
   function imageSelect() {
     imgInput.current.click();
@@ -64,26 +89,26 @@ export default function Admin() {
     };
   };
 
-  async function ListItem() {
-    let name = prodName.current.childNodes[0].value;
-    let description = prodDesc.current.value;
-    let address = sellerAddress.current.childNodes[0].value;
-    let price = Number(prodPrice.current.childNodes[0].value);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    let name = data.get("prodName");
+    let description = data.get("prodDescription");
+    let address = data.get("sellerAddress");
+    let price = Number(data.get("price"));
 
     let obj = {
-      sellerItems: [
-        ...tempSellerItems,
-        { id:uid() ,name, description, address, price, Img, category },
-      ],
-    };
-    setTempSellerITems(obj.sellerItems);
+        sellerItems: [
+          ...tempSellerItems,
+          { id:uid() ,name, description, address, price, Img, category },
+        ],
+      };
+
+      setTempSellerITems(obj.sellerItems);
     setAllSellerItems(obj.sellerItems)
 
-    prodName.current.childNodes[0].value = "";
-    prodDesc.current.value = "";
-    sellerAddress.current.childNodes[0].value = "";
-    prodPrice.current.childNodes[0].value = "";
-    setImg("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png");
+      setImg("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png");
     await axios.patch(
       `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
       obj
@@ -91,153 +116,160 @@ export default function Admin() {
     axios.post("https://sedate-laced-chestnut.glitch.me/allItems",
       obj.sellerItems[obj.sellerItems.length-1]
     );
-  }
-  return !isAuth ? (
-    <Navigate to="/" />
-  ) : (
-    <Box minHeight={"100%"} mt={["30%", "20%", "10%"]}>
-      <Typography variant="h6">{`Let's List up your services ${userName}`}</Typography>
-      <Box display={["block", "flex"]} justifyContent={"center"}>
-        <Box>
-          <Box height={"200px"} width={"200px"} m={"auto"}>
-            <img
-              src={Img}
-              alt="Product"
-              style={{ height: "100%", width: "100%" }}
-            />
-          </Box>
-          <Box
-            overflow={"hidden"}
-            width={"100%"}
-            position={"relative"}
-            height={"30px"}
-          >
-            <input
-              onChange={handleFileChange}
-              ref={imgInput}
-              style={{ position: "absolute" }}
-              type={"file"}
-            />
-            <Box
-              display={"flex"}
-              justifyContent={"center"}
-              onClick={imageSelect}
-              bgcolor={"white"}
-              position={"absolute"}
-              height={"100%"}
-              sx={{ cursor: "pointer" }}
-              fontWeight={700}
-              width={"100%"}
-              zIndex={1}
-            >
-              Attach Image
-              <AttachFile sx={{ fontSize: "25px" }} />
-            </Box>
-          </Box>
+  };
+
+  return ( <>
+    <Box display={["block","block","flex", "flex"]} mt={["15%","15%"]} justifyContent={"center"} m={"auto"}>
+      <Box height={"fit-content"}>
+        <Box height={"200px"} width={"200px"} m={"auto"}>
+          <img
+            src={Img}
+            alt="Product"
+            style={{ height: "100%", width: "100%" }}
+          />
         </Box>
-        <Box m={"0 10px"} width={["95%", "60%"]}>
+        <Box
+          overflow={"hidden"}
+          width={"100%"}
+          position={"relative"}
+          height={"30px"}
+        >
+          <input
+            onChange={handleFileChange}
+            ref={imgInput}
+            style={{ position: "absolute" }}
+            type={"file"}
+          />
           <Box
             display={"flex"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
+            justifyContent={"center"}
+            onClick={imageSelect}
+            bgcolor={"white"}
+            position={"absolute"}
+            height={"100%"}
+            sx={{ cursor: "pointer" }}
+            fontWeight={700}
+            width={"100%"}
+            zIndex={1}
           >
-            <label>Name of the Product: </label>
-            <Box width={"70%"}>
-              <Input
-                ref={prodName}
-                type="text"
-                sx={{ width: "100%" }}
-                placeholder="Name your Product"
-              />
-            </Box>
+            Attach Image
+            <AttachFile sx={{ fontSize: "25px" }} />
           </Box>
-          <br />
-          <Box display={"flex"} justifyContent={"space-between"}>
-            <label>Item Description: </label>
-            <Box width={"70%"} height={"100px"}>
-              <textarea
-                ref={prodDesc}
-                type="text"
-                style={{ width: "99%", height: "90%", border: "none" }}
-                placeholder="Describe your product in details"
-              />
-            </Box>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <label>Category </label>
-            <Box width={"70%"}>
-              <FormControl variant="standard" fullWidth >
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select 
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={category}
-                  label="Category"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={"reinforcedSteel"}>Reinforced Steel</MenuItem>
-                  <MenuItem value={"iBeam"}>I Beam</MenuItem>
-                  <MenuItem value={"Angles"}>Angles</MenuItem>
-                  <MenuItem value={"diPipes"}>DI Pipes</MenuItem>
-                  <MenuItem value={"redOxidePrimar"}>Red Oxide Primar</MenuItem>
-                  <MenuItem value={"plyboard"}>Plyboard</MenuItem>
-                  <MenuItem value={"nails"}>Nails</MenuItem>
-                  <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
-                  <MenuItem value={"wires&Cables"}>Wires & Cables</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <label>Seller's Address: </label>
-            <Box width={"70%"}>
-              <Input
-                ref={sellerAddress}
-                type="text"
-                sx={{ width: "100%" }}
-                placeholder="Seller's Address"
-              />
-            </Box>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <label>Price (Rupees): </label>
-            <Box width={"70%"}>
-              <Input
-                ref={prodPrice}
-                type="number"
-                sx={{ width: "100%" }}
-                placeholder="Price (Rupees)"
-              />
-            </Box>
-          </Box>
-          <br />
-          <Button
-            sx={{ backgroundColor: lb }}
-            onClick={ListItem}
-            variant={"contained"}
-          >
-            Add
-          </Button>
         </Box>
       </Box>
-      <br />
-      <br />
-      <br />
-      <Typography variant="h4">Your Additions</Typography>
-      <br />
-      {tempSellerItems.length == 0 ? (
+      <Box m={"0 10px"} width={["95%", "60%"]}>
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: lb }}>
+                <Sell />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Let's list up your services {userName}
+              </Typography>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      name="prodName"
+                      required
+                      fullWidth
+                      id="prodName"
+                      label="Product Name"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="prodDescription"
+                      label="Product Description"
+                      name="prodDescription"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="sellerAddress"
+                      label="Seller's Address"
+                      name="sellerAddress"
+                      autoComplete="address"
+                    />
+                  </Grid>
+                  <Grid item xs={12} width={"100%"}>
+                    <Box>
+                      <FormControl variant="outlined" fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Category
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={category}
+                          label="Category"
+                          onChange={handleChange}
+                        >
+                          <MenuItem value={"reinforcedSteel"}>
+                            Reinforced Steel
+                          </MenuItem>
+                          <MenuItem value={"iBeam"}>I Beam</MenuItem>
+                          <MenuItem value={"Angles"}>Angles</MenuItem>
+                          <MenuItem value={"diPipes"}>DI Pipes</MenuItem>
+                          <MenuItem value={"redOxidePrimar"}>
+                            Red Oxide Primar
+                          </MenuItem>
+                          <MenuItem value={"plyboard"}>Plyboard</MenuItem>
+                          <MenuItem value={"nails"}>Nails</MenuItem>
+                          <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
+                          <MenuItem value={"wires&Cables"}>
+                            Wires & Cables
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      type={"number"}
+                      required
+                      fullWidth
+                      id="price"
+                      label="Price"
+                      name="price"
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  // onClick={}
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  List It
+                </Button>
+              </Box>
+            </Box>
+            <Copyright sx={{ mt: 5 }} />
+          </Container>
+        </ThemeProvider>
+      </Box>
+    </Box>
+    {tempSellerItems.length == 0 ? (
         <Box minHeight={"200px"}>
           <Typography variant="h5">No Additions Yet</Typography>
         </Box>
@@ -257,6 +289,6 @@ export default function Admin() {
           })}
         </Box>
       )}
-    </Box>
+    </>
   );
 }
