@@ -25,7 +25,6 @@ export default function Cart() {
   let [shippingTax, setShippingTax] = useState(40)
 
   useEffect(()=>{
-    console.log(useDiscount)
     cart.map((el,i)=>{
       let Totaltemp = 0;
     for (const items of cart) {
@@ -121,7 +120,7 @@ export default function Cart() {
       <Typography fontWeight={700}> Pay using Wallet Balance</Typography>
       </Box>
       <Slider valueLabelDisplay="auto" defaultValue={0} step={100} marks min={0} max={walletBalance} disabled={!useDiscount} onChange={(e)=>{
-        setWalletDiscount((prev)=>prev=e.target.value)
+         setWalletDiscount((prev)=>prev=e.target.value)
       }} />
       <Typography variant="body2">Remaining Wallet Balance: <b>{walletBalance-walletDiscount}</b></Typography>
       {/* <br /> */}
@@ -129,11 +128,13 @@ export default function Cart() {
       <Typography variant="body2" fontSize={"12px"} ><b>Alert:</b> Clicking Checkout will deduct your wallet balance. You'll have to pay the remaining amount using other mode.</Typography>
       </Box>
       <br />
-      <Button sx={{ backgroundColor: lb }} variant="contained" onClick={async()=>{
-        setWalletBalance(walletBalance-walletDiscount)
-        await axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{
+      <Button sx={{ backgroundColor: lb }} variant="contained" onClick={()=>{
+        if(useDiscount==true) {
+          setWalletBalance(walletBalance-walletDiscount)
+        axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{
           walletBalance:walletBalance-walletDiscount
         })
+        }
 
       }}>
         <NavLink to="/checkout" style={{color:"white",textDecoration:"none", display:"flex",alignItems:"center"}} >

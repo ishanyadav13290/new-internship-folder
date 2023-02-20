@@ -1,30 +1,20 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { NavLink } from "react-router-dom";
-import { lb, db } from "../Static Data/theme";
+import { db } from "../Static Data/theme";
 
 let arr = [
-  "Reinforced Steel",
-  "I Beam",
-  "Angles",
-  "DI Pipes",
-  "Red Oxide Primar",
-  "Plyboard",
-  "Nails",
-  "HDPE Pipes",
-  "Wires and Cables",
+  "Home",
+  "About Us",
+  "Our Team",
+  "Contact"
 ];
 
 let routes = [
-  "reinforcedSteel",
-  "iBeam",
-  "Angles",
-  "diPipes",
-  "redOxidePrimar",
-  "plyboard",
-  "nails",
-  "hdpePipes",
-  "wires&Cables",
+  "/",
+  "about",
+  "team",
+  "contact"
 ];
 
 export default function Nav2() {
@@ -44,7 +34,7 @@ export default function Nav2() {
               bgcolor: db,
             },
             color: "white",
-            padding: "3px",
+            padding: "10px",
             borderRadius: "3px",
           }}
           fontSize={"13px"}
@@ -70,7 +60,7 @@ export default function Nav2() {
                   bgcolor: db,
                 },
                 color:"white",
-                padding: "3px",
+                padding: "10px",
                 borderRadius: "3px",
               }}
               key={i}

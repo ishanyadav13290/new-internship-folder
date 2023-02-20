@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../Context/Contexts";
 import toIndianNumberingSystem from "../../Features/RupeeConversion";
+import { lb } from "../../Static Data/theme";
 import TransactionsCard from "./transactionCard";
 
 export default function Wallet() {
@@ -28,12 +29,12 @@ export default function Wallet() {
               height={["auto", "auto", "65px"]}
               p={"10px"}
               borderRadius={"20px"}
-              bgcolor={"rgb(254, 245, 230)"}
+              bgcolor={"rgba(72, 98, 208,0.2)"}
               m={"3% auto"}
               textAlign={"left"}
             >
               <Typography
-                color={"rgb(244, 151, 0)"}
+                color={lb}
                 width={"100%"}
                 display={"flex"}
                 // justifyContent="center"
@@ -42,7 +43,7 @@ export default function Wallet() {
               >
                 {toIndianNumberingSystem(walletBalance)}
               </Typography>
-              <p style={{ margin: "0", color: "rgb(244, 151, 0)" }}>
+              <p style={{ margin: "0", color: lb }}>
                 Your Gofra Wallet Balance
               </p>
             </Box>
@@ -51,7 +52,7 @@ export default function Wallet() {
                 Tip: You can earn more gift vouchers using wallet ;)
               </Typography>
               <br />
-              <Button variant="contained" sx={{bgcolor:"rgb(246, 126, 34)"}}>Add to Wallet</Button>
+              <Button variant="contained" sx={{bgcolor:lb}}>Add to Wallet</Button>
             </Box>
           </Box>
           <Box width={["90%", "80%", "30%"]} m={"auto"}>

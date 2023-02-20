@@ -1,7 +1,5 @@
-
 import {
   Button,
-  // ClickAwayListener,
   FormControl,
   Grow,
   InputLabel,
@@ -11,6 +9,7 @@ import {
   Paper,
   Popper,
   Select,
+  Slider,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -21,15 +20,19 @@ import { AuthContext } from "../Context/Contexts";
 import MediaCard from "./ProductsCards/ProductsCards";
 import SkeletonCard from "./ProductsCards/Skeleton";
 
-let LoadingArray= new Array(16).fill("a")
+let LoadingArray = new Array(16).fill("a");
 
 export default function Products() {
-  let { allSellerItems, setAllSellerItems, isInputSearch} =
+  let { allSellerItems, setAllSellerItems, isInputSearch } =
     useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
   let { category, query } = useParams();
   let [filterCategory, setFilterCategory] = useState("all");
   let [sortPrice, setSortPrice] = useState("");
+
+  // price slider
+  const [priceRange, setPriceRange] = useState([1000, 100000]);
+
 
   //Pagination
   let [page, setPage] = useState(1);
@@ -66,7 +69,8 @@ export default function Products() {
   // *********************************************************
 
   // filter functions
-  let cat = filterCategory;
+
+  let cat = filterCategory; /* selected category for filter */
   const handleCategory = async (event) => {
     let val = event.target.value;
     cat = val;
@@ -82,7 +86,6 @@ export default function Products() {
       console.log("1");
       setIsLoading(false);
     } else {
-      console.log("ye");
       temp =
         val == "all"
           ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
@@ -94,7 +97,6 @@ export default function Products() {
     // console.log(temp.data)
     setAllSellerItems(temp.data);
   };
-
   // sorting function
   let sort = "";
   const handlePrice = async (event) => {
@@ -110,7 +112,6 @@ export default function Products() {
         temp = await axios.get(
           `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
         );
-        console.log("Ye");
         setIsLoading(false);
       } else if (val != "default" && category == "newarrivals") {
         setIsLoading(true);
@@ -119,13 +120,6 @@ export default function Products() {
         );
         setIsLoading(false);
         console.log("Ye");
-      } else if (val != "default" && category != "newarrivals") {
-        setIsLoading(true);
-        temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}&_page=${page}&_limit=16`
-        );
-        console.log("Ye");
-        setIsLoading(false);
       } else {
         setIsLoading(true);
         temp = await axios.get(
@@ -135,17 +129,38 @@ export default function Products() {
         setIsLoading(false);
       }
     }
-    if (cat !== "all") {
+    if (cat != "all") {
       setIsLoading(true);
       temp = await axios.get(
         `https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}$_page=${page}&_limit=16`
       );
-      console.log(cat,val);
+      console.log(cat, val);
       setIsLoading(false);
     }
     console.log(temp);
     setAllSellerItems(temp.data);
   };
+
+  const handlePriceChange = async (event, newValue) => {
+    setPriceRange(newValue);
+
+    if(cat!="all"){
+      setIsLoading(true)
+    let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&price_gte=${newValue[0]}&price_lte=${newValue[1]}&_sort=price&_order=asc`)
+     setAllSellerItems(temp.data)
+     setIsLoading(false)
+    } else {
+      setIsLoading(true)
+    let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?price_gte=${newValue[0]}&price_lte=${newValue[1]}`)
+     setAllSellerItems(temp.data)
+     setIsLoading(false)
+    }
+
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [allSellerItems]);
 
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -180,134 +195,421 @@ export default function Products() {
       setIsLoading(false);
     })();
   }, [category, page, query]);
+
+  // return <>
+  //   <Box minHeight={"100vh"} display={"flex"} padding={"20px"}>
+  // <Box width={"20%"} position={"sticky"} top={"170px"} height={"100vh"}>
+  // <Box width={["100%", "100%", "20%"]} display={["initial","initial","none","none"]} >
+  //       <div>
+  //         <Button
+  //           sx={{ width: "100%" }}
+  //           ref={anchorRef}
+  //           id="composition-button"
+  //           aria-controls={open ? "composition-menu" : undefined}
+  //           aria-expanded={open ? "true" : undefined}
+  //           aria-haspopup="true"
+  //           onClick={handleToggle}
+  //         >
+  //           Sorting & Filters
+  //         </Button>
+  //         <Popper
+  //           open={open}
+  //           anchorEl={anchorRef.current}
+  //           role={undefined}
+  //           placement="bottom-start"
+  //           transition
+  //           disablePortal
+  //           sx={{ zIndex: "1", width: ["100%", "100%", "20%"] }}
+  //         >
+  //           {({ TransitionProps, placement }) => (
+  //             <Grow
+  //               {...TransitionProps}
+  //               style={{
+  //                 transformOrigin:
+  //                   placement === "bottom-start" ? "left top" : "left bottom",
+  //               }}
+  //             >
+  //               <Paper>
+  //                 {/* <ClickAwayListener> */}
+  //                 <MenuList
+  //                   autoFocusItem={open}
+  //                   id="composition-menu"
+  //                   aria-labelledby="composition-button"
+  //                   onKeyDown={handleListKeyDown}
+  //                 >
+  //                   <Typography width={"90%"} m={"auto"} textAlign={"left"}>
+  //                     Filter By:
+  //                   </Typography>
+  //                   <MenuItem>
+  //                     <FormControl fullWidth>
+  //                       <InputLabel id="demo-simple-select-label">
+  //                         Category
+  //                       </InputLabel>
+  //                       <Select
+  //                         labelId="demo-simple-select-label"
+  //                         id="demo-simple-select"
+  //                         value={filterCategory}
+  //                         label="Category"
+  //                         onChange={handleCategory}
+  //                       >
+  //                         <MenuItem value="all">Default</MenuItem>
+  //                         <MenuItem value={"reinforcedSteel"}>
+  //                           Reinforced Steel
+  //                         </MenuItem>
+  //                         <MenuItem value={"iBeam"}>iBeam</MenuItem>
+  //                         <MenuItem value={"Angles"}>Angles</MenuItem>
+  //                         <MenuItem value={"diPipes"}>diPipes</MenuItem>
+  //                         <MenuItem value={"redOxidePrimar"}>
+  //                           Red OXide Primar
+  //                         </MenuItem>
+  //                         <MenuItem value={"plyboard"}>Plyboard</MenuItem>
+  //                         <MenuItem value={"nails"}>Nails</MenuItem>
+  //                         <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
+  //                         <MenuItem value={"wires&Cables"}>
+  //                           Wires & Cables
+  //                         </MenuItem>
+  //                       </Select>
+  //                     </FormControl>
+  //                   </MenuItem>
+  //                   <Typography width={"90%"} m={"auto"} textAlign={"left"}>
+  //                     Sort By:
+  //                   </Typography>
+  //                   <MenuItem>
+  //                     <FormControl fullWidth>
+  //                       <InputLabel id="demo-simple-select-label">
+  //                         Price
+  //                       </InputLabel>
+  //                       <Select
+  //                         labelId="demo-simple-select-label"
+  //                         id="demo-simple-select"
+  //                         value={sortPrice}
+  //                         label="Price"
+  //                         onChange={handlePrice}
+  //                       >
+  //                         <MenuItem value={"default"}>Default</MenuItem>
+  //                         <MenuItem value={"desc"}>Hight to Low</MenuItem>
+  //                         <MenuItem value={"asc"}>Low to High</MenuItem>
+  //                       </Select>
+  //                     </FormControl>
+  //                   </MenuItem>
+  //                 </MenuList>
+  //                 {/* </ClickAwayListener> */}
+  //               </Paper>
+  //             </Grow>
+  //           )}
+  //         </Popper>
+  //       </div>
+  //     </Box>
+  //     {/* filter for large screens */}
+  //     <Box width={["100%", "100%", "20%"]} height={"100vh"} position={"sticky"} display={["none","none","initial","initial"]} ml="0" mt={"10px"} >
+  //         <Box position={"sticky"} width={"auto"} display="block">
+  //         <Typography variant="body1">Filter by Category</Typography>
+  //         <br />
+  //           <FormControl fullWidth>
+  //             <InputLabel id="demo-simple-select-label">Category</InputLabel>
+  //             <Select
+  //               labelId="demo-simple-select-label"
+  //               id="demo-simple-select"
+  //               value={filterCategory}
+  //               label="Category"
+  //               onChange={handleCategory}
+  //             >
+  //               <MenuItem value="all">Default</MenuItem>
+  //               <MenuItem value={"reinforcedSteel"}>Reinforced Steel</MenuItem>
+  //               <MenuItem value={"iBeam"}>iBeam</MenuItem>
+  //               <MenuItem value={"Angles"}>Angles</MenuItem>
+  //               <MenuItem value={"diPipes"}>diPipes</MenuItem>
+  //               <MenuItem value={"redOxidePrimar"}>Red OXide Primar</MenuItem>
+  //               <MenuItem value={"plyboard"}>Plyboard</MenuItem>
+  //               <MenuItem value={"nails"}>Nails</MenuItem>
+  //               <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
+  //               <MenuItem value={"wires&Cables"}>Wires & Cables</MenuItem>
+  //             </Select>
+  //           </FormControl>
+  //           <br />
+  //           <br />
+  //           <Typography variant="body1">Sort By Price</Typography>
+  //           <FormControl fullWidth>
+  //             <InputLabel id="demo-simple-select-label">Price</InputLabel>
+  //             <Select
+  //               labelId="demo-simple-select-label"
+  //               id="demo-simple-select"
+  //               value={sortPrice}
+  //               label="Price"
+  //               onChange={handlePrice}
+  //             >
+  //               <MenuItem value={"default"}>Default</MenuItem>
+  //               <MenuItem value={"desc"}>Hight to Low</MenuItem>
+  //               <MenuItem value={"asc"}>Low to High</MenuItem>
+  //             </Select>
+  //           </FormControl>
+  //         </Box>
+  //       </Box>
+  // </Box>
+  // <Box width={"80%"} minHeight={"100vh"}>
+  // <Box
+  //       // className={s.productsGrid}
+  //       minHeight={"100vh"}
+  //       width={["90%"]}
+  //       display={["grid", "grid", "grid"]}
+  //       gridTemplateColumns={[
+  //         "repeat(1,1fr)",
+  //         "repeat(2,1fr)",
+  //         "repeat(3,1fr)",
+  //         "repeat(4,1fr)",
+  //       ]}
+  //       m={"auto"}
+  //       gap={"20px"}
+  //     >
+  //       { isLoading ? (
+  //         LoadingArray.map((el, i) => {
+  //           return <SkeletonCard key={i} />;
+  //         })
+  //       ): (
+  //         allSellerItems.map((el, i) => {
+  //           return <MediaCard key={i} el={el} />;
+  //         })
+  //       )}
+  //     </Box>
+  // </Box>
+  // </Box>
+  // <Box display={"flex"} justifyContent={"center"} m={"1% 0"}>
+  //       <Pagination
+  //         sx={{ color: "black" }}
+  //         count={Math.ceil(totalPage / 16)}
+  //         showFirstButton
+  //         showLastButton
+  //         variant="contained"
+  //         page={page}
+  //         onChange={(event, value) => {
+  //           setPage(value);
+  //         }}
+  //       />
+  //     </Box>
+  // </>
+
   return (
-    <Box mt={["30%", "20%", "10%"]} display={["block", "block", "block"]}>
-      <Box width={["100%", "100%", "20%"]}>
-        <div>
-          <Button
-            sx={{ width: "100%" }}
-            ref={anchorRef}
-            id="composition-button"
-            aria-controls={open ? "composition-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
+    <>
+      <Box minHeight={["100vh"]} display={["block","block","flex","flex"]} padding={"20px"}>
+        <Box width={["100%","100%","20%","20%"]} position={["initial","initial","sticky","sticky"]} top={"170px"} height={["auto","auto","100vh","100vh"]}>
+          {/* filter for small screens */}
+          <Box
+            width={["100%", "100%", "20%"]}
+            display={["initial", "initial", "none", "none"]}
           >
-            Sorting & Filters
-          </Button>
-          <Popper
-            open={open}
-            anchorEl={anchorRef.current}
-            role={undefined}
-            placement="bottom-start"
-            transition
-            disablePortal
-            sx={{ zIndex: "1", width: ["100%", "100%", "20%"] }}
-          >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{
-                  transformOrigin:
-                    placement === "bottom-start" ? "left top" : "left bottom",
-                }}
+            <Box>
+              <Button
+                sx={{ width: "100%" }}
+                ref={anchorRef}
+                id="composition-button"
+                aria-controls={open ? "composition-menu" : undefined}
+                aria-expanded={open ? "true" : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
               >
-                <Paper>
-                  {/* <ClickAwayListener> */}
-                  <MenuList
-                    autoFocusItem={open}
-                    id="composition-menu"
-                    aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
+                Sorting & Filters
+              </Button>
+              <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                placement="bottom-start"
+                transition
+                disablePortal
+                sx={{ zIndex: "1", width: ["100%", "100%", "20%"] }}
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{
+                      transformOrigin:
+                        placement === "bottom-start"
+                          ? "left top"
+                          : "left bottom",
+                    }}
                   >
-                    <Typography width={"90%"} m={"auto"} textAlign={"left"}>
-                      Filter By:
-                    </Typography>
-                    <MenuItem>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
-                          Category
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={filterCategory}
-                          label="Category"
-                          onChange={handleCategory}
-                        >
-                          <MenuItem value="all">Default</MenuItem>
-                          <MenuItem value={"reinforcedSteel"}>
-                            Reinforced Steel
-                          </MenuItem>
-                          <MenuItem value={"iBeam"}>iBeam</MenuItem>
-                          <MenuItem value={"Angles"}>Angles</MenuItem>
-                          <MenuItem value={"diPipes"}>diPipes</MenuItem>
-                          <MenuItem value={"redOxidePrimar"}>
-                            Red OXide Primar
-                          </MenuItem>
-                          <MenuItem value={"plyboard"}>Plyboard</MenuItem>
-                          <MenuItem value={"nails"}>Nails</MenuItem>
-                          <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
-                          <MenuItem value={"wires&Cables"}>
-                            Wires & Cables
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                    </MenuItem>
-                    <Typography width={"90%"} m={"auto"} textAlign={"left"}>
-                      Sort By:
-                    </Typography>
-                    <MenuItem>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
-                          Price
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={sortPrice}
-                          label="Price"
-                          onChange={handlePrice}
-                        >
-                          <MenuItem value={"default"}>Default</MenuItem>
-                          <MenuItem value={"desc"}>Hight to Low</MenuItem>
-                          <MenuItem value={"asc"}>Low to High</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </MenuItem>
-                  </MenuList>
-                  {/* </ClickAwayListener> */}
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
-        </div>
-      </Box>
-      <Box
-        // className={s.productsGrid}
-        minHeight={"100vh"}
-        width={["90%"]}
-        display={["grid", "grid", "grid"]}
-        gridTemplateColumns={[
-          "repeat(1,1fr)",
-          "repeat(2,1fr)",
-          "repeat(3,1fr)",
-          "repeat(4,1fr)",
-        ]}
-        m={"auto"}
-        gap={"20px"}
-        // mr={"1%"}
-        // flexWrap={"wrap"}
-      >
-        { isLoading ? (
-          LoadingArray.map((el, i) => {
-            return <SkeletonCard key={i} />;
-          })
-        ): (
-          allSellerItems.map((el, i) => {
-            return <MediaCard key={i} el={el} />;
-          })
-        )}
+                    <Paper>
+                      {/* <ClickAwayListener> */}
+                      <MenuList
+                        autoFocusItem={open}
+                        id="composition-menu"
+                        aria-labelledby="composition-button"
+                        onKeyDown={handleListKeyDown}
+                      >
+                        <Typography width={"90%"} m={"auto"} textAlign={"left"}>
+                          Filter By:
+                        </Typography>
+                        <MenuItem>
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                              Category
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={filterCategory}
+                              label="Category"
+                              onChange={handleCategory}
+                            >
+                              <MenuItem value="all">Default</MenuItem>
+                              <MenuItem value={"reinforcedSteel"}>
+                                Reinforced Steel
+                              </MenuItem>
+                              <MenuItem value={"iBeam"}>iBeam</MenuItem>
+                              <MenuItem value={"Angles"}>Angles</MenuItem>
+                              <MenuItem value={"diPipes"}>diPipes</MenuItem>
+                              <MenuItem value={"redOxidePrimar"}>
+                                Red OXide Primar
+                              </MenuItem>
+                              <MenuItem value={"plyboard"}>Plyboard</MenuItem>
+                              <MenuItem value={"nails"}>Nails</MenuItem>
+                              <MenuItem value={"hdpePipes"}>
+                                HDPE Pipes
+                              </MenuItem>
+                              <MenuItem value={"wires&Cables"}>
+                                Wires & Cables
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </MenuItem>
+                        <Typography width={"90%"} m={"auto"} textAlign={"left"}>
+                          Sort By:
+                        </Typography>
+                        <MenuItem>
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                              Price
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={sortPrice}
+                              label="Price"
+                              onChange={handlePrice}
+                            >
+                              <MenuItem value={"default"}>Default</MenuItem>
+                              <MenuItem value={"desc"}>Hight to Low</MenuItem>
+                              <MenuItem value={"asc"}>Low to High</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </MenuItem>
+                        <Typography variant="body1">Select a Price Range</Typography>
+              <MenuItem>
+              <Box sx={{ width: "100%" }}>
+                <Slider
+                  value={priceRange}
+                  onChangeCommitted={handlePriceChange}
+                  valueLabelDisplay="auto"
+                  defaultValue={0}
+                  max={100000}
+                  step={10000}
+                  marks
+                  min={0}
+                />
+              </Box>
+              </MenuItem>
+                      </MenuList>
+                      {/* </ClickAwayListener> */}
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </Box>
+          </Box>
+          {/* filter for large screens */}
+          <Box
+            width={["100%", "100%", "20%"]}
+            height={"100vh"}
+            position={"sticky"}
+            display={["none", "none", "initial", "initial"]}
+            ml="0"
+            mt={"10px"}
+          >
+            <Box position={"sticky"} width={"auto"} display="block">
+              <Typography variant="body1">Filter by Category</Typography>
+              <br />
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={filterCategory}
+                  label="Category"
+                  onChange={handleCategory}
+                >
+                  <MenuItem value="all">Default</MenuItem>
+                  <MenuItem value={"reinforcedSteel"}>
+                    Reinforced Steel
+                  </MenuItem>
+                  <MenuItem value={"iBeam"}>iBeam</MenuItem>
+                  <MenuItem value={"Angles"}>Angles</MenuItem>
+                  <MenuItem value={"diPipes"}>diPipes</MenuItem>
+                  <MenuItem value={"redOxidePrimar"}>Red OXide Primar</MenuItem>
+                  <MenuItem value={"plyboard"}>Plyboard</MenuItem>
+                  <MenuItem value={"nails"}>Nails</MenuItem>
+                  <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
+                  <MenuItem value={"wires&Cables"}>Wires & Cables</MenuItem>
+                </Select>
+              </FormControl>
+              <br />
+              <br />
+              <Typography variant="body1">Sort By Price</Typography>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Price</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={sortPrice}
+                  label="Price"
+                  onChange={handlePrice}
+                >
+                  <MenuItem value={"default"}>Default</MenuItem>
+                  <MenuItem value={"desc"}>Hight to Low</MenuItem>
+                  <MenuItem value={"asc"}>Low to High</MenuItem>
+                </Select>
+              </FormControl>
+              <br />
+              <br />
+              <Typography variant="body1">Select a Price Range</Typography>
+              <Box sx={{ width: "auto" }}>
+                <Slider
+                  value={priceRange}
+                  onChangeCommitted={handlePriceChange}
+                  valueLabelDisplay="auto"
+                  defaultValue={0}
+                  max={100000}
+                  step={10000}
+                  marks
+                  min={0}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        <Box width={"80%"} m={"auto"} minHeight={"100vh"}>
+          <Box
+            // className={s.productsGrid}
+            minHeight={"100vh"}
+            width={["90%"]}
+            display={["grid", "grid", "grid"]}
+            gridTemplateColumns={[
+              "repeat(1,1fr)",
+              "repeat(2,1fr)",
+              "repeat(3,1fr)",
+              "repeat(4,1fr)",
+            ]}
+            m={"auto"}
+            gap={"20px"}
+          >
+            {isLoading
+              ? LoadingArray.map((el, i) => {
+                  return <SkeletonCard key={i} />;
+                })
+              : allSellerItems.map((el, i) => {
+                  return <MediaCard key={i} el={el} />;
+                })}
+          </Box>
+        </Box>
       </Box>
       <Box display={"flex"} justifyContent={"center"} m={"1% 0"}>
         <Pagination
@@ -322,6 +624,6 @@ export default function Products() {
           }}
         />
       </Box>
-    </Box>
+    </>
   );
 }

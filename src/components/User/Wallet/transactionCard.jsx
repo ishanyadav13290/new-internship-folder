@@ -10,8 +10,9 @@ export default function TransactionsCard({ amt, scene }) {
       m={"5px 0"}
       alignContent={"center"}
       borderRadius={"5px"}
-      border={scene?"1px solid green": "1px solid red"}
-      bgcolor={scene ? "rgb(139, 231, 139)" : "rgb(255, 153, 154)"}
+      border={scene?"1px solid green": "1px solid blue"}
+      // bgcolor={scene ? "rgb(139, 231, 139)" : "rgb(255, 153, 154)"}
+      bgcolor={scene ? "rgba(72, 98, 208,0.5)" : "rgb(255, 255, 255)"}
       width={["100%", "90%", "100%"]}
     >
       <Box

@@ -19,25 +19,11 @@ export default function SearchField(){
     }
 
     useEffect(()=>{
-        console.log(searchParams.get("query"))
+      
     },[searchParams])
     
-    // return <Box display={"flex"} width={"100%"} alignItems={"center"}>
-    //     <TextField ref={reference} className="filled-basic"  sx={{width:["90%","100%"],border:"none",bgcolor:"white",borderRadius:"5px"}} size={"small"} label="Search Products" variant="filled" onInput={(e)=>{
-    //     setSearchQuery(e.target.value)
-        
-    // }} onKeyDown={(e)=>{
-    //     if(e.key=="Enter"){
-    //         Search()
-    //         e.target.value=""
-    //     }
-    // }} />
-    // <SearchOutlined sx={{fontSize:"2rem", color:"white"}} onClick={()=>{
-    //     Search()
-    // }} />
-    // </Box>
     return <Paper
-    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400}}
+    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: ["90%","90%","100%","100%"], m:"auto"}}
   >
     <input
     style={{height:"100%",width:"100%", border:"none"}}

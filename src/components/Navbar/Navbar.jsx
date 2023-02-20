@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
 import { NavLink } from "react-router-dom";
 import { db, lb } from "../Static Data/theme";
@@ -37,7 +37,7 @@ export default function Navbar() {
         </NavLink>
         <Nav1 />
         </Box>
-        
+        {/* <Divider /> */}
         {/* Nav 2 display changing according to screen size */}
         <Box>
         <Box display={["none","none","block","block"]}>

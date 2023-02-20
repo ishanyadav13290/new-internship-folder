@@ -67,7 +67,7 @@ export default function AdminCards({ data }) {
         <p>
           <b>{data.name}</b>
         </p>
-        <p>{data.description}</p>
+        <p>{(data.description).slice(0,70)}...</p>
         <p>{toIndianNumberingSystem(data.price)}</p>
         <Divider />
         <br />
