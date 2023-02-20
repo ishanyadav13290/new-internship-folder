@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 import { Call, Email, Facebook, Instagram, LinkedIn, Sell, Twitter } from "@mui/icons-material";
-import { db, lb } from "../Static Data/theme";
+import { lb } from "../Static Data/theme";
 
 export default function Footer(){
   let {isSeller} = useContext(AuthContext)

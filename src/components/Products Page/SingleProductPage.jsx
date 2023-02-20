@@ -1,4 +1,6 @@
 import {
+  ArrowLeft,
+  ArrowRight,
   Expand,
   ExpandLess,
   ExpandMore,
@@ -18,22 +20,36 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
+import { lb } from "../Static Data/theme";
 import useAddToCart from "./addToCartFunction";
+import MediaCard from "./ProductsCards/ProductsCards";
+import SkeletonCard from "./ProductsCards/Skeleton";
 
 export default function SingleProductPage() {
   let { id } = useParams();
   let [data, setData] = useState({});
   let { userID, cart, setCart } = useContext(AuthContext);
 
+  
   let temp = useAddToCart();
-
+  
   // accordion
   const [expanded, setExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  let [cardData, setCartData] = useState([])
+  useEffect(()=>{
+    (async()=>{
+      setIsLoading(true)
+    let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems/?_page=1&_limit=16`)
+    setCartData(temp.data)
+    })()
+
+  },[])
 
   useEffect(() => {
     (async () => {
@@ -45,6 +61,11 @@ export default function SingleProductPage() {
       setData(temp.data);
     })();
   }, []);
+
+  function scrollToPosition(position) {
+    var scrollableDiv = document.querySelector(".carouselContainer");
+    scrollableDiv.scrollLeft += position;
+  }
   return (
     <Box minHeight={"100vh"} mt={["30%", "20%", "10%"]}>
       <Box
@@ -126,7 +147,7 @@ export default function SingleProductPage() {
             <Typography
               variant="h4"
               fontWeight={700}
-              color={"rgb(246, 126, 34)"}
+              color={lb}
             >
               {isLoading?<Skeleton sx={{width:"100px",height:"50px"}} />:toIndianNumberingSystem(data.price)}
             </Typography>
@@ -141,7 +162,7 @@ export default function SingleProductPage() {
           <Box m={"5%"}>
             <Button
               mt={"5px"}
-              sx={{ backgroundColor: "rgb(246, 126, 34)" }}
+              sx={{ backgroundColor: lb }}
               variant="contained"
               onClick={async () => {
                 let data1 = {
@@ -157,6 +178,26 @@ export default function SingleProductPage() {
               Add to Cart
             </Button>
           </Box>
+        </Box>
+      </Box>
+      <Box>
+      <Typography mt={"2%"} fontWeight={700} variant="h4">See More....</Typography>
+        <Box display={"flex"}>
+        <Button onClick={() => {
+          scrollToPosition(-300);
+        }}><ArrowLeft /></Button>
+        <Box className="carouselContainer" height={"auto"} display={"grid"} gridTemplateColumns="repeat(16,1fr)" width={"80%"} m={"3% auto"} p={"20px 0"} sx={{overflowY:"hidden"}}>
+      {isLoading
+              ? Array(16).map((el, i) => {
+                  return <SkeletonCard key={i} />;
+                })
+              : cardData.map((el, i) => {
+                  return <MediaCard key={i} el={el} broad={"300px"} gap={"0 20px"} />
+                })}
+      </Box>
+      <Button onClick={() => {
+          scrollToPosition(300);
+        }}><ArrowRight /></Button>
         </Box>
       </Box>
     </Box>

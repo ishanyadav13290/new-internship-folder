@@ -12,14 +12,14 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { AuthContext } from "../../Context/Contexts";
 import { Person, Wallet } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 let exportedMenu;
 
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setAuth,setIsSeller,isSeller, setUserID } = React.useContext(AuthContext);
+  let { setAuth,setIsSeller,isSeller,userName, setUserID } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -99,7 +99,7 @@ export default function BasictMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> My account
+          <Avatar /> {userName}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -117,10 +117,12 @@ export default function BasictMenu() {
           </MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>
+          <NavLink to="/account" style={{ all:"unset",display:"flex",alignItems:"center"}}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
+          </NavLink>
         </MenuItem>
         <MenuItem onClick={LogOut}>
           <ListItemIcon>

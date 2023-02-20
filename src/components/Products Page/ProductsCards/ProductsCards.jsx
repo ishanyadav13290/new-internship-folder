@@ -8,7 +8,7 @@ import { ShoppingCart, Star } from "@mui/icons-material";
 import toIndianNumberingSystem from "../../Features/RupeeConversion";
 import { AuthContext } from "../../Context/Contexts";
 
-export default function MediaCard({ el }) {
+export default function MediaCard({ el, broad, gap }) {
   let { isAuth } = React.useContext(AuthContext);
   let temp = useAddToCart();
 
@@ -16,6 +16,8 @@ export default function MediaCard({ el }) {
     <Box
       minHeight={"200px"}
       height={"fit-content"}
+      margin={gap}
+      width={broad}
       boxShadow={
         "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
       }
