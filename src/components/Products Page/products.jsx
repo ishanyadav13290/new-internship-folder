@@ -440,7 +440,7 @@ export default function Products() {
                           Filter By:
                         </Typography>
                         <MenuItem>
-                          <FormControl fullWidth>
+                          <FormControl fullWidth sx={{color:"black"}}>
                             <InputLabel id="demo-simple-select-label">
                               Category
                             </InputLabel>
@@ -528,7 +528,7 @@ export default function Products() {
             <Box position={"sticky"} width={"auto"} display="block">
               <Typography variant="body1">Filter by Category</Typography>
               <br />
-              <FormControl fullWidth>
+              <FormControl sx={{color:"black"}} fullWidth >
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"

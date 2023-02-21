@@ -19,6 +19,8 @@ export default function AllRoutes(){
     <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
     <Route path="/about" element=<h1>About</h1> />
+    <Route path="/team" element=<h1>Team</h1> />
+    <Route path="/contact" element=<h1>Contact</h1> />
     <Route path="/account" element=<Settings /> />
     <Route path="/wallet" element=<Wallet /> />
     <Route path="/:category" element=<Products/> />

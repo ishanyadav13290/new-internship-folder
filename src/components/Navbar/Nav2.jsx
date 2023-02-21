@@ -1,7 +1,9 @@
-import { Typography } from "@mui/material";
+import { Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { db } from "../Static Data/theme";
+import HoverMenu from "./Nav2Menu/HoverMenu";
 
 let arr = [
   "Home",
@@ -18,6 +20,7 @@ let routes = [
 ];
 
 export default function Nav2() {
+
   return (
     <Box display={"flex"} justifyContent={"space-between"}>
       <NavLink
@@ -27,22 +30,27 @@ export default function Nav2() {
           fontWeight: 700,
         }}
       >
-        <Typography
-          sx={{
+        <Button sx={{
             cursor: "pointer",
             "&:hover": {
               bgcolor: db,
             },
             color: "white",
-            padding: "10px",
+            // padding: "10px",
             borderRadius: "3px",
           }}
-          fontSize={"13px"}
-          color={"red"}
-        >
+          fontSize={"13px"}>
+        {/* <Typography */}
+          
           New Arrivals
-        </Typography>
-      </NavLink>
+        {/* </Typography> */}
+        </Button>
+          </NavLink>
+
+          <HoverMenu name={"Industry"} menuItems={["Home & Personal Care","E-Commerce & Retail","Infrastructure"]} />
+          
+          <HoverMenu name={"Platform"} menuItems={["Home & Personal Care","E-Commerce & Retail","Infrastructure"]} />
+      
       {arr.map((el, i) => {
         return (
           <NavLink
@@ -53,22 +61,21 @@ export default function Nav2() {
               fontWeight: 700,
             }}
           >
-            <Typography
+            <Button
               sx={{
                 cursor: "pointer",
                 "&:hover": {
                   bgcolor: db,
                 },
                 color:"white",
-                padding: "10px",
+                // padding: "10px",
                 borderRadius: "3px",
               }}
               key={i}
               fontSize={"13px"}
-              color={"rgba(0,0,0,.362)"}
             >
               {el}
-            </Typography>
+            </Button>
           </NavLink>
         );
       })}

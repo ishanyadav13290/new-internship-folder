@@ -15,7 +15,7 @@ export default function Carousel(){
         position:"absolute",
         top:"calc( 50% - 40px )",
         height:"40px",
-        display:"flex",
+        display:["none","none","initial","initial"],
         left:"10px",
         backgroundColor:lb
     }
@@ -23,7 +23,7 @@ export default function Carousel(){
         position:"absolute",
         top:"calc( 50% - 40px )",
         height:"40px",
-        display:"flex",
+        display:["none","none","initial","initial"],
         right:"10px",
         backgroundColor:lb
     }

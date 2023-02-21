@@ -7,17 +7,17 @@ import WorkWithUsForm from "./workWithUsForm";
 export default function WorkForUs() {
   return (
     <Box
-    height={"600px"}
+    height={["auto","600px"]}
     borderRadius={"20px"}
     padding={"20px"}
-      display={"flex"}
+      display={["block","block","flex","flex"]}
       justifyContent={"space-between"}
       bgcolor={lb}
       color={"white"}
-      width={"70%"}
+      width={["90%","70%"]}
       m={"auto"}
     >
-      <Box m={"auto"} width={"40%"}>
+      <Box m={"auto"} textAlign={"left"} width={["100%","40%"]}>
         <Typography variant="h4" sx={{"&:hover": {
             textDecoration:"underline",
             fontSize:"40px",
@@ -43,7 +43,7 @@ export default function WorkForUs() {
       </Box>
       <Box
       height={"fit-content"}
-      right={"20px"}
+      right={["0","0","20px","20px"]}
       borderRadius={"10px"}
         bgcolor={"white"}
         position={"relative"}

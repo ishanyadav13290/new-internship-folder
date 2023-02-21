@@ -53,7 +53,6 @@ export default function WorkWithUsForm() {
             label="Full Name "
             name="fullName"
             autoComplete="Full Name"
-            autoFocus
           />
           <TextField
             margin="normal"
