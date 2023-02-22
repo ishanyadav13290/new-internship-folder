@@ -4,6 +4,8 @@ import Login from "../Authorisation/Login";
 import SignUp from "../Authorisation/SignUp";
 import Cart from "../Cart/Cart";
 import Checkout from "../Checkout/Checkout";
+import About from "../Gofra/About/about";
+import Contact from "../Gofra/Contact/contact";
 import HomePage from "../Landing Page/HomePage";
 import Products from "../Products Page/products";
 import SingleProductPage from "../Products Page/SingleProductPage";
@@ -18,9 +20,9 @@ export default function AllRoutes(){
     <Route path="/admin" element=<Admin /> />
     <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
-    <Route path="/about" element=<h1>About</h1> />
+    <Route path="/about" element=<About /> />
     <Route path="/team" element=<h1>Team</h1> />
-    <Route path="/contact" element=<h1>Contact</h1> />
+    <Route path="/contact" element=<Contact /> />
     <Route path="/account" element=<Settings /> />
     <Route path="/wallet" element=<Wallet /> />
     <Route path="/:category" element=<Products/> />

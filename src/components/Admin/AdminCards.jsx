@@ -12,7 +12,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
-import { lb } from "../Static Data/theme";
+import { lb } from "../Static/theme";
 
 export default function AdminCards({ data }) {
   let { userID, allSellerItems, setAllSellerItems } = useContext(AuthContext);

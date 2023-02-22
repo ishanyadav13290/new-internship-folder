@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Handshake } from "@mui/icons-material";
-import { lb } from "../../Static Data/theme";
+import { lb } from "../../Static/theme";
 
 export default function WorkWithUsForm() {
   const handleSubmit = (event) => {

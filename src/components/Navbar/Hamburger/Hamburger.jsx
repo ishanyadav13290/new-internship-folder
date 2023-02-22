@@ -19,9 +19,9 @@ import {
 } from "@mui/icons-material";
 import { AuthContext } from "../../Context/Contexts";
 import { NavLink } from "react-router-dom";
-import { db, lb } from "../../Static Data/theme";
+import { db, lb } from "../../Static/theme";
 import { Typography } from "@mui/material";
-import { cardNames, routeNames } from "../../Static Data/db";
+import { cardNames, routeNames } from "../../Static/db";
 
 export default function Hamburger() {
   let { isAuth, setAuth, userName,isSeller, setIsSeller, setUserID } =

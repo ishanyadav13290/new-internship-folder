@@ -14,7 +14,7 @@ import axios from "axios";
 import { v4 as uid } from "uuid";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { AttachFile, Sell } from "@mui/icons-material";
-import { lb } from "../Static Data/theme";
+import { lb } from "../Static/theme";
 import AdminCards from "./AdminCards";
 
 function Copyright(props) {

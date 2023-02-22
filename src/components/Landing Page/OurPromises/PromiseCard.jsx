@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { lb } from "../../Static Data/theme";
+import { lb } from "../../Static/theme";
 import {motion} from "framer-motion"
 
 export default function PromiseCard({ logo, title }) {
@@ -35,9 +35,8 @@ export default function PromiseCard({ logo, title }) {
     >
     <motion.div
     style={{height:"50%"}}
-  initial={{scale: 1.2, rotate: 0 }}
-  whileHover={{ scale: 0.8, rotate: 360, borderRadius: "100%" }}
-  whileTap={{ scale: 0.8, rotate: 0,  }}
+  initial={{scale: 1.2}}
+  whileHover={{ scale: 0.8, borderRadius: "100%" }}
   
 >
       <Box width={"100%"}>{logo}</Box>

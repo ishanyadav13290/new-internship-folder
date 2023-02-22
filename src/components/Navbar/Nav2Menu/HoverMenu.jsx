@@ -1,7 +1,7 @@
 import { Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
-import { db } from "../../Static Data/theme";
+import { db } from "../../Static/theme";
 
 export default function HoverMenu({name,menuItems,logos}){
     const [open, setOpen] = useState(false);
@@ -89,9 +89,9 @@ export default function HoverMenu({name,menuItems,logos}){
                 aria-labelledby="composition-button"
                 onKeyDown={handleListKeyDown}
               >
-              <Box display={"grid"} gridTemplateColumns={["repeat(2,1fr)"]}>
+              <Box >
                 {menuItems.map((el,i)=>{
-                    return <MenuItem key={i} onClick={handleClose}>{el}</MenuItem>
+                    return <MenuItem key={i} onClick={handleClose}>{logos?logos[i]:null}{el}</MenuItem>
                 })}
               </Box>
               </MenuList>

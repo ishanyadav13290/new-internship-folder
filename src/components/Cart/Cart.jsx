@@ -12,8 +12,8 @@ import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
 import Cards from "./Cards";
-import EmptyCart from "../../components/Static Data/Imgs/emptycart.png"
-import { lb } from "../Static Data/theme";
+import EmptyCart from "../../components/Static/Imgs/emptycart.png"
+import { lb } from "../Static/theme";
 import axios from "axios";
 
 export default function Cart() {

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
-import { db, lb } from "../Static Data/theme";
+import { db, lb } from "../Static/theme";
 
 function Copyright(props) {
   return (

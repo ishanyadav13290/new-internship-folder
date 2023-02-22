@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { lb } from "../../Static Data/theme";
+import { lb } from "../../Static/theme";
 
 let images=["https://www.hippostores.com/_next/image?url=https%3A%2F%2Fd2k503pumj0lc5.cloudfront.net%2Fdalmia%2Fdisk%3Fobject_token%3DeyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiI3Z2Z4b2dsMTkzOHdiNXl0d2c5cHZmaTcxemFkIiwiZmlsZW5hbWUiOiJIaXBwbyBzdG9yZXMgb2ZmZXJzIHBseXdvb2Qud2VicCIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3dlYnAiLCJibG9iX2tleSI6IjdnZnhvZ2wxOTM4d2I1eXR3ZzlwdmZpNzF6YWQiLCJjb252ZXJ0X3dlYnAiOnRydWV9.SdLlD0W663g_8RtHe89-EQOKUJRv-oYR6BR4oMctiMA&w=1920&q=75",
 "https://www.hippostores.com/_next/image?url=https%3A%2F%2Fd2k503pumj0lc5.cloudfront.net%2Fdalmia%2Fdisk%3Fobject_token%3DeyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiI0Mm41ZHV4NDF1NHdreWs0YzhqZmJqMjI4NHVzIiwiZmlsZW5hbWUiOiJNb2R1bGFyLWtpdGNoZW4taGlwcG8tc3RvcmVzLndlYnAiLCJjb250ZW50X3R5cGUiOiJpbWFnZS93ZWJwIiwiYmxvYl9rZXkiOiI0Mm41ZHV4NDF1NHdreWs0YzhqZmJqMjI4NHVzIiwiY29udmVydF93ZWJwIjp0cnVlfQ.1z2U_mEth26vcSwcZJ9EBhQ8qhICAE_rOawjEZxHLNg&w=1920&q=75",

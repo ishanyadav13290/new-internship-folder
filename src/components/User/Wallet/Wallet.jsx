@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../Context/Contexts";
 import toIndianNumberingSystem from "../../Features/RupeeConversion";
-import { lb } from "../../Static Data/theme";
+import { lb } from "../../Static/theme";
 import TransactionsCard from "./transactionCard";
 
 export default function Wallet() {

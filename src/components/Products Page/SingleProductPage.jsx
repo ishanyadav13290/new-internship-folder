@@ -20,7 +20,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
-import { lb } from "../Static Data/theme";
+import { lb } from "../Static/theme";
 import useAddToCart from "./addToCartFunction";
 import MediaCard from "./ProductsCards/ProductsCards";
 import SkeletonCard from "./ProductsCards/Skeleton";

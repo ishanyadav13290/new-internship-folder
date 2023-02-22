@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
 import { NavLink } from "react-router-dom";
-import { db, lb } from "../Static Data/theme";
+import { db, lb } from "../Static/theme";
 import Hamburger from "./Hamburger/Hamburger";
 import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";

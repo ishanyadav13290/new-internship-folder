@@ -1,8 +1,18 @@
 import { Skeleton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import {motion, useInView} from "framer-motion"
+import React from "react";
 
 export default function SkeletonCard(){
-    return <Box
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: false });
+  const variants = {
+    hidden: { opacity: 0, x: 150 },
+    visible: { opacity: 1, x: 0 },
+};
+    return <motion.div ref={ref} animate={isInView ? "visible" : "hidden"}
+variants={variants}
+transition={{ duration: 0.75 }}><Box
     minHeight={"200px"}
     height={"fit-content"}
     boxShadow={
@@ -49,5 +59,5 @@ export default function SkeletonCard(){
         <Skeleton animation={"wave"} height={"70px"} />
       </Box>
     </Box>
-  </Box>;
+  </Box></motion.div>
 }

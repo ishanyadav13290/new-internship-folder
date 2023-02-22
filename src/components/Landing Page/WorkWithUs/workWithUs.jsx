@@ -1,7 +1,7 @@
 import { Check, CheckCircle } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { lb } from "../../Static Data/theme";
+import { lb } from "../../Static/theme";
 import WorkWithUsForm from "./workWithUsForm";
 
 export default function WorkForUs() {

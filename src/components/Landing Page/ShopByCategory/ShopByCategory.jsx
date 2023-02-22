@@ -1,20 +1,20 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { cardImgs, cardNames } from "../../Static Data/db";
+import { cardImgs, cardNames } from "../../Static/db";
 import Cards from "../Categories Card/CategoriesCard";
 import {motion, useInView} from "framer-motion"
 import { useRef } from "react";
 
 export default function ShopByCategory(){
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
+  const isInView = useInView(ref, { once: true });
 
   const variants = {
     hidden: { opacity: 0, x: -150 },
     visible: { opacity: 1, x: 0 },
 };
 
-    return <motion.div ref={ref} animate={isInView ? "visible" : "hidden"}
+    return <motion.div style={{overflowX:"hidden"}} ref={ref} animate={isInView ? "visible" : "hidden"}
     variants={variants}
     transition={{ duration: 0.75 }}>
       <span >
