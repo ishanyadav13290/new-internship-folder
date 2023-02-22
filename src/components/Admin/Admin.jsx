@@ -52,7 +52,8 @@ export default function Admin() {
     (async () => {
       setIsLoading(true);
       let temp = await axios.get(
-        `https://sedate-laced-chestnut.glitch.me/users/${userID}`
+        `http://localhost:3001/users/${userID}`
+        // `https://sedate-laced-chestnut.glitch.me/users/${userID}`
       );
       setTempSellerITems(temp.data.sellerItems);
       setAllSellerItems(temp.data.sellerItems);
@@ -91,7 +92,7 @@ export default function Admin() {
     let obj = {
       sellerItems: [
         ...tempSellerItems,
-        { id: uid(), name, description, address, price, Img, category },
+        { name, description, address, price, Img, category },
       ],
     };
     event.currentTarget.reset()
@@ -103,14 +104,30 @@ export default function Admin() {
     setImg(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
     );
-    await axios.patch(
-      `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
-      obj
-    );
-    axios.post(
-      "https://sedate-laced-chestnut.glitch.me/allItems",
+    // await axios.patch(
+    //   `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
+    //   obj
+    // );
+
+   await axios.post(
+      "http://localhost:3001/allItems",
       obj.sellerItems[obj.sellerItems.length - 1]
     );
+
+    let temp = await axios.get(`http://localhost:3001/allItems`)
+
+    let tempData = temp.data
+    tempData = tempData[tempData.length-1]
+    obj.sellerItems[obj.sellerItems.length-1]._id = tempData._id
+// console.log(obj)
+    await axios.patch(
+      `http://localhost:3001/users/${userID}`,obj);
+    
+
+    // axios.post(
+    //   "https://sedate-laced-chestnut.glitch.me/allItems",
+    //   obj.sellerItems[obj.sellerItems.length - 1]
+    // );
   };
 
   return (

@@ -33,44 +33,32 @@ export default function Login(){
 
   useEffect(()=>{
     (async ()=>{
-        let temp=await axios.get("https://sedate-laced-chestnut.glitch.me/users")
+        // let temp=await axios.get("https://sedate-laced-chestnut.glitch.me/users")
+        let temp=await axios.get("http://localhost:3001/users")
         setUsers(temp.data)
     })()
 
   },[])
-  useEffect(()=>{
 
-    if(isAuth) {
-    (async()=>{
-      let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/users/${userID}`)
-      let data = temp.data
-      console.log(data)
-      setUserName(data.name)
-      setWalletBalance(data.walletBalance)
-      setCart(data.cart)
-      setIsSeller(data.isSelling)
-      setUserEmail(data.email)
-      setUserPassword(data.password)
-      setUserAddress(data.address)
-    })()
-    }
-  },[userID])
-    // function Login(){
-    //    let email= Email.current.childNodes[0].value;
-    //    let pass = Pass.current.childNodes[0].value;
-    //     users.forEach(element => {
-    //         if(email == element.email && pass == element.password){
-    //             setAuth(true)
-    //             setUserName(element.name)
-    //             setWalletBalance(element.walletBalance)
-    //             setCart(element.cart)
-    //             setIsSeller(element.isSelling)
-    //             setUserEmail(element.email)
-    //             setUserPassword(element.password)
-    //             setUserID(Number(element.id))
-    //         }
-    //     });
-    // }
+  // for localStorage
+  // useEffect(()=>{
+
+  //   if(isAuth) {
+  //   (async()=>{
+  //     // let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/users/${userID}`)
+  //     let temp = await axios.get(`http://localhost:3001/users/${userID}`)
+  //     let data = temp.data
+  //     console.log(data)
+  //     setUserName(data.name)
+  //     setWalletBalance(data.walletBalance)
+  //     setCart(data.cart)
+  //     setIsSeller(data.isSelling)
+  //     setUserEmail(data.email)
+  //     setUserPassword(data.password)
+  //     setUserAddress(data.address)
+  //   })()
+  //   }
+  // },[userID])
     const handleSubmit = (event) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
@@ -82,20 +70,21 @@ export default function Login(){
         // console.log(element.address)
         if(email == element.email && pass == element.password){
             setAuth(true)
-            setUserID(Number(element.id))
-            localStorage.setItem(`userName`,JSON.stringify(element.name))
-            localStorage.setItem(`isAuth`,JSON.stringify(true))
-            localStorage.setItem(`userID`,JSON.stringify(element.id))
-            localStorage.setItem(`cart`,JSON.stringify(element.cart))
-            localStorage.setItem(`isSeller`,JSON.stringify(element.isSelling))
-           if(element.isSelling) localStorage.setItem(`allSellerItems`,JSON.stringify(element.sellerItems))
-            // setUserName(element.name)
-            // setWalletBalance(element.walletBalance)
-            // setCart(element.cart)
-            // setIsSeller(element.isSelling)
-            // setUserEmail(element.email)
-            // setUserPassword(element.password)
-            // setUserAddress(element.address)
+            setUserID(element._id)
+            // localStorage.setItem(`userName`,JSON.stringify(element.name))
+            // localStorage.setItem(`isAuth`,JSON.stringify(true))
+            // localStorage.setItem(`userID`,JSON.stringify(element.id))
+            // localStorage.setItem(`cart`,JSON.stringify(element.cart))
+            // localStorage.setItem(`isSeller`,JSON.stringify(element.isSelling))
+          //  if(element.isSelling) localStorage.setItem(`allSellerItems`,JSON.stringify(element.sellerItems))
+           if(element.isSelling) setIsSeller(element.isSelling)
+            setUserName(element.name)
+            setWalletBalance(element.walletBalance)
+            setCart(element.cart)
+            setIsSeller(element.isSelling)
+            setUserEmail(element.email)
+            setUserPassword(element.password)
+            setUserAddress(element.address)
         }
     });
     };

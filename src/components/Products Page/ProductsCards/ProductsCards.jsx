@@ -21,7 +21,7 @@ export default function MediaCard({ el, broad, gap }) {
 };
   return (<motion.div ref={ref} animate={isInView ? "visible" : "hidden"}
   variants={variants}
-  transition={{ duration: 0.75 }}>
+  transition={{ duration: 0.5 }}>
 
     <Box
       minHeight={"200px"}

@@ -18,13 +18,14 @@ export default function AdminCards({ data }) {
   let { userID, allSellerItems, setAllSellerItems } = useContext(AuthContext);
 
   function removeItem(data) {
-    axios.delete(`https://sedate-laced-chestnut.glitch.me/allItems/${data.id}`)
+    axios.delete(`http://localhost:3001/allItems/${data._id}`)
+    // axios.delete(`https://sedate-laced-chestnut.glitch.me/allItems/${data.id}`)
 
     let newArr = allSellerItems.filter((el,i)=>{
-       return el.id!==data.id
+       return el._id!==data._id
     })
     setAllSellerItems(newArr)
-    axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    axios.patch(`http://localhost:3001/users/${userID}`, {
       sellerItems:newArr
     });
   }

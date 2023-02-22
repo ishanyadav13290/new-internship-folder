@@ -32,16 +32,16 @@ export default function BasictMenu() {
     handleClose();
     setIsSeller(false)
     setUserID("")
-    localStorage.setItem(`userName`, JSON.stringify(""));
-    localStorage.setItem(`isAuth`, JSON.stringify(false));
-    localStorage.setItem(`userID`, JSON.stringify(""));
-    localStorage.setItem(`cart`, JSON.stringify([]));
-    localStorage.setItem(`isSeller`, JSON.stringify(false));
-    if (isSeller)
-      localStorage.setItem(
-        `allSellerItems`,
-        JSON.stringify([])
-      );
+    // localStorage.setItem(`userName`, JSON.stringify(""));
+    // localStorage.setItem(`isAuth`, JSON.stringify(false));
+    // localStorage.setItem(`userID`, JSON.stringify(""));
+    // localStorage.setItem(`cart`, JSON.stringify([]));
+    // localStorage.setItem(`isSeller`, JSON.stringify(false));
+    // if (isSeller)
+    //   localStorage.setItem(
+    //     `allSellerItems`,
+    //     JSON.stringify([])
+    //   );
   }
   return (
     <React.Fragment>

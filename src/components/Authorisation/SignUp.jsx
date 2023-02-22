@@ -76,7 +76,8 @@ export default function SignUp() {
     setUserName(name);
     sell === true ? setIsSeller(true) : setIsSeller(false);
 
-    await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
+    // await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
+    axios.post("http://localhost:3001/users",obj)
 
     // after uploading
     setAuth(true);
