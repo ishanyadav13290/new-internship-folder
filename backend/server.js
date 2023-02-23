@@ -93,7 +93,7 @@ app.get("/allItems/sort", async (req, res) => {
     const {sort,page,limit} = req.query;
     let skip=(page-1)*limit
     let data = await allItemsModel.find().sort({price:sort}).skip(skip).limit(limit)
-    let temp = await allItemsModel.find()
+    let temp = await allItemsModel.find().sort({price:sort})
    res.send({data,count:temp.length})
 })
 app.get("/allItems/range", async (req, res) => {
@@ -124,7 +124,7 @@ app.get("/allItems/categoryRange", async (req,res)=>{
 app.get("/allItems/search", async (req,res)=>{
     const {query, page, limit} = req.query;
     let skip=(page-1)*limit
-    let data = await allItemsModel.find({ name: { $regex: query, $options: "i" } })
+    let data = await allItemsModel.find({ name: { $regex: query, $options: "i" } }).skip(skip).limit(limit)
     let temp = await allItemsModel.find({ name: { $regex: query, $options: "i" } })
 
     res.send({data,count:temp.length})

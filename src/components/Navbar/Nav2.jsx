@@ -1,35 +1,36 @@
 import { Home, OnlinePrediction, Sell } from "@mui/icons-material";
-import { Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper, Typography } from "@mui/material";
+import {
+  Button,
+  ClickAwayListener,
+  Grow,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { db } from "../Static/theme";
 import HoverMenu from "./Nav2Menu/HoverMenu";
 
-let arr = [
-  "About Us",
-  "Our Team",
-  "Contact"
-];
+let arr = ["About Us", "Our Team", "Contact"];
 
-let routes = [
-  "about",
-  "team",
-  "contact"
-];
+let routes = ["about", "team", "contact"];
 
 export default function Nav2() {
-
   return (
     <Box display={"flex"} justifyContent={"space-between"}>
-    <NavLink
+      <NavLink
         to="/"
         style={{
           textDecoration: "none",
           fontWeight: 700,
         }}
       >
-        <Button sx={{
+        <Button
+          sx={{
             cursor: "pointer",
             "&:hover": {
               bgcolor: db,
@@ -38,10 +39,11 @@ export default function Nav2() {
             // padding: "10px",
             borderRadius: "3px",
           }}
-          fontSize={"13px"}>
+          fontSize={"13px"}
+        >
           Home
         </Button>
-          </NavLink>
+      </NavLink>
       <NavLink
         to="/newarrivals"
         style={{
@@ -49,7 +51,8 @@ export default function Nav2() {
           fontWeight: 700,
         }}
       >
-        <Button sx={{
+        <Button
+          sx={{
             cursor: "pointer",
             "&:hover": {
               bgcolor: db,
@@ -58,22 +61,38 @@ export default function Nav2() {
             // padding: "10px",
             borderRadius: "3px",
           }}
-          fontSize={"13px"}>
-        {/* <Typography */}
-          
+          fontSize={"13px"}
+        >
+          {/* <Typography */}
           New Arrivals
-        {/* </Typography> */}
+          {/* </Typography> */}
         </Button>
-          </NavLink>
+      </NavLink>
 
-          <HoverMenu name={"Industry"}  menuItems={["Home & Personal Care","E-Commerce & Retail","Infrastructure"]} />
-          
-          <HoverMenu name={"Platform"} menuItems={["Supply Chain Solution","Digital Production Planning","Artwork Management"]} />
-      
+      <HoverMenu
+        name={"Industry"}
+        menuItems={[
+          "Home & Personal Care",
+          "E-Commerce & Retail",
+          "Infrastructure",
+        ]}
+        routes={["home&care", "ecom&retail", "infrastructure"]}
+      />
+
+      <HoverMenu
+        name={"Platform"}
+        menuItems={[
+          "Supply Chain Solution",
+          "Digital Production Planning",
+          "Artwork Management",
+        ]}
+        routes={["supplyChain", "digitalPlanning", "ArtworkManagement"]}
+      />
+
       {arr.map((el, i) => {
         return (
           <NavLink
-          key={i}
+            key={i}
             to={routes[i]}
             style={{
               textDecoration: "none",
@@ -86,7 +105,7 @@ export default function Nav2() {
                 "&:hover": {
                   bgcolor: db,
                 },
-                color:"white",
+                color: "white",
                 // padding: "10px",
                 borderRadius: "3px",
               }}

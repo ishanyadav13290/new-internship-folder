@@ -1,9 +1,10 @@
 import { Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { db } from "../../Static/theme";
 
-export default function HoverMenu({name,menuItems,logos}){
+export default function HoverMenu({name,menuItems,logos,routes}){
     const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -91,7 +92,7 @@ export default function HoverMenu({name,menuItems,logos}){
               >
               <Box >
                 {menuItems.map((el,i)=>{
-                    return <MenuItem key={i} onClick={handleClose}>{logos?logos[i]:null}{el}</MenuItem>
+                    return <NavLink style={{all:"unset"}} key={i} to={routes[i]} ><MenuItem key={i} onClick={handleClose}>{logos?logos[i]:null}{el}</MenuItem></NavLink>
                 })}
               </Box>
               </MenuList>

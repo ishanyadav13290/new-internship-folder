@@ -50,3 +50,12 @@ export function LordClock(){
     >
 </lord-icon>
 }
+
+export function LordGrowth(){
+    return <lord-icon
+    src="https://cdn.lordicon.com/gqdnbnwt.json"
+    trigger="loop"
+    colors="primary:#121331,secondary:#000000"
+    style={{width:"200px",height:"200px"}}>
+</lord-icon>
+}
