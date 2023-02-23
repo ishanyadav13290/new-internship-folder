@@ -47,6 +47,7 @@ export default function SingleProductPage() {
       setIsLoading(true)
     let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems/?_page=1&_limit=16`)
     setCartData(temp.data)
+    setIsLoading(false)
     })()
 
   },[])
@@ -55,7 +56,7 @@ export default function SingleProductPage() {
     (async () => {
       setIsLoading(true);
       let temp = await axios.get(
-        `https://sedate-laced-chestnut.glitch.me/allItems/${id}`
+        `http://localhost:3001/allItems/${id}`
       );
       setIsLoading(false);
       setData(temp.data);

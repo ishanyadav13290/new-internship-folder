@@ -39,6 +39,7 @@ export default function SearchField(){
             Search()
             searchButton.current.click()
             e.target.value=""
+            // setIsInputSearch(false)
         }
     }}
     />
@@ -46,6 +47,7 @@ export default function SearchField(){
     <IconButton ref={searchButton} onClick={()=>{
         Search()
         reference.current.value=""
+        // setIsInputSearch(false)
     }} type="button" sx={{ p: '10px' }} aria-label="search">
       <SearchOutlined  />
     </IconButton>

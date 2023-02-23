@@ -42,15 +42,15 @@ export default function MediaCard({ el, broad, gap }) {
         flexDirection={"column"}
         padding={"20px"}
       >
+      <NavLink
+            to={`/newarrivals/${el._id}`}
+            style={{ color: "black", textDecoration: "none" }}
+          >
         <Box
           display={"flex"}
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <NavLink
-            to={`/newarrivals/${el.id}`}
-            style={{ color: "black", textDecoration: "none" }}
-          >
             <Box>
               <Typography
                 fontWeight={700}
@@ -72,7 +72,6 @@ export default function MediaCard({ el, broad, gap }) {
                 {el.description.slice(0, 10)}...
               </Typography>
             </Box>
-          </NavLink>
           <Box>
             <Typography fontWeight={700} variant="body1">
               {toIndianNumberingSystem(el.price)}
@@ -86,6 +85,8 @@ export default function MediaCard({ el, broad, gap }) {
             </Box>
           </Box>
         </Box>
+        </NavLink>
+        {/* add to cart button  */}
         <Box width={"100%"}>
           <Button
             variant={"contained"}
@@ -97,7 +98,7 @@ export default function MediaCard({ el, broad, gap }) {
                 name: el.name.toUpperCase(),
                 price: el.price,
                 qty: 1,
-                id: el.id,
+                id: el._id,
               };
               temp(data1);
             }}

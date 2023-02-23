@@ -23,16 +23,15 @@ import SkeletonCard from "./ProductsCards/Skeleton";
 let LoadingArray = new Array(16).fill("a");
 
 export default function Products() {
-  let { allSellerItems, setAllSellerItems, isInputSearch } =
+  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch } =
     useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
-  let { category, query } = useParams();
+  let { query } = useParams();
   let [filterCategory, setFilterCategory] = useState("all");
   let [sortPrice, setSortPrice] = useState("");
 
   // price slider
   const [priceRange, setPriceRange] = useState([1000, 100000]);
-
 
   //Pagination
   let [page, setPage] = useState(1);
@@ -70,32 +69,45 @@ export default function Products() {
 
   // filter functions
 
-  let cat = filterCategory; /* selected category for filter */
+  let category = filterCategory; /* selected category for filter */
   const handleCategory = async (event) => {
     let val = event.target.value;
-    cat = val;
+    category = val;
     setFilterCategory(val);
     let temp;
-    // console.log(event.target.value)
-    if (query !== undefined && val != "all") {
+    if (val == "all") {
       setIsLoading(true);
       temp = await axios.get(
-        `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&category=${val}&_page=1&_limit=16`
+        `http://localhost:3001/allItems?page=${page}&limit=16`
       );
-      setAllSellerItems(temp.data);
-      console.log("1");
       setIsLoading(false);
     } else {
-      temp =
-        val == "all"
-          ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
-          : await axios.get(
-              `https://sedate-laced-chestnut.glitch.me/allItems?category=${val}`
-            );
+      setIsLoading(true);
+      temp = await axios.get(
+        `http://localhost:3001/allItems/filter?category=${val}&page=${page}&limit=16`
+      );
       setIsLoading(false);
     }
-    // console.log(temp.data)
-    setAllSellerItems(temp.data);
+
+    setTotalPage(temp.data.count);
+    setAllSellerItems(temp.data.data);
+    // if (query !== undefined && val != "all") {
+    //   setIsLoading(true);
+    //   temp = await axios.get(
+    //     `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&category=${val}&_page=1&_limit=16`
+    //   );
+    //   setAllSellerItems(temp.data);
+    //   console.log("1");
+    //   setIsLoading(false);
+    // } else {
+    //   temp =
+    //     val == "all"
+    //       ? await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems`)
+    //       : await axios.get(
+    //           `https://sedate-laced-chestnut.glitch.me/allItems?category=${val}`
+    //         );
+    //   setIsLoading(false);
+    // }
   };
   // sorting function
   let sort = "";
@@ -105,96 +117,138 @@ export default function Products() {
     setSortPrice(val);
     let temp;
     // ?_sort=price&_order=desc
-    if (cat == "all") {
-      setIsLoading(true);
-      if (val == "default" && category == "newarrivals") {
+
+    if (category == "all") {
+      if (val == "default") {
         setIsLoading(true);
         temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
+          `http://localhost:3001/allItems?page=${page}&limit=16`
         );
         setIsLoading(false);
-      } else if (val != "default" && category == "newarrivals") {
-        setIsLoading(true);
-        temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/allItems?&_sort=price&_order=${val}&_page=${page}&_limit=16`
-        );
-        setIsLoading(false);
-        console.log("Ye");
       } else {
         setIsLoading(true);
         temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/${category}?&_sort=price&_order=${val}&_page=${page}&_limit=16`
+          `http://localhost:3001/allItems/sort?sort=${val}&page=${page}&limit=16`
         );
-        console.log("Ye");
         setIsLoading(false);
       }
-    }
-    if (cat != "all") {
-      setIsLoading(true);
-      temp = await axios.get(
-        `https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}$_page=${page}&_limit=16`
-      );
-      console.log(cat, val);
-      setIsLoading(false);
-    }
-    console.log(temp);
-    setAllSellerItems(temp.data);
+    } else{
+      setIsLoading(true)
+      temp = await axios.get(`http://localhost:3001/allItems/categorySort?sort=${val}&category=${category}&page=${page}&limit=16`)
+      setIsLoading(false)
+    } 
+    setAllSellerItems(temp.data.data);
+    setTotalPage(temp.data.count);
+
+    // purana
+
+    // if (category != "all") {
+    //   setIsLoading(true);
+    //   temp = await axios.get(
+    //     `https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}$_page=${page}&_limit=16`
+    //   );
+    //   console.log(cat, val);
+    //   setIsLoading(false);
+    // }
   };
 
+  // Price Range Slider
   const handlePriceChange = async (event, newValue) => {
     setPriceRange(newValue);
-
-    if(cat!="all"){
-      setIsLoading(true)
-    let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&price_gte=${newValue[0]}&price_lte=${newValue[1]}&_sort=price&_order=asc`)
-     setAllSellerItems(temp.data)
-     setIsLoading(false)
+    let temp
+    if(category=="all"){
+    setIsLoading(true);
+    temp = await axios.get(
+      `http://localhost:3001/allItems/range?min=${newValue[0]}&max=${newValue[1]}&page=${page}&limit=16`
+    );
+    setIsLoading(false);
+    
     } else {
       setIsLoading(true)
-    let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?price_gte=${newValue[0]}&price_lte=${newValue[1]}`)
-     setAllSellerItems(temp.data)
-     setIsLoading(false)
+      temp = await axios.get(`http://localhost:3001/allItems/categoryRange?category=${category}&min=${newValue[0]}&max=${newValue[1]}&page=${page}&limit=16`)
+      setIsLoading(false)
+    //   setIsLoading(true)
+    // let temp = await axios.get(``)
+    //  setAllSellerItems(temp.data)
+    //  setIsLoading(false)
     }
 
-  }
+    setTotalPage(temp.data.count);
+    setAllSellerItems(temp.data.data);
+
+    // old one
+    // if(cat!="all"){
+    //   setIsLoading(true)
+    // let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&price_gte=${newValue[0]}&price_lte=${newValue[1]}&_sort=price&_order=asc`)
+    //  setAllSellerItems(temp.data)
+    //  setIsLoading(false)
+    // } else {
+    //   setIsLoading(true)
+    // let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?price_gte=${newValue[0]}&price_lte=${newValue[1]}`)
+    //  setAllSellerItems(temp.data)
+    //  setIsLoading(false)
+    // }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [allSellerItems]);
 
+  useEffect(()=>{
+    if (isInputSearch) {
+      (async () => {
+        setIsLoading(true);
+        let temp = await axios.get(
+          `http://localhost:3001/allItems/search?query=${query}&page=${page}&limit=16`
+        );
+        setIsInputSearch(false)
+        setIsLoading(false)
+        // let temp = await axios.get(
+        //   `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&_page=${page}&_limit=16`
+        // );
+        console.log(temp.data)
+        setTotalPage(temp.data.count);
+        setAllSellerItems(temp.data.data);
+      })();
+    }
+  },[query,isInputSearch])
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
 
-    if (isInputSearch) {
+
+    prevOpen.current = open;
+    if(!isInputSearch){
       (async () => {
         setIsLoading(true);
         let temp = await axios.get(
-          `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&_page=${page}&_limit=16`
+          `http://localhost:3001/allItems?page=${page}&limit=16`
         );
-        setTotalPage(temp.headers["x-total-count"]);
-        setAllSellerItems(temp.data);
+        // await axios.get(
+        //   `http://localhost:3001/allItems?_page=${page}&_limit=16`
+        // )
+        setTotalPage(temp.data.count);
+        setAllSellerItems(temp.data.data);
+        setIsLoading(false);
       })();
     }
-
-    prevOpen.current = open;
-    (async () => {
-      setIsLoading(true);
-      let temp =
-        category == "newarrivals"
-          ? await axios.get(
-              `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
-            )
-          : await axios.get(
-              `https://sedate-laced-chestnut.glitch.me/allItems?&category=${category}&_page=${page}&_limit=16`
-            );
-      // console.log(temp.headers["x-total-count"])
-      setTotalPage(temp.headers["x-total-count"]);
-      setAllSellerItems(temp.data);
-      setIsLoading(false);
-    })();
-  }, [category, page, query]);
+    // (async () => {
+    //   setIsLoading(true);
+    //   let temp =
+    //     category == "newarrivals"
+    //       ? await axios.get(
+    //           `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
+    //         )
+    //       : await axios.get(
+    //           `https://sedate-laced-chestnut.glitch.me/allItems?&category=${category}&_page=${page}&_limit=16`
+    //         );
+    //   // console.log(temp.headers["x-total-count"])
+    //   setTotalPage(temp.headers["x-total-count"]);
+    //   setAllSellerItems(temp.data);
+    //   setIsLoading(false);
+    // })();
+  }, [page]);
 
   // return <>
   //   <Box minHeight={"100vh"} display={"flex"} padding={"20px"}>
@@ -390,8 +444,17 @@ export default function Products() {
 
   return (
     <>
-      <Box minHeight={["100vh"]} display={["block","block","flex","flex"]} padding={"20px"}>
-        <Box width={["100%","100%","20%","20%"]} position={["initial","initial","sticky","sticky"]} top={"170px"} height={["auto","auto","100vh","100vh"]}>
+      <Box
+        minHeight={["100vh"]}
+        display={["block", "block", "flex", "flex"]}
+        padding={"20px"}
+      >
+        <Box
+          width={["100%", "100%", "20%", "20%"]}
+          position={["initial", "initial", "sticky", "sticky"]}
+          top={"170px"}
+          height={["auto", "auto", "100vh", "100vh"]}
+        >
           {/* filter for small screens */}
           <Box
             width={["100%", "100%", "20%"]}
@@ -440,7 +503,7 @@ export default function Products() {
                           Filter By:
                         </Typography>
                         <MenuItem>
-                          <FormControl fullWidth sx={{color:"black"}}>
+                          <FormControl fullWidth sx={{ color: "black" }}>
                             <InputLabel id="demo-simple-select-label">
                               Category
                             </InputLabel>
@@ -493,21 +556,23 @@ export default function Products() {
                             </Select>
                           </FormControl>
                         </MenuItem>
-                        <Typography variant="body1">Select a Price Range</Typography>
-              <MenuItem>
-              <Box sx={{ width: "100%" }}>
-                <Slider
-                  value={priceRange}
-                  onChangeCommitted={handlePriceChange}
-                  valueLabelDisplay="auto"
-                  defaultValue={0}
-                  max={100000}
-                  step={10000}
-                  marks
-                  min={0}
-                />
-              </Box>
-              </MenuItem>
+                        <Typography variant="body1">
+                          Select a Price Range
+                        </Typography>
+                        <MenuItem>
+                          <Box sx={{ width: "100%" }}>
+                            <Slider
+                              value={priceRange}
+                              onChangeCommitted={handlePriceChange}
+                              valueLabelDisplay="auto"
+                              defaultValue={0}
+                              max={100000}
+                              step={10000}
+                              marks
+                              min={0}
+                            />
+                          </Box>
+                        </MenuItem>
                       </MenuList>
                       {/* </ClickAwayListener> */}
                     </Paper>
@@ -528,7 +593,7 @@ export default function Products() {
             <Box position={"sticky"} width={"auto"} display="block">
               <Typography variant="body1">Filter by Category</Typography>
               <br />
-              <FormControl sx={{color:"black"}} fullWidth >
+              <FormControl sx={{ color: "black" }} fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"

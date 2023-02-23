@@ -16,6 +16,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { AttachFile, Sell } from "@mui/icons-material";
 import { lb } from "../Static/theme";
 import AdminCards from "./AdminCards";
+import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -38,7 +39,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Admin() {
-  let { userName, userID, allSellerItems, setAllSellerItems } =
+  let {isAuth, userName, userID, allSellerItems, setAllSellerItems } =
     React.useContext(AuthContext);
   let imgInput = React.useRef(null);
   let [isLoading, setIsLoading] = React.useState(false);
@@ -129,8 +130,7 @@ export default function Admin() {
     //   obj.sellerItems[obj.sellerItems.length - 1]
     // );
   };
-
-  return (
+  return !isAuth?<Navigate to="/login" />:(
     <>
       <Box
         display={["block", "block", "flex", "flex"]}

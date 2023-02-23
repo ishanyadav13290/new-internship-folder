@@ -16,17 +16,23 @@ export default function useAddToCart() {
                 tempCartItems[i].qty = tempCartItems[i].qty + 1;
             }
             setCart(tempCartItems);
-            axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+            axios.patch(`http://localhost:3001/users/${userID}`, {
                 cart: tempCartItems
             })
+            // axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+            //     cart: tempCartItems
+            // })
             return
         }
     }
 
     setCart([...tempCartItems, newItem]);
-    axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    axios.patch(`http://localhost:3001/users/${userID}`, {
         cart: [...tempCartItems, newItem]
     })
+    // axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    //     cart: [...tempCartItems, newItem]
+    // })
    }
 
   }

@@ -76,10 +76,60 @@ app.delete("/users/:id", async (req, res) => {
 // allItems EndPoint
 
 app.get("/allItems", async (req, res) => {
-    const query = req.query;
-    const data = await allItemsModel.find(query)
-    res.send(data)
+    const {page,limit} = req.query;
+    let temp = await allItemsModel.find()
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find().skip(skip).limit(limit)
+    res.send({data,count:temp.length})
 })
+app.get("/allItems/filter", async (req, res) => {
+    const {category,page,limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({category:category}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find({category:category})
+   res.send({data,count:temp.length})
+})
+app.get("/allItems/sort", async (req, res) => {
+    const {sort,page,limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find().sort({price:sort}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find()
+   res.send({data,count:temp.length})
+})
+app.get("/allItems/range", async (req, res) => {
+    const {min,max,page,limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({price:{$gte:min, $lte:max}}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find({price:{$gte:min, $lte:max}})
+   res.send({data,count:temp.length})
+})
+
+app.get("/allItems/categorySort", async (req,res)=>{
+    const {category, sort, page, limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({category:category}).sort({price:sort}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find({category:category}).sort({price:sort})
+
+    res.send({data,count:temp.length})
+
+})
+app.get("/allItems/categoryRange", async (req,res)=>{
+    const {category, min,max, page, limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({category:category,price:{$gte:min, $lte:max}}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find({category:category,price:{$gte:min, $lte:max}})
+
+    res.send({data,count:temp.length})
+})
+app.get("/allItems/search", async (req,res)=>{
+    const {query, page, limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({ name: { $regex: query, $options: "i" } })
+    let temp = await allItemsModel.find({ name: { $regex: query, $options: "i" } })
+
+    res.send({data,count:temp.length})
+})
+
 app.get("/allItems/:id", async (req, res) => {
     const id = req.params.id;
     const data = await allItemsModel.findById(id);

@@ -22,17 +22,23 @@ export default function Cards({ data, index }) {
     temp[index].qty = event.target.value;
     setCart(temp);
     setQty(event.target.value);
-    axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    axios.patch(`http://localhost:3001/users/${userID}`, {
       cart: temp,
     });
+    // axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    //   cart: temp,
+    // });
   };
   function removeItem() {
     let tempCart = [...cart];
     tempCart.splice(index, 1);
     setCart(tempCart);
-    axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    axios.patch(`http://localhost:3001/users/${userID}`, {
       cart: tempCart,
     });
+    // axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
+    //   cart: tempCart,
+    // });
   }
   useEffect(() => {}, [cart]);
 
@@ -70,7 +76,7 @@ export default function Cards({ data, index }) {
             value={data.qty}
             onChange={handleChange}
             autoWidth
-            label="Age"
+            label="Quantity"
           >
             <MenuItem value={1}>
               <em>1</em>
