@@ -1,0 +1,108 @@
+
+.main{
+    min-height: 100vh;
+    background-image: url("../../Static/Imgs/wavy.webp");
+}
+
+.content{
+    border: 1px solid white;
+    padding:0 10px;
+}
+
+.companyName{
+    display: flex;
+    justify-content: center;
+}
+.gofra{
+    font-size: 100px;
+    font-weight: 900;
+    margin: 20px 0 20px 0;
+    color: rgb(234, 123, 234);
+}
+
+.explore{
+    margin: 0;
+    text-align: left;
+    font-size:80px;
+    font-weight: 800;
+    color: white;
+}
+
+.normal{
+    font-size: 65px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+}
+
+.funky{
+    font-size: 70px;
+    font-weight: 800;
+    color:#F5EDCE;
+    padding-left: 20px;
+}
+
+/* ***************************** */
+
+.button {
+    height: 100px;
+    color: white;
+    width: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 1.5rem sans-serif;
+    cursor: pointer;
+    will-change: transform;
+  }
+  
+  .button::before,
+  .button::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    background-color: white;
+    transition: all 250ms ease-in-out;
+  }
+  
+  .button::before {
+    width: 2px;
+    height: 100px;
+    box-shadow: 298px 0 white;
+  }
+  
+  .button::after {
+    height: 2px;
+    width: 300px;
+    box-shadow: 0 98px white;
+  }
+  
+  .button:hover::before {
+    left: -10px;
+    box-shadow: 318px 0 white;
+  }
+  
+  .button:hover::after {
+    top: -10px;
+    box-shadow: 0 118px white;
+  }
+
+/* *************************************** */
+.gofra {
+    border: 8px solid;
+    border-image: repeating-linear-gradient(135deg,#5b00b7 0 10px,#32007e 0 20px,#9301c7 0 30px) 8;
+    -webkit-mask: 
+      conic-gradient(from 180deg at top 8px right 8px, #0000 90deg,#000 0)
+       var(--_i,200%) 0  /200% var(--_i,8px) border-box no-repeat,
+      conic-gradient(at bottom 8px left  8px,  #0000 90deg,#000 0)
+       0   var(--_i,200%)/var(--_i,8px) 200% border-box no-repeat,
+      linear-gradient(#000 0 0) padding-box no-repeat;
+    transition: .3s, -webkit-mask-position .3s .3s;
+  }
+  .gofra:hover {
+    --_i: 100%;
+    color: #ffff;
+    transition: .3s, -webkit-mask-size .3s .3s;
+  }

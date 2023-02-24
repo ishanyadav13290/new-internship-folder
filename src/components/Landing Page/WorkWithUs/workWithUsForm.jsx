@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Handshake } from "@mui/icons-material";
-import { lb } from "../../Static/theme";
+import { db, lb } from "../../Static/theme";
 
 export default function WorkWithUsForm() {
   const handleSubmit = (event) => {
@@ -26,7 +26,7 @@ export default function WorkWithUsForm() {
   };
 
   return (
-    <Container component="main" bgcolor={"white"} color={"black"} maxWidth="xs">
+    <Container component="main" color={"white"} maxWidth="xs">
       <CssBaseline />
       <Box
         sx={{
@@ -38,7 +38,7 @@ export default function WorkWithUsForm() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ bgcolor: lb }}>
+        <Avatar sx={{ bgcolor: db }}>
           <Handshake />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -97,7 +97,7 @@ export default function WorkWithUsForm() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2,bgcolor:db }}
           >
             Submit
           </Button>

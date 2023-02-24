@@ -4,12 +4,13 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 import { Call, Email, Facebook, Instagram, LinkedIn, Sell, Twitter } from "@mui/icons-material";
-import { lb } from "../Static/theme";
+import { lb, db, light } from "../Static/theme";
 
 export default function Footer(){
   let {isSeller} = useContext(AuthContext)
     let style={
-        backgroundColor:lb,
+      background: "rgb(37,9,121)",
+      background: "linear-gradient(90deg, rgba(37,9,121,1) 0%, rgba(51,22,105,1) 32%, rgba(56,33,91,1) 59%, rgba(86,9,121,1) 93%)",backgroundColor:db,
         width:"100%",
         color:"white",
         fontWeight:700,
@@ -17,7 +18,7 @@ export default function Footer(){
     }
     return <>
     <Box sx={style} height={"auto"} padding={"50px 0"}>
-    <Box width={"90%"} m={"auto"} sx={{display:"grid", gridTemplateColumns:["repeat(1,1fr)","repeat(2,1fr)","repeat(3,1r)","repeat(4,1fr)"], gap:"20px"}}>
+    <Box width={"90%"} m={"auto"} textAlign={"left"} sx={{display:"grid", gridTemplateColumns:["repeat(1,1fr)","repeat(2,1fr)","repeat(3,1r)","repeat(4,1fr)"], gap:"20px"}}>
     <Box borderRight={"1px solid white"} p={"0 10px"}>
       <Typography variant="h6" fontWeight={700}>COMPANY</Typography>
       <Divider sx={{bgcolor:"white"}} />
@@ -43,17 +44,23 @@ export default function Footer(){
       <Typography variant="h6" fontWeight={700}>GET IN TOUCH</Typography>
       <Divider sx={{bgcolor:"white"}} />
       <br />
-      <Typography variant="body1" style={{display:"flex",alignItems:"center", justifyContent:"center"}}><Call/>+91 1234 567 890</Typography>
-      <NavLink to="mailto:support@gofra.com" style={{textDecoration:"none", color:"white", fontSize:"16px",display:"flex",alignItems:"center", justifyContent:"center"}}><Email />support@gofra.com</NavLink>
+      <Typography variant="body1" style={{display:"flex",alignItems:"center"}}><Call/>+91 1234 567 890</Typography>
+      <NavLink to="mailto:support@gofra.com" style={{textDecoration:"none", color:"white", fontSize:"16px",display:"flex",alignItems:"center"}}><Email />support@gofra.com</NavLink>
     </Box>
     <Box borderRight={"1px solid white"} p={"0 10px"}>
       <Typography variant="h6" fontWeight={700}>FOLLOW US</Typography>
       <Divider sx={{bgcolor:"white"}} />
       <br />
+      <Box display={"flex"} justifyContent={"space-between"}>
+      {/* <br /> */}
       <LinkedIn />
+      {/* <br /> */}
       <Instagram />
+      {/* <br /> */}
       <Facebook />
+      {/* <br /> */}
       <Twitter />
+      </Box>
     </Box>
     
     </Box>
@@ -67,7 +74,7 @@ export default function Footer(){
             position="fixed"
             bottom={5}
             right={10}
-            bgcolor="white"
+            bgcolor={light}
             alignItems={"center"}
             justifyContent={"center"}
             zIndex={1}
@@ -76,17 +83,17 @@ export default function Footer(){
                 }}}
             p="5px 10px"
             borderRadius="50%"
-            border="2px solid rgb(72, 98, 208)"
+            border={`2px solid #1f003c`}
             fontWeight={700}
           >
-            <ArrowUpwardIcon  style={{color:lb}} />
+            <ArrowUpwardIcon  style={{color:db}} />
           </Box>
         </a>
         {isSeller?<NavLink to="/admin" >
         <Box  position="fixed"
             bottom={20}
             left={10}
-            bgcolor={"white"}
+            bgcolor={light}
             color={"black"}
             display={"flex"}
             alignItems={"center"}
@@ -97,10 +104,10 @@ export default function Footer(){
                   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
                 }}}
             borderRadius="50%"
-            border="2px solid rgb(72, 98, 208)"
+            border="2px solid #1f003c"
             fontWeight={700}
             fontSize="xl">
-            <Sell sx={{color:lb}} />
+            <Sell sx={{color:db}} />
         </Box>
         </NavLink>:null}  
     </>

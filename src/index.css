@@ -21,17 +21,17 @@ code {
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background-color: rgb(72, 98, 208);
+  background-color: #58287F;
 }
 
 /* background of the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(30, 54, 152);
+  background-color: #360086;
 }
 
 /* color of the scrollbar arrows */
 ::-webkit-scrollbar-button {
-  background-color: rgb(30, 54, 152);
+  background-color: #360086;
 }
 
 /* color on hover for scrollbar thumb */

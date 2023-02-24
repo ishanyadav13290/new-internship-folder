@@ -18,7 +18,8 @@ const allItemsSchema = mongoose.Schema({
     address:String,
     price:Number,
     Img:String,
-    category:String
+    category:String,
+    brand:String
 })
 
 const newUsersModel = mongoose.model("user", newUsersSchema)

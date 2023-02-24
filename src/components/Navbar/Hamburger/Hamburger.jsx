@@ -10,6 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
+  Home,
   Login,
   Logout,
   Share,
@@ -75,26 +76,39 @@ export default function Hamburger() {
           bgcolor={lb}
         >{`Welcome ${userName}`}</Box>
 
-        {isAuth ? (
-          <>
-            {routeNames.map((el, i) => {
-              return (
-                <NavLink
-                  key={i}
-                  to={`/${el}`}
+<Typography ml="8%" fontWeight={700}>
+              Shop Now
+            </Typography>
+            <Divider />
+            <NavLink
+                  to={`/home&care`}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
-                        <ShoppingBag sx={{ color: lb }} />
+                        <Home sx={{ color: lb }} />
                       </ListItemIcon>
-                      <ListItemText>{cardNames[i]}</ListItemText>
+                      <ListItemText>Home & Care</ListItemText>
                     </ListItemButton>
                   </ListItem>
                 </NavLink>
-              );
-            })}
+            <NavLink
+              to="/newarrivals"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ShoppingBag sx={{ color: lb }} />
+                  </ListItemIcon>
+                  <ListItemText>New Arrivals</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            <Divider />
+        {isAuth ? (
+          <>
             <NavLink
               to="/cart"
               style={{ textDecoration: "none", color: "black" }}
@@ -145,23 +159,6 @@ export default function Hamburger() {
           </>
         ) : (
           <>
-            <Typography ml="8%" fontWeight={700}>
-              Shop Now
-            </Typography>
-            <Divider />
-            <NavLink
-              to="/newarrivals"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ShoppingBag sx={{ color: lb }} />
-                  </ListItemIcon>
-                  <ListItemText>New Arrivals</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </NavLink>
             <Divider />
             <Typography ml="8%" fontWeight={700}>
               Account

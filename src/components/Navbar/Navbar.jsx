@@ -6,6 +6,7 @@ import Hamburger from "./Hamburger/Hamburger";
 import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";
 import SearchField from "./SearchField";
+import Logo from "../Static/Imgs/GofraLogo.png"
 
 export let styles = {
   display: "flex",
@@ -29,10 +30,8 @@ export default function Navbar() {
         <Box display={"flex"} alignItems={"center"}  >
         <Hamburger  />
         <NavLink to={"/"} style={{color:"white",textDecoration:"none"}}>
-          <Box  display={"flex"} height={"100%"} alignItems={"center"}>
-          <Typography fontWeight={700} variant="h4">
-            Gofra
-          </Typography>
+          <Box  display={"flex"} height={"100%"} sx={{objectFit:"contain"}} alignItems={"center"}>
+          <img src={Logo} style={{width:"50px"}} alt="logo" />
           </Box>
         </NavLink>
         <Nav1 />

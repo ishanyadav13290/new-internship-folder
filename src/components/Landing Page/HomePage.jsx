@@ -10,10 +10,13 @@ import WorkForUs from "./WorkWithUs/workWithUs";
 import CustomerStories from "./Customer Stories/CustomerStories";
 import WaveSection from "./WaveSection/WaveSection";
 import Reasons from "./ReasonsForGofra/Reasons";
+import Intro from "./Intro/intro";
 
 export default function HomePage() {
   let { isAuth, userName } = useContext(AuthContext);
   return (
+    <>
+      <Intro />
     <Box m={"2% 0"} height={"100%"}>
       <Typography variant={"h5"} fontWeight={600}>
         {isAuth ? `Welcome ${userName}` : null}
@@ -79,7 +82,7 @@ export default function HomePage() {
           <CustomerStories
             items={[
               {
-                name: "Amit Chakraborty",
+                name: "Raghbir Singh",
                 work: "Software Engineer",
                 img: "",
                 review:
@@ -104,38 +107,10 @@ export default function HomePage() {
             ]}
           />
         </Box>
-
-        <Box display={["none", "none", "block", "block"]}>
-          <CustomerStories
-            items={[
-              {
-                name: "Raghbir Singh",
-                work: "Software Engineer",
-                img: "https://image.cnbcfm.com/api/v1/image/104819285-thor.jpg?v=1529476684&w=929&h=523&vtcrop=y",
-                review:
-                  "Awesome Service. lorem loremloremloremlorem lorem lorem lorem lorem loremv v  lorem loremloremloremlorem lorem lorem lorem lorem loremv v  lorem loremloremloremlorem lorem lorem lorem lorem loremv v",
-                rating: "5 Stars",
-              },
-              {
-                name: "Ishan Yadav",
-                work: "Software Engineer",
-                review:
-                  "Best Quality.  lorem loremloremloremlorem lorem lorem lorem lorem loremv v  lorem loremloremloremlorem lorem lorem lorem lorem loremv v  lorem loremloremloremlorem lorem lorem lorem lorem loremv v",
-                rating: "5 Stars",
-              },
-              {
-                name: "Aayush Rathore",
-                work: "Engineer",
-                review:
-                  "Will Refer it to others.  lorem loremloremloremlorem lorem lorem lorem lorem loremv v  lorem loremloremloremlorem lorem lorem lorem lorem loremv v  lorem loremloremloremlorem lorem lorem lorem lorem loremv v",
-                rating: "5 Stars",
-              },
-            ]}
-          />
-        </Box>
       </Box>
       <br />
       <br />
     </Box>
+    </>
   );
 }

@@ -23,11 +23,11 @@ import SkeletonCard from "./ProductsCards/Skeleton";
 let LoadingArray = new Array(16).fill("a");
 
 export default function Products() {
-  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch } =
+  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch, filterCategory, setFilterCategory } =
     useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
   let { query } = useParams();
-  let [filterCategory, setFilterCategory] = useState("all");
+  
   let [sortPrice, setSortPrice] = useState("");
 
   // price slider
@@ -68,29 +68,11 @@ export default function Products() {
   // *********************************************************
 
   // filter functions
-
   let category = filterCategory; /* selected category for filter */
   const handleCategory = async (event) => {
     let val = event.target.value;
     category = val;
     setFilterCategory(val);
-    let temp;
-    if (val == "all") {
-      setIsLoading(true);
-      temp = await axios.get(
-        `http://localhost:3001/allItems?page=${page}&limit=16`
-      );
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
-      temp = await axios.get(
-        `http://localhost:3001/allItems/filter?category=${val}&page=${page}&limit=16`
-      );
-      setIsLoading(false);
-    }
-
-    setTotalPage(temp.data.count);
-    setAllSellerItems(temp.data.data);
     // if (query !== undefined && val != "all") {
     //   setIsLoading(true);
     //   temp = await axios.get(
@@ -190,6 +172,27 @@ export default function Products() {
     // }
   };
 
+  useEffect(()=>{
+    (async()=>{
+      let temp;
+    if (filterCategory == "all") {
+      setIsLoading(true);
+      temp = await axios.get(
+        `http://localhost:3001/allItems?page=${page}&limit=16`
+      );
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+      temp = await axios.get(
+        `http://localhost:3001/allItems/filter?category=${filterCategory}&page=${page}&limit=16`
+      );
+      setIsLoading(false);
+    }
+
+    setTotalPage(temp.data.count);
+    setAllSellerItems(temp.data.data);
+    })()
+  },[filterCategory,page])
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [allSellerItems]);
@@ -211,43 +214,26 @@ export default function Products() {
         setAllSellerItems(temp.data.data);
       })();
     }
-  },[query,isInputSearch])
+  },[query,isInputSearch,page])
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
-
     prevOpen.current = open;
-    if(!isInputSearch){
-      (async () => {
-        setIsLoading(true);
-        let temp = await axios.get(
-          `http://localhost:3001/allItems?page=${page}&limit=16`
-        );
-        // await axios.get(
-        //   `http://localhost:3001/allItems?_page=${page}&_limit=16`
-        // )
-        setTotalPage(temp.data.count);
-        setAllSellerItems(temp.data.data);
-        setIsLoading(false);
-      })();
-    }
-    // (async () => {
-    //   setIsLoading(true);
-    //   let temp =
-    //     category == "newarrivals"
-    //       ? await axios.get(
-    //           `https://sedate-laced-chestnut.glitch.me/allItems?_page=${page}&_limit=16`
-    //         )
-    //       : await axios.get(
-    //           `https://sedate-laced-chestnut.glitch.me/allItems?&category=${category}&_page=${page}&_limit=16`
-    //         );
-    //   // console.log(temp.headers["x-total-count"])
-    //   setTotalPage(temp.headers["x-total-count"]);
-    //   setAllSellerItems(temp.data);
-    //   setIsLoading(false);
-    // })();
+    // if(!isInputSearch){
+    //   (async () => {
+    //     setIsLoading(true);
+    //     let temp = await axios.get(
+    //       `http://localhost:3001/allItems?page=${page}&limit=16`
+    //     );
+    //     // await axios.get(
+    //     //   `http://localhost:3001/allItems?_page=${page}&_limit=16`
+    //     // )
+    //     setTotalPage(temp.data.count);
+    //     setAllSellerItems(temp.data.data);
+    //     setIsLoading(false);
+    //   })();
+    // }
   }, [page]);
 
   // return <>

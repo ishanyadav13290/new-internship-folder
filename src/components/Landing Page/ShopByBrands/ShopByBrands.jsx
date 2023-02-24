@@ -26,13 +26,12 @@ export default function ShopByBrands(){
     </Typography>
   </Box>
   <Box
-    display={"flex"}
+    display={"grid"}
+    gridTemplateColumns={["repeat(3,1fr)","repeat(6,1fr)"]}
     gap="20px"
     padding={"20px 0"}
     width={"80%"}
-    justifyContent={"flex-start"}
     m={"auto"}
-    flexWrap={"wrap"}
   >
     {BrandImgs.map((el, i) => {
       return <Cards key={i} image={el} fit={"contain"} />;

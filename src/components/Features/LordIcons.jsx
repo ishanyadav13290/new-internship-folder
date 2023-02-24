@@ -59,3 +59,11 @@ export function LordGrowth(){
     style={{width:"200px",height:"200px"}}>
 </lord-icon>
 }
+export function LordAccount(){
+   return <lord-icon
+   src="https://cdn.lordicon.com/hbvyhtse.json"
+   trigger="hover"
+   colors="primary:#ffffff"
+   style={{width:"25px",height:"25px"}}>
+</lord-icon>
+}

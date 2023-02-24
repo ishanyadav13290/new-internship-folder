@@ -10,8 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../Context/Contexts";
 import { db } from "../Static/theme";
 import HoverMenu from "./Nav2Menu/HoverMenu";
 
@@ -20,6 +21,7 @@ let arr = ["About Us", "Our Team", "Contact"];
 let routes = ["about", "team", "contact"];
 
 export default function Nav2() {
+  let {setFilterCategory} = useContext(AuthContext)
   return (
     <Box display={"flex"} justifyContent={"space-between"}>
       <NavLink
@@ -62,10 +64,11 @@ export default function Nav2() {
             borderRadius: "3px",
           }}
           fontSize={"13px"}
+          onClick={()=>{
+            setFilterCategory("all")
+          }}
         >
-          {/* <Typography */}
           New Arrivals
-          {/* </Typography> */}
         </Button>
       </NavLink>
 

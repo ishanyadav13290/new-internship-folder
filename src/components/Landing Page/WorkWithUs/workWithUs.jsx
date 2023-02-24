@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { lb } from "../../Static/theme";
 import WorkWithUsForm from "./workWithUsForm";
+import s from "./workWithUs.module.css"
 
 export default function WorkForUs() {
   return (
@@ -10,6 +11,7 @@ export default function WorkForUs() {
     height={["auto","600px"]}
     borderRadius={"20px"}
     padding={"20px"}
+    className={s.container}
       display={["block","block","flex","flex"]}
       justifyContent={"space-between"}
       bgcolor={lb}
@@ -17,12 +19,8 @@ export default function WorkForUs() {
       width={["90%","70%"]}
       m={"auto"}
     >
-      <Box m={"auto"} textAlign={"left"} width={["100%","40%"]}>
-        <Typography variant="h4" sx={{"&:hover": {
-            textDecoration:"underline",
-            fontSize:"40px",
-            transition:"1s ease-in-out"
-          }}}>Work With Us For...</Typography>
+      <Box m={"auto"}  textAlign={"left"} width={["100%","40%"]}>
+        <Typography className={s.hoverTitle} variant="h4" >Work With Us For...</Typography>
         <br />
         <Box>
           <Box display={"flex"} alignItems={"center"}>

@@ -7,6 +7,7 @@ import Checkout from "../Checkout/Checkout";
 import About from "../Gofra/About/about";
 import Contact from "../Gofra/Contact/contact";
 import HomeCare from "../Gofra/Others/Home&PersonalCare/home&care";
+import Team from "../Gofra/Team/Team";
 import HomePage from "../Landing Page/HomePage";
 import Products from "../Products Page/products";
 import SingleProductPage from "../Products Page/SingleProductPage";
@@ -22,7 +23,7 @@ export default function AllRoutes(){
     <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
     <Route path="/about" element=<About /> />
-    <Route path="/team" element=<h1>Team</h1> />
+    <Route path="/team" element=<Team /> />
     <Route path="/contact" element=<Contact /> />
     <Route path="/home&care" element=<HomeCare /> />
     <Route path="/account" element=<Settings /> />

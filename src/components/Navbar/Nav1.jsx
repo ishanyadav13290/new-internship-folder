@@ -7,13 +7,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 import BasicMenu from "./Hover_Menu/Menu";
-import { LordCart } from "../Features/LordIcons";
+import { LordAccount, LordCart } from "../Features/LordIcons";
 
 let styles2 = {
   display: "block",
   textDecoration: "none",
   color: "white",
-  fontSize:"15px"
+  fontSize:"15px",
+  padding:"0 5px"
 };
 
 export default function Nav1() {
@@ -50,7 +51,8 @@ export default function Nav1() {
         </Box>
         <Box >
           {!isAuth?<NavLink style={styles2} to={"/login"}> 
-          <PersonIcon sx={{color:"white"}} />
+          {/* <PersonIcon sx={{color:"white"}} /> */}
+          <LordAccount />
            </NavLink>:null}
           <Box display={["block", "none", "block", "block"]} fontSize={"15px"}>
             

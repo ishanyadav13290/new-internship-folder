@@ -13,6 +13,7 @@ import Logout from "@mui/icons-material/Logout";
 import { AuthContext } from "../../Context/Contexts";
 import { Person, Wallet } from "@mui/icons-material";
 import { Link, NavLink } from "react-router-dom";
+import { LordAccount } from "../../Features/LordIcons";
 
 let exportedMenu;
 
@@ -46,9 +47,10 @@ export default function BasictMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: ["block"], alignItems: "center", textAlign: "center" }}>
-      <Person onClick={handleClick} sx={{color:"white"}} />
+      {/* <Person onClick={handleClick} sx={{color:"white", pt:"1px"}} /> */}
+      <LordAccount onClick={handleClick} />
         <Typography
-          fontSize={"14px"}
+          fontSize={"15px"}
           onClick={handleClick}
           display={["none","block","block"]}
           aria-controls={open ? "account-menu" : undefined}

@@ -1,3 +1,7 @@
-export let lb="rgb(72, 98, 208)"
+export let lb="#360086"
 
-export let db="rgb(30, 54, 152)"
+export let db="#58287F"
+
+export let light = "#F5EDCE"
+
+export let skyBlue = "#89C4E1"

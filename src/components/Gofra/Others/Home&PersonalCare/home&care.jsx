@@ -21,8 +21,8 @@ export default function HomeCare() {
         }}
       >
       <motion.div
-      initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+      initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.8 }}
       >
@@ -39,25 +39,25 @@ export default function HomeCare() {
           <Typography variant="h4" fontWeight={700}>
               Wish To Have Complete Visibility On Your Supply Chain?
             </Typography>
-          <Box display={"flex"} justifyContent={"space-between"}>
+          <Box display={["block","block","flex","flex"]} justifyContent={"space-between"}>
             <Box>                
             <br />
             <LordGrowth />
             <br />
-            <Button variant="contained" sx={{m:"auto", display:"flex"}}>
-              <NavLink style={{ all: "unset" }} to={"/"}>
+            <Button variant="contained" sx={{m:"auto", display:["block","flex"]}}>
+              <a style={{ all: "unset" }} href={"#contactus"}>
                 Contact Us!
-              </NavLink>
+              </a>
             </Button>
             </Box>
             <Box m={"auto"}>
             <Typography textAlign={"center"} fontWeight={700} variant={"body1"}>
               Companies We Work With!
             </Typography>
-            <Box display={"flex"} justifyContent={"space-evenly"} flexWrap={"wrap"}>
+            <Box display={"grid"} gridTemplateColumns={"repeat(2,1fr)"}>
             {BrandImgs.map((el,i)=>{
-                if (i>=6) return null
-                return <img style={{width:"150px"}} src={el} key={i} alt={"i"} />
+                if (i>=4) return null
+                return <img style={{width:["150px"]}} src={el} key={i} alt={"i"} />
             })}
             </Box>
           </Box>
@@ -67,7 +67,7 @@ export default function HomeCare() {
         </motion.div>
       </Box>
       <br />
-      <WorkForUs />
+      <WorkForUs id={"contactus"} />
     </Box>
   );
 }

@@ -15,7 +15,8 @@
   .wave {
     z-index: 0;
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
-    filter: brightness(0) saturate(100%) invert(37%) sepia(13%) saturate(5668%) hue-rotate(205deg) brightness(93%) contrast(89%);
+    filter: brightness(0) saturate(100%) invert(18%) sepia(65%) saturate(2000%) hue-rotate(254deg) brightness(87%) contrast(94%);
+        /* filter: brightness(0) saturate(100%) invert(2%) sepia(95%) saturate(6914%) hue-rotate(271deg) brightness(96%) contrast(105%); */
     position: absolute;
     top: -198px;
     width: 6400px;

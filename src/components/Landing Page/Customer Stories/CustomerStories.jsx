@@ -19,7 +19,7 @@ import { Star } from "@mui/icons-material";
 export default function CustomerStories({items}) {
   return (
     <AnimateSharedLayout>
-      <motion.ul className={s.uls} layout initial={{ borderRadius: 25 }}>
+      <motion.ul className={s.uls} style={{width:"400px"}} layout initial={{ borderRadius: 25 }}>
         {items.map((item, i) => (
           <Item key={i} data={item} />
         ))}
@@ -38,9 +38,10 @@ function Item({ data }) {
       <div style={{ display: "flex", justifyContent:"center", alignItems:"center" }}>
         <motion.div className={s.avatar} layout style={{objectFit:"contain"}}>
           {/* <Avatar sx={{bgcolor:"white",color:"rgb(72, 98, 208)"}} /> */}
-          {data.img?<img src={data.img} alt="avatar" style={{objectFit:"contain", width:"100%",height:"100%"}} />:<Avatar sx={{bgcolor:"white",color:"rgb(72, 98, 208)"}} />}
+          {data.img?<img src={data.img} alt="avatar" style={{objectFit:"cover", width:"100%",height:"100%"}} />:<Avatar sx={{bgcolor:"white",color:"rgb(72, 98, 208)"}} />}
           {/* <img src={data.img} alt="avatar" style={{objectFit:"contain", width:"100%",height:"100%"}} /> */}
         </motion.div>
+          <Typography display={isOpen?"none":"initial"} color={"white"} m={"auto"} textAlign={"left"} variant="body1" fontWeight={700}>{data.name}</Typography>
       </div>
       <AnimatePresence>{isOpen && <Content data={data} />}</AnimatePresence>
     </motion.li>
