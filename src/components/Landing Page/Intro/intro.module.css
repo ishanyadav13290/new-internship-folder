@@ -6,7 +6,7 @@
 
 .content{
     border: 1px solid white;
-    padding:0 10px;
+    padding:10px 30px;
 }
 
 .companyName{
@@ -17,7 +17,12 @@
     font-size: 100px;
     font-weight: 900;
     margin: 20px 0 20px 0;
-    color: rgb(234, 123, 234);
+    color: #d44afb;
+    padding:0px 20px;
+    text-shadow: -3px 3px 0 #fff,
+                          3px 3px 0 #fff,
+                         3px -3px 0 #fff,
+                        -3px -3px 0 #fff;
 }
 
 .explore{
@@ -25,13 +30,13 @@
     text-align: left;
     font-size:80px;
     font-weight: 800;
-    color: white;
+    color: #fdd31a;
 }
 
 .normal{
     font-size: 65px;
     font-weight: 700;
-    color: rgb(0, 0, 0);
+    color: #fdd31a;
 }
 
 .funky{
@@ -101,8 +106,9 @@
       linear-gradient(#000 0 0) padding-box no-repeat;
     transition: .3s, -webkit-mask-position .3s .3s;
   }
-  .gofra:hover {
+  .content:hover .gofra {
     --_i: 100%;
     color: #ffff;
+    text-shadow: none;
     transition: .3s, -webkit-mask-size .3s .3s;
   }

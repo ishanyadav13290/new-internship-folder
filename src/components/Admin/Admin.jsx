@@ -39,7 +39,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Admin() {
-  let {isAuth, userName, userID, allSellerItems, setAllSellerItems } =
+  let { isAuth, userName, userID, allSellerItems, setAllSellerItems } =
     React.useContext(AuthContext);
   let imgInput = React.useRef(null);
   let [isLoading, setIsLoading] = React.useState(false);
@@ -48,27 +48,27 @@ export default function Admin() {
   );
   // temporarily storing seller items to show in the panel
   let [tempSellerItems, setTempSellerITems] = React.useState([]);
-  
+
   React.useEffect(() => {
     (async () => {
       setIsLoading(true);
       let temp = await axios.get(
         `http://localhost:3001/users/${userID}`
         // `https://sedate-laced-chestnut.glitch.me/users/${userID}`
-        );
-        setTempSellerITems(temp.data.sellerItems);
-        setAllSellerItems(temp.data.sellerItems);
-        setIsLoading(false);
-      })();
-    }, []);
-    
-    // Category funtion
-    const [category, setCategory] = React.useState("");
-    
-    const handleChange = (event) => {
-      setCategory(event.target.value);
-    };
-    let [brand, setBrand] = React.useState([]);
+      );
+      setTempSellerITems(temp.data.sellerItems);
+      setAllSellerItems(temp.data.sellerItems);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  // Category funtion
+  const [category, setCategory] = React.useState("");
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+  let [brand, setBrand] = React.useState([]);
   const handleBrandChange = (event) => {
     setBrand(event.target.value);
   };
@@ -97,11 +97,11 @@ export default function Admin() {
     let obj = {
       sellerItems: [
         ...tempSellerItems,
-        { name, description, address, price, Img, category,brand },
+        { name, description, address, price, Img, category, brand },
       ],
     };
-    event.currentTarget.reset()
-    setCategory("default")
+    event.currentTarget.reset();
+    setCategory("default");
 
     setTempSellerITems(obj.sellerItems);
     setAllSellerItems(obj.sellerItems);
@@ -114,27 +114,26 @@ export default function Admin() {
     //   obj
     // );
 
-   await axios.post(
+    await axios.post(
       "http://localhost:3001/allItems",
       obj.sellerItems[obj.sellerItems.length - 1]
     );
 
-    let temp = await axios.get(`http://localhost:3001/allItems`)
+    let temp = await axios.get(`http://localhost:3001/allItems`);
 
-    let tempData = temp.data
-    tempData = tempData[tempData.length-1]
-    obj.sellerItems[obj.sellerItems.length-1]._id = tempData._id
-// console.log(obj)
-    await axios.patch(
-      `http://localhost:3001/users/${userID}`,obj);
-    
+    let tempData = temp.data.data;
+    tempData = tempData[tempData.length - 1];
+    obj.sellerItems[obj.sellerItems.length - 1]["_id"] = tempData["_id"];
+    await axios.patch(`http://localhost:3001/users/${userID}`, obj);
 
     // axios.post(
     //   "https://sedate-laced-chestnut.glitch.me/allItems",
     //   obj.sellerItems[obj.sellerItems.length - 1]
     // );
   };
-  return !isAuth?<Navigate to="/login" />:(
+  return !isAuth ? (
+    <Navigate to="/login" />
+  ) : (
     <>
       <Box
         display={["block", "block", "flex", "flex"]}
@@ -284,27 +283,19 @@ export default function Admin() {
                             label="Category"
                             onChange={handleBrandChange}
                           >
-                            <MenuItem value={"default"}>
-                              Select Brand
-                            </MenuItem>
-                            <MenuItem value={"kohler"}>
-                              Kohler
-                            </MenuItem>
+                            <MenuItem value={"default"}>Select Brand</MenuItem>
+                            <MenuItem value={"kohler"}>Kohler</MenuItem>
                             <MenuItem value={"kajaria"}>Kajaria</MenuItem>
                             <MenuItem value={"hettich"}>Hettich</MenuItem>
-                            <MenuItem value={"centuryply"}>Century Ply</MenuItem>
-                            <MenuItem value={"philips"}>
-                              Philips
+                            <MenuItem value={"centuryply"}>
+                              Century Ply
                             </MenuItem>
+                            <MenuItem value={"philips"}>Philips</MenuItem>
                             <MenuItem value={"ipsa"}>IPSA</MenuItem>
                             <MenuItem value={"somany"}>Somany</MenuItem>
                             <MenuItem value={"havells"}>Havells</MenuItem>
-                            <MenuItem value={"bhutan"}>
-                              Bhutan
-                            </MenuItem>
-                            <MenuItem value={"other"}>
-                              Others...
-                            </MenuItem>
+                            <MenuItem value={"bhutan"}>Bhutan</MenuItem>
+                            <MenuItem value={"other"}>Others...</MenuItem>
                           </Select>
                         </FormControl>
                       </Box>
@@ -325,7 +316,14 @@ export default function Admin() {
                     fullWidth
                     // onClick={}
                     variant="contained"
-                    sx={{ mt: 3, mb: 2, bgcolor:lb }}
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      bgcolor: lb,
+                      "&:hover": {
+                        bgcolor: db,
+                      },
+                    }}
                   >
                     List It
                   </Button>

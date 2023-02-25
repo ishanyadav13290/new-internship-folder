@@ -1,9 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { styles } from "./Navbar";
 import SearchField from "./SearchField";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PersonIcon from "@mui/icons-material/Person";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 import BasicMenu from "./Hover_Menu/Menu";

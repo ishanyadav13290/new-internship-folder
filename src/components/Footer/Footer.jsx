@@ -44,14 +44,14 @@ export default function Footer(){
       <Typography variant="h6" fontWeight={700}>GET IN TOUCH</Typography>
       <Divider sx={{bgcolor:"white"}} />
       <br />
-      <Typography variant="body1" style={{display:"flex",alignItems:"center"}}><Call/>+91 1234 567 890</Typography>
+      <Typography variant="body1" mb={"10px"} style={{display:"flex",alignItems:"center"}}><Call/>+91 1234 567 890</Typography>
       <NavLink to="mailto:support@gofra.com" style={{textDecoration:"none", color:"white", fontSize:"16px",display:"flex",alignItems:"center"}}><Email />support@gofra.com</NavLink>
     </Box>
     <Box borderRight={"1px solid white"} p={"0 10px"}>
       <Typography variant="h6" fontWeight={700}>FOLLOW US</Typography>
       <Divider sx={{bgcolor:"white"}} />
       <br />
-      <Box display={"flex"} justifyContent={"space-between"}>
+      <Box display={"flex"} justifyContent={"space-around"}>
       {/* <br /> */}
       <LinkedIn />
       {/* <br /> */}

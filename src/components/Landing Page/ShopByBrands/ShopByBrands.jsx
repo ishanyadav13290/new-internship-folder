@@ -27,7 +27,7 @@ export default function ShopByBrands(){
   </Box>
   <Box
     display={"grid"}
-    gridTemplateColumns={["repeat(3,1fr)","repeat(6,1fr)"]}
+    gridTemplateColumns={["repeat(3,1fr)","repeat(5,1fr)"]}
     gap="20px"
     padding={"20px 0"}
     width={"80%"}

@@ -1,7 +1,6 @@
-import { Box, Divider, Typography } from "@mui/material";
-import { lightBlue } from "@mui/material/colors";
+import { Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { db, lb } from "../Static/theme";
+import { lb } from "../Static/theme";
 import Hamburger from "./Hamburger/Hamburger";
 import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";
@@ -30,8 +29,8 @@ export default function Navbar() {
         <Box display={"flex"} alignItems={"center"}  >
         <Hamburger  />
         <NavLink to={"/"} style={{color:"white",textDecoration:"none"}}>
-          <Box  display={"flex"} height={"100%"} sx={{objectFit:"contain"}} alignItems={"center"}>
-          <img src={Logo} style={{width:"50px"}} alt="logo" />
+          <Box  display={"flex"} height={"100%"}  alignItems={"center"}>
+          <img src={Logo} style={{width:"60px"}} alt="logo" />
           </Box>
         </NavLink>
         <Nav1 />

@@ -121,17 +121,6 @@ export default function Products() {
     } 
     setAllSellerItems(temp.data.data);
     setTotalPage(temp.data.count);
-
-    // purana
-
-    // if (category != "all") {
-    //   setIsLoading(true);
-    //   temp = await axios.get(
-    //     `https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&_sort=price&_order=${val}$_page=${page}&_limit=16`
-    //   );
-    //   console.log(cat, val);
-    //   setIsLoading(false);
-    // }
   };
 
   // Price Range Slider

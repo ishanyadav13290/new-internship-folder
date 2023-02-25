@@ -275,7 +275,9 @@ return <ThemeProvider theme={theme}>
         type="submit"
         fullWidth
         variant="contained"
-        sx={{ mt: 3, mb: 2 }}
+        sx={{ mt: 3, mb: 2, bgcolor:lb, "&:hover": {
+              bgcolor: db,
+            } }}
       >
         Sign In
       </Button>
@@ -286,9 +288,9 @@ return <ThemeProvider theme={theme}>
           </Link>
         </Grid>
         <Grid item>
-          <Link href="#" variant="body2">
+          <NavLink to="/signup">
             {"Don't have an account? Sign Up"}
-          </Link>
+          </NavLink>
         </Grid>
       </Grid>
     </Box>

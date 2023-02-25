@@ -2,6 +2,7 @@
     --b: 0.1em;   /* the thickness of the line */
     --c: #ffff; /* the color */
     font-size: 30px;
+    font-weight: 700;
     color: #ff141400;
     padding-block: var(--b);
     background: 
@@ -14,4 +15,5 @@
   .container:hover .hoverTitle {
     --_p: 100%;
     --_s: .3s;
+    font-weight: 700;
   }

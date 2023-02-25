@@ -15,8 +15,6 @@ export default function Investors() {
     <br />
     <br />
     <br />
-    <br />
-    <br />
     <Box display={"flex"} justifyContent={"space-evenly"}>
     {BrandImgs.map((el,i)=>{
                 if (i>=4) return null
