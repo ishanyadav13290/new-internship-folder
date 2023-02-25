@@ -8,6 +8,7 @@ import { ShoppingCart, Star } from "@mui/icons-material";
 import toIndianNumberingSystem from "../../Features/RupeeConversion";
 import { AuthContext } from "../../Context/Contexts";
 import { motion,useInView } from "framer-motion";
+import Toasts from "../../Features/Toast";
 
 export default function MediaCard({ el, broad, gap }) {
   let { isAuth } = React.useContext(AuthContext);
@@ -101,6 +102,7 @@ export default function MediaCard({ el, broad, gap }) {
                 id: el._id,
               };
               temp(data1);
+              return <Toasts message="Added To Cart" />
             }}
           >
             <ShoppingCart />

@@ -89,6 +89,22 @@ app.get("/allItems/filter", async (req, res) => {
     let temp = await allItemsModel.find({category:category})
    res.send({data,count:temp.length})
 })
+
+app.get("/allItems/filterBrand", async (req, res) => {
+    const {brand,page,limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({brand:brand}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find({brand:brand})
+   res.send({data,count:temp.length})
+})
+app.get("/allItems/filterCategoryBrand", async (req, res) => {
+    const {brand,category,page,limit} = req.query;
+    let skip=(page-1)*limit
+    let data = await allItemsModel.find({brand:brand,category:category}).skip(skip).limit(limit)
+    let temp = await allItemsModel.find({brand:brand,category:category})
+   res.send({data,count:temp.length})
+})
+
 app.get("/allItems/sort", async (req, res) => {
     const {sort,page,limit} = req.query;
     let skip=(page-1)*limit

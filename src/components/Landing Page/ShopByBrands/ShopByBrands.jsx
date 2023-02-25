@@ -1,24 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import { BrandImgs } from "../../Static/db";
-import Cards from "../Categories Card/CategoriesCard";
-import {motion, useInView} from "framer-motion"
+import { BrandNames } from "../../Static/db";
 import { useRef } from "react";
+import Cards from "../Categories Card/CategoriesCard";
 
 export default function ShopByBrands(){
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
   const variants = { 
     hidden: { opacity: 0, x: 440 },
     visible: { opacity: 1, x: 0 },
 };
-    return <motion.div style={{overflowX:"hidden"}} ref={ref} animate={isInView ? "visible" : "hidden"}
-    variants={variants}
-    transition={{ duration: 0.75 }}>
-    <span style={{
-      transform: isInView ? "none" : "translateX(-200px)",
-      opacity: isInView ? 1 : 0,
-      transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
-    }}>
+    return <span>
         <Box textAlign={"left"} m={"0 5%"}>
     {" "}
     <Typography variant="h4"  textAlign={"left"}>
@@ -27,17 +18,17 @@ export default function ShopByBrands(){
   </Box>
   <Box
     display={"grid"}
-    gridTemplateColumns={["repeat(3,1fr)","repeat(5,1fr)"]}
+    gridTemplateColumns={["repeat(2,1fr)","repeat(3,1fr)","repeat(4,1fr)","repeat(5,1fr)"]}
     gap="20px"
     padding={"20px 0"}
     width={"80%"}
     m={"auto"}
   >
-    {BrandImgs.map((el, i) => {
-      return <Cards key={i} image={el} fit={"contain"} />;
+    {BrandNames.map((el, i) => {
+      return <Cards key={i} name={el} brand={"kajaria"}/>
     })}
+    
   </Box>
     </span>
-    </motion.div>
 
 }

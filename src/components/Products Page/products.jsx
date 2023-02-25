@@ -23,7 +23,7 @@ import SkeletonCard from "./ProductsCards/Skeleton";
 let LoadingArray = new Array(16).fill("a");
 
 export default function Products() {
-  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch, filterCategory, setFilterCategory } =
+  let { allSellerItems, setAllSellerItems, isInputSearch, setIsInputSearch, filterCategory, setFilterCategory, brand, setBrand } =
     useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
   let { query } = useParams();
@@ -91,6 +91,14 @@ export default function Products() {
     //   setIsLoading(false);
     // }
   };
+
+  // brand functions 
+  let selectBrand = brand
+  const handleBrandChange = async (event) => {
+    let val = event.target.value
+     selectBrand = val;
+    setBrand(val);
+  };
   // sorting function
   let sort = "";
   const handlePrice = async (event) => {
@@ -138,50 +146,79 @@ export default function Products() {
       setIsLoading(true)
       temp = await axios.get(`http://localhost:3001/allItems/categoryRange?category=${category}&min=${newValue[0]}&max=${newValue[1]}&page=${page}&limit=16`)
       setIsLoading(false)
-    //   setIsLoading(true)
-    // let temp = await axios.get(``)
-    //  setAllSellerItems(temp.data)
-    //  setIsLoading(false)
     }
 
     setTotalPage(temp.data.count);
     setAllSellerItems(temp.data.data);
-
-    // old one
-    // if(cat!="all"){
-    //   setIsLoading(true)
-    // let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?category=${cat}&price_gte=${newValue[0]}&price_lte=${newValue[1]}&_sort=price&_order=asc`)
-    //  setAllSellerItems(temp.data)
-    //  setIsLoading(false)
-    // } else {
-    //   setIsLoading(true)
-    // let temp = await axios.get(`https://sedate-laced-chestnut.glitch.me/allItems?price_gte=${newValue[0]}&price_lte=${newValue[1]}`)
-    //  setAllSellerItems(temp.data)
-    //  setIsLoading(false)
-    // }
   };
 
+  // for category filter from different page
   useEffect(()=>{
     (async()=>{
       let temp;
-    if (filterCategory == "all") {
+    if (filterCategory == "all" && selectBrand=="all") {
       setIsLoading(true);
+      console.log("shak")
       temp = await axios.get(
         `http://localhost:3001/allItems?page=${page}&limit=16`
       );
       setIsLoading(false);
-    } else {
+    } 
+    if(filterCategory!=="all" && selectBrand == "all") {
       setIsLoading(true);
+      console.log("shak 2")
+
       temp = await axios.get(
         `http://localhost:3001/allItems/filter?category=${filterCategory}&page=${page}&limit=16`
       );
+      setIsLoading(false);
+    }
+    if(filterCategory == "all" && selectBrand !== "all"){
+      setIsLoading(true);
+      temp = await axios.get(
+        `http://localhost:3001/allItems/filterBrand?brand=${selectBrand}&page=${page}&limit=16`
+      );
+      console.log(temp.data.data)
+      setIsLoading(false);
+    }
+    if(filterCategory !== "all" && selectBrand !== "all"){
+      setIsLoading(true);
+      temp = await axios.get(
+        `http://localhost:3001/allItems/filterCategoryBrand?brand=${selectBrand}&category=${filterCategory}&page=${page}&limit=16`
+      );
+      console.log("both")
       setIsLoading(false);
     }
 
     setTotalPage(temp.data.count);
     setAllSellerItems(temp.data.data);
     })()
-  },[filterCategory,page])
+  },[filterCategory,brand,page])
+
+  // for brand filter from different page
+  // useEffect(()=>{
+  //   (async()=>{
+  //     let temp;
+  //   if (selectBrand == "all") {
+  //     console.log("ye bhi")
+  //     setIsLoading(true);
+  //     temp = await axios.get(
+  //       `http://localhost:3001/allItems?page=${page}&limit=16`
+  //     );
+  //     setIsLoading(false);
+  //   } else {
+      // setIsLoading(true);
+      // temp = await axios.get(
+      //   `http://localhost:3001/allItems/filterBrand?brand=${selectBrand}&page=${page}&limit=16`
+      // );
+      // console.log(temp.data.data)
+      // setIsLoading(false);
+  //   }
+  //   setTotalPage(temp.data.count);
+  //   setAllSellerItems(temp.data.data);
+  //   })()
+  // },[brand,page])
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [allSellerItems]);
@@ -198,7 +235,6 @@ export default function Products() {
         // let temp = await axios.get(
         //   `https://sedate-laced-chestnut.glitch.me/allItems?q=${query}&_page=${page}&_limit=16`
         // );
-        console.log(temp.data)
         setTotalPage(temp.data.count);
         setAllSellerItems(temp.data.data);
       })();
@@ -225,197 +261,6 @@ export default function Products() {
     // }
   }, [page]);
 
-  // return <>
-  //   <Box minHeight={"100vh"} display={"flex"} padding={"20px"}>
-  // <Box width={"20%"} position={"sticky"} top={"170px"} height={"100vh"}>
-  // <Box width={["100%", "100%", "20%"]} display={["initial","initial","none","none"]} >
-  //       <div>
-  //         <Button
-  //           sx={{ width: "100%" }}
-  //           ref={anchorRef}
-  //           id="composition-button"
-  //           aria-controls={open ? "composition-menu" : undefined}
-  //           aria-expanded={open ? "true" : undefined}
-  //           aria-haspopup="true"
-  //           onClick={handleToggle}
-  //         >
-  //           Sorting & Filters
-  //         </Button>
-  //         <Popper
-  //           open={open}
-  //           anchorEl={anchorRef.current}
-  //           role={undefined}
-  //           placement="bottom-start"
-  //           transition
-  //           disablePortal
-  //           sx={{ zIndex: "1", width: ["100%", "100%", "20%"] }}
-  //         >
-  //           {({ TransitionProps, placement }) => (
-  //             <Grow
-  //               {...TransitionProps}
-  //               style={{
-  //                 transformOrigin:
-  //                   placement === "bottom-start" ? "left top" : "left bottom",
-  //               }}
-  //             >
-  //               <Paper>
-  //                 {/* <ClickAwayListener> */}
-  //                 <MenuList
-  //                   autoFocusItem={open}
-  //                   id="composition-menu"
-  //                   aria-labelledby="composition-button"
-  //                   onKeyDown={handleListKeyDown}
-  //                 >
-  //                   <Typography width={"90%"} m={"auto"} textAlign={"left"}>
-  //                     Filter By:
-  //                   </Typography>
-  //                   <MenuItem>
-  //                     <FormControl fullWidth>
-  //                       <InputLabel id="demo-simple-select-label">
-  //                         Category
-  //                       </InputLabel>
-  //                       <Select
-  //                         labelId="demo-simple-select-label"
-  //                         id="demo-simple-select"
-  //                         value={filterCategory}
-  //                         label="Category"
-  //                         onChange={handleCategory}
-  //                       >
-  //                         <MenuItem value="all">Default</MenuItem>
-  //                         <MenuItem value={"reinforcedSteel"}>
-  //                           Reinforced Steel
-  //                         </MenuItem>
-  //                         <MenuItem value={"iBeam"}>iBeam</MenuItem>
-  //                         <MenuItem value={"Angles"}>Angles</MenuItem>
-  //                         <MenuItem value={"diPipes"}>diPipes</MenuItem>
-  //                         <MenuItem value={"redOxidePrimar"}>
-  //                           Red OXide Primar
-  //                         </MenuItem>
-  //                         <MenuItem value={"plyboard"}>Plyboard</MenuItem>
-  //                         <MenuItem value={"nails"}>Nails</MenuItem>
-  //                         <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
-  //                         <MenuItem value={"wires&Cables"}>
-  //                           Wires & Cables
-  //                         </MenuItem>
-  //                       </Select>
-  //                     </FormControl>
-  //                   </MenuItem>
-  //                   <Typography width={"90%"} m={"auto"} textAlign={"left"}>
-  //                     Sort By:
-  //                   </Typography>
-  //                   <MenuItem>
-  //                     <FormControl fullWidth>
-  //                       <InputLabel id="demo-simple-select-label">
-  //                         Price
-  //                       </InputLabel>
-  //                       <Select
-  //                         labelId="demo-simple-select-label"
-  //                         id="demo-simple-select"
-  //                         value={sortPrice}
-  //                         label="Price"
-  //                         onChange={handlePrice}
-  //                       >
-  //                         <MenuItem value={"default"}>Default</MenuItem>
-  //                         <MenuItem value={"desc"}>Hight to Low</MenuItem>
-  //                         <MenuItem value={"asc"}>Low to High</MenuItem>
-  //                       </Select>
-  //                     </FormControl>
-  //                   </MenuItem>
-  //                 </MenuList>
-  //                 {/* </ClickAwayListener> */}
-  //               </Paper>
-  //             </Grow>
-  //           )}
-  //         </Popper>
-  //       </div>
-  //     </Box>
-  //     {/* filter for large screens */}
-  //     <Box width={["100%", "100%", "20%"]} height={"100vh"} position={"sticky"} display={["none","none","initial","initial"]} ml="0" mt={"10px"} >
-  //         <Box position={"sticky"} width={"auto"} display="block">
-  //         <Typography variant="body1">Filter by Category</Typography>
-  //         <br />
-  //           <FormControl fullWidth>
-  //             <InputLabel id="demo-simple-select-label">Category</InputLabel>
-  //             <Select
-  //               labelId="demo-simple-select-label"
-  //               id="demo-simple-select"
-  //               value={filterCategory}
-  //               label="Category"
-  //               onChange={handleCategory}
-  //             >
-  //               <MenuItem value="all">Default</MenuItem>
-  //               <MenuItem value={"reinforcedSteel"}>Reinforced Steel</MenuItem>
-  //               <MenuItem value={"iBeam"}>iBeam</MenuItem>
-  //               <MenuItem value={"Angles"}>Angles</MenuItem>
-  //               <MenuItem value={"diPipes"}>diPipes</MenuItem>
-  //               <MenuItem value={"redOxidePrimar"}>Red OXide Primar</MenuItem>
-  //               <MenuItem value={"plyboard"}>Plyboard</MenuItem>
-  //               <MenuItem value={"nails"}>Nails</MenuItem>
-  //               <MenuItem value={"hdpePipes"}>HDPE Pipes</MenuItem>
-  //               <MenuItem value={"wires&Cables"}>Wires & Cables</MenuItem>
-  //             </Select>
-  //           </FormControl>
-  //           <br />
-  //           <br />
-  //           <Typography variant="body1">Sort By Price</Typography>
-  //           <FormControl fullWidth>
-  //             <InputLabel id="demo-simple-select-label">Price</InputLabel>
-  //             <Select
-  //               labelId="demo-simple-select-label"
-  //               id="demo-simple-select"
-  //               value={sortPrice}
-  //               label="Price"
-  //               onChange={handlePrice}
-  //             >
-  //               <MenuItem value={"default"}>Default</MenuItem>
-  //               <MenuItem value={"desc"}>Hight to Low</MenuItem>
-  //               <MenuItem value={"asc"}>Low to High</MenuItem>
-  //             </Select>
-  //           </FormControl>
-  //         </Box>
-  //       </Box>
-  // </Box>
-  // <Box width={"80%"} minHeight={"100vh"}>
-  // <Box
-  //       // className={s.productsGrid}
-  //       minHeight={"100vh"}
-  //       width={["90%"]}
-  //       display={["grid", "grid", "grid"]}
-  //       gridTemplateColumns={[
-  //         "repeat(1,1fr)",
-  //         "repeat(2,1fr)",
-  //         "repeat(3,1fr)",
-  //         "repeat(4,1fr)",
-  //       ]}
-  //       m={"auto"}
-  //       gap={"20px"}
-  //     >
-  //       { isLoading ? (
-  //         LoadingArray.map((el, i) => {
-  //           return <SkeletonCard key={i} />;
-  //         })
-  //       ): (
-  //         allSellerItems.map((el, i) => {
-  //           return <MediaCard key={i} el={el} />;
-  //         })
-  //       )}
-  //     </Box>
-  // </Box>
-  // </Box>
-  // <Box display={"flex"} justifyContent={"center"} m={"1% 0"}>
-  //       <Pagination
-  //         sx={{ color: "black" }}
-  //         count={Math.ceil(totalPage / 16)}
-  //         showFirstButton
-  //         showLastButton
-  //         variant="contained"
-  //         page={page}
-  //         onChange={(event, value) => {
-  //           setPage(value);
-  //         }}
-  //       />
-  //     </Box>
-  // </>
 
   return (
     <>
@@ -592,6 +437,36 @@ export default function Products() {
                 </Select>
               </FormControl>
               <br />
+              <Typography variant="body1">Filter by Brand</Typography>
+              <br />
+              <FormControl variant="outlined" fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Brand
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            defaultValue="all"
+                            placeholder="Select Brand"
+                            value={brand}
+                            label="Brand"
+                            onChange={handleBrandChange}
+                          >
+                            <MenuItem value={"all"}>Default</MenuItem>
+                            <MenuItem value={"kohler"}>Kohler</MenuItem>
+                            <MenuItem value={"kajaria"}>Kajaria</MenuItem>
+                            <MenuItem value={"hettich"}>Hettich</MenuItem>
+                            <MenuItem value={"centuryply"}>
+                              Century Ply
+                            </MenuItem>
+                            <MenuItem value={"philips"}>Philips</MenuItem>
+                            <MenuItem value={"ipsa"}>IPSA</MenuItem>
+                            <MenuItem value={"somany"}>Somany</MenuItem>
+                            <MenuItem value={"havells"}>Havells</MenuItem>
+                            <MenuItem value={"bhutan"}>Bhutan</MenuItem>
+                            <MenuItem value={"other"}>Others...</MenuItem>
+                          </Select>
+                        </FormControl>
               <br />
               <Typography variant="body1">Sort By Price</Typography>
               <FormControl fullWidth>

@@ -4,7 +4,7 @@ import { BrandImgs } from "../../../Static/db";
 
 export default function Investors() {
   return (
-    <Box position={"relative"} minHeight={["auto","50vh"]} width={["100%","50%"]} m={"auto"} p={"20px"} >
+    <Box position={"relative"} minHeight={["350px","50vh"]} width={["100%","50%"]} m={"auto"} p={"20px"} >
     <img src="https://cdn.pixabay.com/photo/2018/03/21/16/18/investment-3247252_960_720.jpg" alt="bg" style={{width:"100%", position:"absolute",left:"0", height:"100%", filter:"grayscale(100%)"}} />
 
     <Box width={"100%"} height={"100%"} color={"black"} position={"absolute"}>

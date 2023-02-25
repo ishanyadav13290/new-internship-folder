@@ -25,7 +25,7 @@ export default function AllRoutes(){
     <Route path="/about" element=<About /> />
     <Route path="/team" element=<Team /> />
     <Route path="/contact" element=<Contact /> />
-    <Route path="/home&care" element=<HomeCare /> />
+    <Route path="/ecom&retail" element=<HomeCare /> />
     <Route path="/account" element=<Settings /> />
     <Route path="/wallet" element=<Wallet /> />
     <Route path="/:category" element=<Products/> />

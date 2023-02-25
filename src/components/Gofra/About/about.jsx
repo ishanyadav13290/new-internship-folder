@@ -57,18 +57,18 @@ export default function About() {
           <Tab label="Become a contributor" {...a11yProps(3)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      <Box value={value} index={0}>
         <OurStory />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
+      </Box>
+      <Box value={value} index={1}>
       <OurStory />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
+      </Box>
+      <Box value={value} index={2}>
       <OurStory />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
+      </Box>
+      <Box value={value} index={3}>
       <OurStory />
-      </TabPanel>
+      </Box>
     </Box>
     <br />
     <br />

@@ -31,6 +31,8 @@ export default function ContextProvider({ children }) {
 
     // for filter 
     let [filterCategory, setFilterCategory] = useState("all");
+
+    let [brand, setBrand] = useState("all");
   // let [allSellerItems, setAllSellerItems] = useState((JSON.parse(localStorage.getItem("allSellerItems")) || new Array(16).fill({
   //   "name": "kjsajdflajsdla;kjdf",
   //   "description": "kljasdhflajsd",
@@ -63,7 +65,8 @@ export default function ContextProvider({ children }) {
     setAllSellerItems,
     isInputSearch, 
     setIsInputSearch,
-    filterCategory, setFilterCategory
+    filterCategory, setFilterCategory,
+    brand, setBrand
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
