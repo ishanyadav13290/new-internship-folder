@@ -4,8 +4,8 @@ import {motion} from "framer-motion"
 
 export default function OurStory() {
   return (
-    <Box>
-    <Typography variant="h4">About Us</Typography>
+    <>
+    <Typography component={"span"} variant="h4">About Us</Typography>
     <br />
       <motion.div
       initial={{ y: 10, opacity: 0 }}
@@ -91,6 +91,6 @@ export default function OurStory() {
         </Box>
       </Box>
       </motion.div>
-    </Box>
+    </>
   );
 }

@@ -50,14 +50,14 @@ export default function BasictMenu() {
       {/* <Person onClick={handleClick} sx={{color:"white", pt:"1px"}} /> */}
       <LordAccount onClick={handleClick} />
         <Typography
-          fontSize={"15px"}
+          fontSize={"14px"}
           onClick={handleClick}
           display={["none","block","block"]}
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           color={"white"}
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", p:"0" }}
           fontWeight={700}
           
         >

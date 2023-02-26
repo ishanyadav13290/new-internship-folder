@@ -17,6 +17,7 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
+import { lb } from "../Static/theme";
 import MediaCard from "./ProductsCards/ProductsCards";
 import SkeletonCard from "./ProductsCards/Skeleton";
 
@@ -195,30 +196,6 @@ export default function Products() {
     })()
   },[filterCategory,brand,page])
 
-  // for brand filter from different page
-  // useEffect(()=>{
-  //   (async()=>{
-  //     let temp;
-  //   if (selectBrand == "all") {
-  //     console.log("ye bhi")
-  //     setIsLoading(true);
-  //     temp = await axios.get(
-  //       `http://localhost:3001/allItems?page=${page}&limit=16`
-  //     );
-  //     setIsLoading(false);
-  //   } else {
-      // setIsLoading(true);
-      // temp = await axios.get(
-      //   `http://localhost:3001/allItems/filterBrand?brand=${selectBrand}&page=${page}&limit=16`
-      // );
-      // console.log(temp.data.data)
-      // setIsLoading(false);
-  //   }
-  //   setTotalPage(temp.data.count);
-  //   setAllSellerItems(temp.data.data);
-  //   })()
-  // },[brand,page])
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [allSellerItems]);
@@ -245,20 +222,6 @@ export default function Products() {
       anchorRef.current.focus();
     }
     prevOpen.current = open;
-    // if(!isInputSearch){
-    //   (async () => {
-    //     setIsLoading(true);
-    //     let temp = await axios.get(
-    //       `http://localhost:3001/allItems?page=${page}&limit=16`
-    //     );
-    //     // await axios.get(
-    //     //   `http://localhost:3001/allItems?_page=${page}&_limit=16`
-    //     // )
-    //     setTotalPage(temp.data.count);
-    //     setAllSellerItems(temp.data.data);
-    //     setIsLoading(false);
-    //   })();
-    // }
   }, [page]);
 
 
@@ -279,6 +242,7 @@ export default function Products() {
           <Box
             width={["100%", "100%", "20%"]}
             display={["initial", "initial", "none", "none"]}
+            mt={"30%"}
           >
             <Box>
               <Button
@@ -355,6 +319,40 @@ export default function Products() {
                             </Select>
                           </FormControl>
                         </MenuItem>
+                        <br />
+                        <br />
+                        <MenuItem>
+                        <br />
+              <FormControl variant="outlined" fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Brand
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            defaultValue="all"
+                            placeholder="Select Brand"
+                            value={brand}
+                            label="Brand"
+                            onChange={handleBrandChange}
+                          >
+                            <MenuItem value={"all"}>Default</MenuItem>
+                            <MenuItem value={"kohler"}>Kohler</MenuItem>
+                            <MenuItem value={"kajaria"}>Kajaria</MenuItem>
+                            <MenuItem value={"hettich"}>Hettich</MenuItem>
+                            <MenuItem value={"centuryply"}>
+                              Century Ply
+                            </MenuItem>
+                            <MenuItem value={"philips"}>Philips</MenuItem>
+                            <MenuItem value={"ipsa"}>IPSA</MenuItem>
+                            <MenuItem value={"somany"}>Somany</MenuItem>
+                            <MenuItem value={"havells"}>Havells</MenuItem>
+                            <MenuItem value={"bhutan"}>Bhutan</MenuItem>
+                            <MenuItem value={"other"}>Others...</MenuItem>
+                          </Select>
+                        </FormControl>
+                        </MenuItem>
+                        <br />
                         <Typography width={"90%"} m={"auto"} textAlign={"left"}>
                           Sort By:
                         </Typography>
@@ -386,6 +384,7 @@ export default function Products() {
                               onChangeCommitted={handlePriceChange}
                               valueLabelDisplay="auto"
                               defaultValue={0}
+                              sx={{color:lb}}
                               max={100000}
                               step={10000}
                               marks
@@ -492,6 +491,7 @@ export default function Products() {
                   onChangeCommitted={handlePriceChange}
                   valueLabelDisplay="auto"
                   defaultValue={0}
+                  sx={{color:lb}}
                   max={100000}
                   step={10000}
                   marks

@@ -20,6 +20,8 @@ export default function ContextProvider({ children }) {
   let [userPassword, setUserPassword] = useState("")
   let [total, setTotal] = useState(0)
   let [userAddress, setUserAddress] = useState("")
+  let [userGender, setUserGender] = useState("other")
+  let [userPhone, setUserPhone] = useState(1234567890)
   let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
     "name": "kjsajdflajsdla;kjdf",
     "description": "kljasdhflajsd",
@@ -66,7 +68,10 @@ export default function ContextProvider({ children }) {
     isInputSearch, 
     setIsInputSearch,
     filterCategory, setFilterCategory,
-    brand, setBrand
+    brand, setBrand,
+    userGender, setUserGender,
+    userPhone, setUserPhone
+    
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

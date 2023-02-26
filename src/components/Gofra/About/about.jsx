@@ -19,7 +19,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -57,18 +57,18 @@ export default function About() {
           <Tab label="Become a contributor" {...a11yProps(3)} />
         </Tabs>
       </Box>
-      <Box value={value} index={0}>
+      <TabPanel component={"div"} value={value} index={0}>
         <OurStory />
-      </Box>
-      <Box value={value} index={1}>
+      </TabPanel>
+      <TabPanel component={"div"}  value={value} index={1}>
       <OurStory />
-      </Box>
-      <Box value={value} index={2}>
+      </TabPanel>
+      <TabPanel component={"div"}  value={value} index={2}>
       <OurStory />
-      </Box>
-      <Box value={value} index={3}>
+      </TabPanel>
+      <TabPanel component={"div"}  value={value} index={3}>
       <OurStory />
-      </Box>
+      </TabPanel>
     </Box>
     <br />
     <br />
