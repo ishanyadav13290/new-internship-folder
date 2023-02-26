@@ -8,10 +8,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import AccountSettings from "./AccountSettings/accountSettings";
 import {
-    Payment,
-  SettingsApplications, SettingsOutlined, SettingsRounded, ShoppingBag
+    Payment, SettingsRounded, ShoppingBag
 } from "@mui/icons-material";
 import Orders from "./Orders/Orders";
+import Payments from "./Payments/payments";
 
 let icons = { bgcolor: lb };
 
@@ -96,9 +96,10 @@ export default function Settings() {
       padding={"20px"}
     >
       <Box
-        width={["100%", "100%", "20%", "20%"]}
+        width={["100%", "100%", "30%", "30%"]}
         position={["initial", "initial", "sticky", "sticky"]}
         top={"170px"}
+        maxWidth={["100vw","100vw","20vw","20vw"]}
         height={["auto", "auto", "100vh", "100vh"]}
         sx={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
       >
@@ -107,6 +108,7 @@ export default function Settings() {
         </Box>
         <Divider />
         <Tabs
+        
           orientation="vertical"
           variant="scrollable"
           value={value}
@@ -114,10 +116,10 @@ export default function Settings() {
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: "divider" }}
         >
-          <Tab label={<AccSettings />} {...a11yProps(0)} />
+          <Tab sx={{color:lb}} label={<AccSettings />} {...a11yProps(0)} />
           <Tab label={<PaySettings />} {...a11yProps(1)} />
           <Tab label={<OrderSettings />} {...a11yProps(2)} />
-          <Tab label="Item Four" {...a11yProps(3)} />
+          <Tab label="Wallet" {...a11yProps(3)} />
           <Tab label="Item Five" {...a11yProps(4)} />
           <Tab label="Item Six" {...a11yProps(5)} />
           <Tab label="Item Seven" {...a11yProps(6)} />
@@ -128,7 +130,7 @@ export default function Settings() {
         <AccountSettings />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <Payments />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Orders />
@@ -216,3 +218,4 @@ function OrderSettings(){
         </Box>
       );
 }
+

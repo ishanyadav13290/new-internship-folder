@@ -50,7 +50,7 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-  let {userID,setCart} = React.useContext(AuthContext)
+  let {userID,cart,setCart,setUserOrders} = React.useContext(AuthContext)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -115,11 +115,14 @@ export default function Checkout() {
                 <Button
                   variant="contained"
                   onClick={async ()=>{
-                    setCart([])
                     handleNext()
-                    await axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{
-                      cart:[]
+                    await axios.patch(`http://localhost:3001/users/${userID}`,{
+                      cart:[],
+                      orders:cart
                     })
+                    setUserOrders(cart)
+                    setCart([])
+
                   }}
                   sx={{ mt: 3, ml: 1,display:activeStep===steps.length-1?"block":"none" }}
                 >

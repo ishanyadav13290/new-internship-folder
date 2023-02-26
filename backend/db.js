@@ -8,9 +8,12 @@ const newUsersSchema = mongoose.Schema({
     email: String,
     password: String,
     cart:Array,
+    orders:Array,
     walletBalance:Number,
     isSelling:Boolean,
-    sellerItems:Array
+    sellerItems:Array,
+    phone:Number,
+    gender:String
 })
 const allItemsSchema = mongoose.Schema({
     name:String,
@@ -19,7 +22,8 @@ const allItemsSchema = mongoose.Schema({
     price:Number,
     Img:String,
     category:String,
-    brand:String
+    brand:String,
+    sellerID:String
 })
 
 const newUsersModel = mongoose.model("user", newUsersSchema)

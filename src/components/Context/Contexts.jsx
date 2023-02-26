@@ -22,6 +22,7 @@ export default function ContextProvider({ children }) {
   let [userAddress, setUserAddress] = useState("")
   let [userGender, setUserGender] = useState("other")
   let [userPhone, setUserPhone] = useState(1234567890)
+  let [userOrders, setUserOrders] = useState([])
   let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
     "name": "kjsajdflajsdla;kjdf",
     "description": "kljasdhflajsd",
@@ -45,32 +46,23 @@ export default function ContextProvider({ children }) {
   //   })))
   let [isInputSearch, setIsInputSearch] = useState(false)
   let value = {
-    isAuth,
-    setAuth,
-    cart,
-    setCart,
-    userName,
-    setUserName,
-    userID,
-    setUserID,
-    walletBalance,
-    setWalletBalance,
-    isSeller,
-    setIsSeller,
-    userEmail,
-    setUserEmail,
-    userPassword,
-    setUserPassword,
+    isAuth, setAuth,
+    cart, setCart,
+    userName, setUserName,
+    userID, setUserID,
+    walletBalance, setWalletBalance,
+    isSeller, setIsSeller,
+    userEmail, setUserEmail,
+    userPassword, setUserPassword,
     total, setTotal,
     userAddress, setUserAddress,
-    allSellerItems,
-    setAllSellerItems,
-    isInputSearch, 
-    setIsInputSearch,
+    allSellerItems, setAllSellerItems,
+    isInputSearch, setIsInputSearch,
     filterCategory, setFilterCategory,
     brand, setBrand,
     userGender, setUserGender,
-    userPhone, setUserPhone
+    userPhone, setUserPhone,
+    userOrders, setUserOrders
     
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

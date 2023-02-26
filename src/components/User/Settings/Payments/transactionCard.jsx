@@ -1,7 +1,7 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import toIndianNumberingSystem from "../../Features/RupeeConversion";
+import toIndianNumberingSystem from "../../../Features/RupeeConversion";
 
 export default function TransactionsCard({ amt, scene }) {
   return (

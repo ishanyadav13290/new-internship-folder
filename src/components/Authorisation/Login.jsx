@@ -25,7 +25,7 @@ const theme = createTheme();
 
 
 export default function Login(){
-    let {isAuth,setAuth,setCart, setUserName,userID,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart, setUserName,userID,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -85,6 +85,7 @@ export default function Login(){
             setUserEmail(element.email)
             setUserPassword(element.password)
             setUserAddress(element.address)
+            setUserOrders(element.orders)
         }
     });
     };
