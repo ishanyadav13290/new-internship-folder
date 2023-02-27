@@ -5,7 +5,7 @@
 export let cardImgs = ["https://cdnassets.hw.net/2c/86/01a9c8494aeabffd4d2b7bfc3b33/adobestock-106039392-small.jpg","https://4.imimg.com/data4/CE/LV/MY-3827150/i-beam-500x500.jpg","https://mobileimages.lowes.com/productimages/ba9feac6-bab8-4686-a285-f0c0d83b1068/15763903.jpg?size=xl","https://www.electrosteel.com/images/1608792010ductile-iron-pipes-overview_banner_mob.jpg","https://5.imimg.com/data5/BN/YW/MY-2264531/red-oxide-powder-500x500.jpg","https://5.imimg.com/data5/CC/TG/MY-36282063/plyboard-1000x1000.jpg","https://m.media-amazon.com/images/I/41zoNoqDF6L._SX425_.jpg","https://5.imimg.com/data5/HL/HN/MY-65931356/hdpe-pipe-pn2-5-140mm-pe-80-500x500.jpg","https://finolex.com/wp-content/uploads/2018/07/Whats-the-basic-difference-between-wires-and-cables.jpg"]
 
 
-export let BrandNames = ["Kohler","Kajaria","Hettich","Centuryply","Philips","Ipsa","Somany","Somany","Havells","Bhutan"]
+export let BrandNames = ["Kohler","Kajaria","Hettich","Centuryply","Philips","Ipsa","Somany","Havells","Bhutan"]
 
 export let BrandValues = ["kohler","kajaria","hettich","centuryply","philips","ipsa","somany","havells","bhutan"]
 

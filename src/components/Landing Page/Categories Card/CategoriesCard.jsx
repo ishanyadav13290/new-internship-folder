@@ -13,6 +13,7 @@ return <NavLink to="/allitems" className={s["ag-courses_item"]} style={{all:"uns
    }
    if (brand!== undefined){
     setBrand(brand)
+    console.log("hua",brand)
    }
   }}>
     <div className={s["ag-courses-item_link"]}>

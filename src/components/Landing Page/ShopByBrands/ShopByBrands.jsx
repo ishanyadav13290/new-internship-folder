@@ -1,14 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { BrandNames } from "../../Static/db";
+import { BrandNames, BrandValues } from "../../Static/db";
 import { useRef } from "react";
 import Cards from "../Categories Card/CategoriesCard";
 
 export default function ShopByBrands(){
-  const ref = useRef(null);
-  const variants = { 
-    hidden: { opacity: 0, x: 440 },
-    visible: { opacity: 1, x: 0 },
-};
     return <span>
         <Box textAlign={"left"} m={"0 5%"}>
     {" "}
@@ -25,7 +20,7 @@ export default function ShopByBrands(){
     m={"auto"}
   >
     {BrandNames.map((el, i) => {
-      return <Cards key={i} name={el} brand={"kajaria"}/>
+      return <Cards key={i} name={el} brand={BrandValues[i]}/>
     })}
     
   </Box>
