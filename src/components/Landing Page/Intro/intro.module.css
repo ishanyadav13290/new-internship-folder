@@ -19,10 +19,10 @@
     margin: 20px 0 20px 0;
     color: #d44afb;
     padding:0px 20px;
-    text-shadow: -3px 3px 0 #fff,
-                          3px 3px 0 #fff,
-                         3px -3px 0 #fff,
-                        -3px -3px 0 #fff;
+    text-shadow: -1px 1px 0 #fff,
+                          1px 1px 0 #fff,
+                         1px -1px 0 #fff,
+                        -1px -1px 0 #fff;
 }
 
 .explore{

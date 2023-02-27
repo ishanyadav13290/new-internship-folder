@@ -7,7 +7,7 @@ import OrderCards from "./orderCards";
 
 export default function Orders(){
     let {userOrders} = useContext(AuthContext)
-    return <Box minHeight={"100vh"} minWidth={"60vw"}>
+    return <Box minHeight={"100vh"} minWidth={"60vw"} textAlign={"left"}>
         <Box><Typography variant="h4" color={lb} fontWeight={700}> Your Orders</Typography></Box>
         <br />
         {userOrders.map((el,i)=>{

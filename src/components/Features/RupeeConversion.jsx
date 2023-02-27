@@ -13,6 +13,7 @@ export default function toIndianNumberingSystem(input) {
     //     result = ',' + result;
     //   }
     // }
+    if(input === undefined) return
   return  input.toLocaleString('en-IN', {
       maximumFractionDigits: 2,
       style: 'currency',

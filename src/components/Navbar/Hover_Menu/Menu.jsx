@@ -20,7 +20,7 @@ let exportedMenu;
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setAuth,setIsSeller,isSeller,userName, setUserID } = React.useContext(AuthContext);
+  let { setAuth,setIsSeller,setUserOrders,setAllSellerItems,setUserPhone,setUserGender,userName,setUserName, setUserID,setUserEmail,setUserAddress,setCart,setWalletBalance } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,9 +30,17 @@ export default function BasictMenu() {
   };
   function LogOut() {
     setAuth(false);
-    handleClose();
     setIsSeller(false)
     setUserID("")
+    setUserEmail("")
+    setUserAddress("")
+    setCart([])
+    setWalletBalance(0)
+    setUserName("")
+    setAllSellerItems([])
+    setUserGender("other")
+    setUserPhone(1234567890)
+    setUserOrders([])
     // localStorage.setItem(`userName`, JSON.stringify(""));
     // localStorage.setItem(`isAuth`, JSON.stringify(false));
     // localStorage.setItem(`userID`, JSON.stringify(""));
@@ -47,7 +55,6 @@ export default function BasictMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: ["block"], alignItems: "center", textAlign: "center" }}>
-      {/* <Person onClick={handleClick} sx={{color:"white", pt:"1px"}} /> */}
       <LordAccount onClick={handleClick} />
         <Typography
           fontSize={"14px"}
@@ -110,20 +117,12 @@ export default function BasictMenu() {
           </ListItemIcon>
           Add another account
         </MenuItem>
-        <Link to="/wallet" style={{ color: "black", textDecoration: "none" }}>
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <Wallet fontSize="small" />
-            </ListItemIcon>
-            Wallet
-          </MenuItem>
-        </Link>
         <MenuItem onClick={handleClose}>
-          <NavLink to="/account" style={{ all:"unset",display:"flex",alignItems:"center"}}>
+          <NavLink to="/account" style={{ all:"unset",display:"flex",width:"100%",alignItems:"center"}}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Account Settings
           </NavLink>
         </MenuItem>
         <MenuItem onClick={LogOut}>

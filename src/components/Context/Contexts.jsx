@@ -45,6 +45,7 @@ export default function ContextProvider({ children }) {
   //   "category": "Angles"
   //   })))
   let [isInputSearch, setIsInputSearch] = useState(false)
+
   let value = {
     isAuth, setAuth,
     cart, setCart,
@@ -63,7 +64,6 @@ export default function ContextProvider({ children }) {
     userGender, setUserGender,
     userPhone, setUserPhone,
     userOrders, setUserOrders
-    
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

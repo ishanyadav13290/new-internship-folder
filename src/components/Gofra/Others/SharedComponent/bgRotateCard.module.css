@@ -1,0 +1,40 @@
+.container{
+    width: fit-content;
+    text-align: center;
+  }
+  
+  .container div{
+    margin:0 10px;
+  }
+
+ 
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 300px;
+    max-width: 300px;
+    min-height: 300px;
+    min-width: 300px;
+    --g: 4px;     /* the gap */
+    --b: 12px;    /* border thickness*/
+    --c: #360086; /* the color */
+    
+    
+    padding: calc(var(--g) + var(--b));
+    --_c: #0000 0 25%, var(--c) 0 50%;
+    --_g1: repeating-linear-gradient(90deg ,var(--_c)) repeat-x;
+    --_g2: repeating-linear-gradient(180deg,var(--_c)) repeat-y;
+    background:
+      var(--_g1) var(--_p, 25%) 0   ,var(--_g2) 0    var(--_p,125%),
+      var(--_g1) var(--_p,125%) 100%,var(--_g2) 100% var(--_p, 25%);
+    background-size: 200% var(--b),var(--b) 200%;
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: .3s;
+  }
+  .content:hover {
+    --_p: 75%;
+    filter: grayscale(0%);
+  }
+  

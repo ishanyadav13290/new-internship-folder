@@ -119,10 +119,6 @@ export default function Settings() {
           <Tab sx={{color:lb}} label={<AccSettings />} {...a11yProps(0)} />
           <Tab label={<PaySettings />} {...a11yProps(1)} />
           <Tab label={<OrderSettings />} {...a11yProps(2)} />
-          <Tab label="Wallet" {...a11yProps(3)} />
-          <Tab label="Item Five" {...a11yProps(4)} />
-          <Tab label="Item Six" {...a11yProps(5)} />
-          <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
       </Box>
 
@@ -134,18 +130,6 @@ export default function Settings() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Orders />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
       </TabPanel>
     </Box>
   );

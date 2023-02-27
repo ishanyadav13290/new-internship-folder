@@ -10,13 +10,13 @@ export default function Payments() {
   let { walletBalance } = useContext(AuthContext);
   return (
     <Box minHeight={"100vh"} minWidth={"60vw"} textAlign={"left"}>
-      <Typography variant="h4" fontWeight={700}>
+      <Typography color={lb} variant="h4" fontWeight={700}>
         Payments
       </Typography>
 
       <Divider />
       <br />
-      <Typography variant="h5">Wallet</Typography>
+      <Typography variant="h5" sx={{color:lb}}>Wallet</Typography>
       <br />
       <Box display={["block","block","flex","flex"]}>
       <Box

@@ -55,7 +55,6 @@ export default function AccountSettings() {
         setUserPhone(newChangedItem.phone)
         setUserAddress(newChangedItem.address)
         axios.patch(`http://localhost:3001/users/${userID}`,newChangedItem)
-        console.log(newChangedItem)
         setIsDisable(true)
     }
     
@@ -63,7 +62,7 @@ export default function AccountSettings() {
     <>
         <Box minHeight={"90vh"} minWidth={"60vw"}>
       <Box display={"flex"} alignItems={"center"}>
-        <Typography variant="h5">Personal Information</Typography>
+        <Typography color={lb} variant="h4" fontWeight={700}>Personal Information</Typography>
         <Button variant={"contained"} sx={buttonStyle} onClick={()=>{
             setIsDisable(false)
         }}>

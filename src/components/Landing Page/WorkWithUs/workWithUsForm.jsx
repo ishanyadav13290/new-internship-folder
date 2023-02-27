@@ -97,7 +97,9 @@ export default function WorkWithUsForm() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2,bgcolor:db }}
+            sx={{ mt: 3, mb: 2,bgcolor:lb,"&:hover": {
+              bgcolor: db,
+            } }}
           >
             Submit
           </Button>

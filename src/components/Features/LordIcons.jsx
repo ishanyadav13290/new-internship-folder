@@ -67,3 +67,30 @@ export function LordAccount(){
    style={{width:"25px",height:"25px"}}>
 </lord-icon>
 }
+
+export function LordHome(){
+    return <lord-icon
+    src="https://cdn.lordicon.com/gmzxduhd.json"
+    trigger="loop"
+    colors="primary:#121331,secondary:#000000"
+    style={{width:"200px",height:"200px"}}>
+</lord-icon>
+}
+
+export function LordSaving(){
+    return <lord-icon
+    src="https://cdn.lordicon.com/yeallgsa.json"
+    trigger="loop"
+    colors="primary:#fff,secondary:#fff"
+    style={{width:"50px",height:"50px"}}
+    >
+</lord-icon>
+}
+export function LordCoin(){
+    return <lord-icon
+    src="https://cdn.lordicon.com/vaeagfzc.json"
+    trigger="loop"
+    colors="primary:#fff,secondary:#fff"
+    style={{width:"50px",height:"50px"}}>
+</lord-icon>
+}

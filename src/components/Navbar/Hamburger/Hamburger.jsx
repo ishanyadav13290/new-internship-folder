@@ -20,13 +20,27 @@ import {
 } from "@mui/icons-material";
 import { AuthContext } from "../../Context/Contexts";
 import { NavLink } from "react-router-dom";
-import { db, lb } from "../../Static/theme";
+import { lb } from "../../Static/theme";
 import { Typography } from "@mui/material";
-import { cardNames, routeNames } from "../../Static/db";
 
 export default function Hamburger() {
-  let { isAuth, setAuth, userName,isSeller, setIsSeller, setUserID } =
-    React.useContext(AuthContext);
+  let {
+    isAuth,
+    setAuth,
+    setIsSeller,
+    setUserOrders,
+    setAllSellerItems,
+    setUserPhone,
+    setUserGender,
+    isSeller,
+    userName,
+    setUserName,
+    setUserID,
+    setUserEmail,
+    setUserAddress,
+    setCart,
+    setWalletBalance,
+  } = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -38,6 +52,15 @@ export default function Hamburger() {
     setAuth(false);
     setIsSeller(false);
     setUserID("");
+    setUserEmail("");
+    setUserAddress("");
+    setCart([]);
+    setWalletBalance(0);
+    setUserName("");
+    setAllSellerItems([]);
+    setUserGender("other");
+    setUserPhone(1234567890);
+    setUserOrders([]);
     // localStorage.setItem(`userName`, JSON.stringify(""));
     // localStorage.setItem(`isAuth`, JSON.stringify(false));
     // localStorage.setItem(`userID`, JSON.stringify(""));
@@ -76,37 +99,55 @@ export default function Hamburger() {
           bgcolor={lb}
         >{`Welcome ${userName}`}</Box>
 
-<Typography ml="8%" fontWeight={700}>
-              Shop Now
-            </Typography>
-            <Divider />
-            <NavLink
-                  to={`/home&care`}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <Home sx={{ color: lb }} />
-                      </ListItemIcon>
-                      <ListItemText>Home & Care</ListItemText>
-                    </ListItemButton>
-                  </ListItem>
-                </NavLink>
-            <NavLink
-              to="/newarrivals"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ShoppingBag sx={{ color: lb }} />
-                  </ListItemIcon>
-                  <ListItemText>New Arrivals</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </NavLink>
-            <Divider />
+        <Typography ml="8%" fontWeight={700}>
+          Shop Now
+        </Typography>
+        <Divider />
+        <NavLink
+          to="/newarrivals"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ShoppingBag sx={{ color: lb }} />
+              </ListItemIcon>
+              <ListItemText>New Arrivals</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </NavLink>
+        <Divider />
+        <Typography ml="8%" fontWeight={700}>
+          Gofra
+        </Typography>
+        <Divider />
+        <NavLink
+          to={`/home&care`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Home sx={{ color: lb }} />
+              </ListItemIcon>
+              <ListItemText>Home & Care</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </NavLink>
+        <NavLink
+          to={`/ecom&retail`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Home sx={{ color: lb }} />
+              </ListItemIcon>
+              <ListItemText>Ecommerce & Retail</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </NavLink>
+        <Divider />
         {isAuth ? (
           <>
             <NavLink
