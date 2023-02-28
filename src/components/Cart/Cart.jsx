@@ -13,7 +13,7 @@ import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
 import Cards from "./Cards";
 import EmptyCart from "../../components/Static/Imgs/emptycart.png"
-import { lb } from "../Static/theme";
+import { db, lb } from "../Static/theme";
 import axios from "axios";
 
 export default function Cart() {
@@ -35,7 +35,7 @@ export default function Cart() {
     subTotal<=10000?setShippingTax(100):subTotal>10000 && subTotal<=100000?setShippingTax(250):setShippingTax(500)
     setTotal(Totaltemp+shippingTax-walletDiscount);
    })
-  },[cart,total, walletDiscount, useDiscount])
+  },[cart, total, walletDiscount, useDiscount, subTotal, setTotal, shippingTax])
   return !isAuth ? (
     <Navigate to="/login" />
   ) : cart.length === 0 ? (
@@ -49,7 +49,9 @@ export default function Cart() {
       <br />
       <br />
       <NavLink to="/" style={{textDecoration:"none"}} >
-      <Button variant="contained" sx={{bgcolor:"rgb(246, 126, 34)"}}>Let's Add something</Button>
+      <Button variant="contained" sx={{bgcolor:lb,"&:hover": {
+              bgcolor: db,
+            }}}>Let's Add something</Button>
       </NavLink>
     </Box>
   ):(<Box minHeight={"100vh"} p={["20px"]}>
@@ -128,7 +130,9 @@ export default function Cart() {
       <Typography variant="body2" fontSize={"12px"} ><b>Alert:</b> Clicking Checkout will deduct your wallet balance. You'll have to pay the remaining amount using other mode.</Typography>
       </Box>
       <br />
-      <Button sx={{ backgroundColor: lb }} variant="contained" onClick={()=>{
+      <Button sx={{ backgroundColor: lb, "&:hover": {
+              bgcolor: db,
+            } }} variant="contained" onClick={()=>{
         if(useDiscount==true) {
           setWalletBalance(walletBalance-walletDiscount)
         axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{

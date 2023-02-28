@@ -1,13 +1,49 @@
-import * as React from 'react';
+
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../Context/Contexts';
 
 export default function AddressForm() {
+  let {shippingAddress, setShippingAddress} = useContext(AuthContext)
+
+  // let [tempAddress, setTempAddress] = useState({
+  //   firstName:"",
+  //   secondName:"",
+  //   address:"",
+  //   state:"",
+  //   zip:"",
+  //   city:"",
+  // })
+  function handleFirstName(e){
+    let val= e.target.value
+    setShippingAddress({...shippingAddress,firstName:val})
+  }
+  function handleSecondName(e){
+    let val= e.target.value
+    setShippingAddress({...shippingAddress,secondName:val})
+  }
+  function handleAddress(e){
+    let val= e.target.value
+    setShippingAddress({...shippingAddress,address:val})
+  }
+  function handleCity(e){
+    let val= e.target.value
+    setShippingAddress({...shippingAddress,city:val})
+  }
+  function handleState(e){
+    let val= e.target.value
+    setShippingAddress({...shippingAddress,state:val})
+  }
+  function handleZIP(e){
+    let val= e.target.value
+    setShippingAddress({...shippingAddress,zip:val})
+  }
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
@@ -21,6 +57,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            onChange={handleFirstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -32,26 +69,18 @@ export default function AddressForm() {
             fullWidth
             autoComplete="family-name"
             variant="standard"
+            onChange={handleSecondName}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             required
-            id="address1"
-            name="address1"
-            label="Address line 1"
+            id="address"
+            name="address"
+            label="Address line"
             fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
+            onChange={handleAddress}
+            autoComplete="address"
             variant="standard"
           />
         </Grid>
@@ -61,6 +90,7 @@ export default function AddressForm() {
             id="city"
             name="city"
             label="City"
+            onChange={handleCity}
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
@@ -70,6 +100,7 @@ export default function AddressForm() {
           <TextField
             id="state"
             name="state"
+            onChange={handleState}
             label="State/Province/Region"
             fullWidth
             variant="standard"
@@ -80,6 +111,7 @@ export default function AddressForm() {
             required
             id="zip"
             name="zip"
+            onChange={handleZIP}
             label="Zip / Postal code"
             fullWidth
             autoComplete="shipping postal-code"
@@ -104,6 +136,6 @@ export default function AddressForm() {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

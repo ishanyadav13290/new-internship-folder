@@ -26,7 +26,7 @@ export default function SearchField(){
     sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: ["90%","90%","100%","100%"], m:"auto"}}
   >
     <input
-    style={{height:"100%",width:"100%", border:"none"}}
+    style={{height:"110%",width:"100%", border:"none"}}
     ref={reference}
       sx={{ ml: 1, flex: 1 }}
       placeholder="Search"

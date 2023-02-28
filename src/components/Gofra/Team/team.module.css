@@ -81,6 +81,14 @@
 
   /* ********************************************************* */
 
+  .section-heading {
+    /* font-family: "Dancing Script", cursive; */
+    text-align: center;
+    /* font-size: 64px; */
+    font-weight: 700;
+    color: #360086;
+    margin: 0 0;
+  }
   .ag-format-container {
     width: 1142px;
     margin: 0 auto;
@@ -122,7 +130,7 @@
     border-top: 1px solid #c1c1c1;
   }
   .ag-offer_item:not(:nth-child(3n)) {
-    border-right: 1px solid #c1c1c1;
+    /* border-right: 1px solid #c1c1c1; */
   }
   .ag-offer_item .ag-offer_hidden-item {
     background-color: rgb(39, 11, 119);

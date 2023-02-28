@@ -14,7 +14,6 @@
     justify-content: center;
 }
 .gofra{
-    font-size: 100px;
     font-weight: 900;
     margin: 20px 0 20px 0;
     color: #d44afb;
@@ -28,19 +27,17 @@
 .explore{
     margin: 0;
     text-align: left;
-    font-size:80px;
     font-weight: 800;
     color: #fdd31a;
 }
 
 .normal{
-    font-size: 65px;
     font-weight: 700;
     color: #fdd31a;
 }
 
 .funky{
-    font-size: 70px;
+    /* font-size: 70px; */
     font-weight: 800;
     color:#F5EDCE;
     padding-left: 20px;

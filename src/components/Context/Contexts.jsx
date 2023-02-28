@@ -46,6 +46,22 @@ export default function ContextProvider({ children }) {
   //   })))
   let [isInputSearch, setIsInputSearch] = useState(false)
 
+  // for shipping details
+  let [shippingAddress, setShippingAddress] = useState({
+    firstName:"",
+    secondName:"",
+    address:"",
+    state:"",
+    zip:"",
+    city:"",
+  })
+  let [cardDetails, setCardDetails] = useState({
+    name:"",
+    cardNumber:0,
+    expiry:"",
+    cvv:""
+  })
+
   let value = {
     isAuth, setAuth,
     cart, setCart,
@@ -63,7 +79,9 @@ export default function ContextProvider({ children }) {
     brand, setBrand,
     userGender, setUserGender,
     userPhone, setUserPhone,
-    userOrders, setUserOrders
+    userOrders, setUserOrders,
+    shippingAddress, setShippingAddress,
+    cardDetails, setCardDetails
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

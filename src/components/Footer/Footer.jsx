@@ -1,10 +1,11 @@
-import { Box, Divider, Grid, Typography } from "@mui/material"
+import { Box, Divider, Typography } from "@mui/material"
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
 import { Call, Email, Facebook, Instagram, LinkedIn, Sell, Twitter } from "@mui/icons-material";
-import { lb, db, light } from "../Static/theme";
+import { db } from "../Static/theme";
+import SocialMedia from "./SocialMedia";
 
 export default function Footer(){
   let {isSeller} = useContext(AuthContext)
@@ -52,15 +53,12 @@ export default function Footer(){
       <Divider sx={{bgcolor:"white"}} />
       <br />
       <Box display={"flex"} justifyContent={"space-around"}>
-      {/* <br /> */}
       <LinkedIn />
-      {/* <br /> */}
       <Instagram />
-      {/* <br /> */}
       <Facebook />
-      {/* <br /> */}
       <Twitter />
       </Box>
+      {/* <SocialMedia /> */}
     </Box>
     
     </Box>
@@ -74,7 +72,7 @@ export default function Footer(){
             position="fixed"
             bottom={5}
             right={10}
-            bgcolor={light}
+            bgcolor={"white"}
             alignItems={"center"}
             justifyContent={"center"}
             zIndex={1}
@@ -93,7 +91,7 @@ export default function Footer(){
         <Box  position="fixed"
             bottom={20}
             left={10}
-            bgcolor={light}
+            bgcolor={"white"}
             color={"black"}
             display={"flex"}
             alignItems={"center"}

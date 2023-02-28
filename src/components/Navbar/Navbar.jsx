@@ -5,7 +5,7 @@ import Hamburger from "./Hamburger/Hamburger";
 import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";
 import SearchField from "./SearchField";
-import Logo from "../Static/Imgs/GofraLogo.png"
+import Logo from "../Static/Imgs/GofraLogo2.png"
 
 export let styles = {
   display: "flex",

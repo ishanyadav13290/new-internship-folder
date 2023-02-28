@@ -6,7 +6,7 @@ import s from "./CategoriesCard.module.css"
 
 export default function Cards({ name, category, brand }) {
   let {setFilterCategory, setBrand} = useContext(AuthContext)
-return <NavLink to="/allitems" className={s["ag-courses_item"]} style={{all:"unset"}}>
+return <NavLink to="/allitems" className={s["ag-courses_item"]} style={{all:"unset"}} >
   <div className={s["ag-courses_item"]} onClick={()=>{
    if (category!==undefined){
     setFilterCategory(category)

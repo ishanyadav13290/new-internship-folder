@@ -97,7 +97,7 @@ export default function Admin() {
     let obj = {
       sellerItems: [
         ...tempSellerItems,
-        { name, description, address, price, Img, category, brand },
+        { name, description, address, price, Img, category, brand,sellerID:userID },
       ],
     };
     event.currentTarget.reset();
@@ -130,6 +130,7 @@ export default function Admin() {
     //   "https://sedate-laced-chestnut.glitch.me/allItems",
     //   obj.sellerItems[obj.sellerItems.length - 1]
     // );
+    console.log(userID)
   };
   return !isAuth ? (
     <Navigate to="/login" />
@@ -338,6 +339,9 @@ export default function Admin() {
           <Typography variant="h5">No Additions Yet</Typography>
         </Box>
       ) : (
+        <>
+        <br />
+        <Typography variant="h5" fontWeight={700}>Your Listed Products</Typography>
         <Box
           minHeight={"200px"}
           maxHeight={"600px"}
@@ -350,6 +354,7 @@ export default function Admin() {
             return <AdminCards key={i} data={el} />;
           })}
         </Box>
+        </>
       )}
       <Copyright sx={{ mt: 5 }} />
     </>

@@ -47,7 +47,7 @@ export default function Carousel(){
         box.scrollLeft = box.scrollLeft + width 
     }
     
-    let temp = [<OurGoal />,<Investors />,<OurGoal />,<OurGoal />, <OurGoal />]
+    let temp = [<OurGoal />,<Investors />,<OurGoal />,<Investors />, <OurGoal />]
     return <Box sx={{background:"linear-gradient(90deg, rgba(86,9,121,1) 0%, rgba(56,33,91,1) 20%, rgba(51,22,105,1) 77%, rgba(37,9,121,1) 100%)"}} className={"carousel"} position={"relative"} overflow={"hidden"} m={"2% 0"} p={["20px 0"]}>
         <Button disabled={count==0?true:false} onClick={btnpressprev} sx={styles} ><ArrowLeft sx={{color:"white"}} /></Button>
         <Button disabled={count==4?true:false} onClick={btnpressnext} sx={styles2} ><ArrowRight sx={{color:"white"}} /></Button>

@@ -36,8 +36,6 @@
   }
   .ag-courses-item_title {
     min-height: 87px;
-    margin: 0 0 25px;
-  
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -45,7 +43,6 @@
     font-weight: bold;
     font-size: 25px;
     color: #FFF;
-  
     z-index: 1;
     position: relative;
   }

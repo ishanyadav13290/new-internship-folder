@@ -4,8 +4,27 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { AuthContext } from '../Context/Contexts';
 
 export default function PaymentForm() {
+  let {cardDetails, setCardDetails} = React.useContext(AuthContext)
+
+  function handleName(e){
+    let val = e.target.value
+    setCardDetails({...cardDetails,name :val})
+  }
+  function handleNumber(e){
+    let val = e.target.value
+    setCardDetails({...cardDetails,cardNumber :val})
+  }
+  function handleExpiry(e){
+    let val = e.target.value
+    setCardDetails({...cardDetails,expiry :val})
+  }
+  function handleCVV(e){
+    let val = e.target.value
+    setCardDetails({...cardDetails, cvv:val})
+  }
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -20,6 +39,7 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-name"
             variant="standard"
+            onChange={handleName}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -30,6 +50,7 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-number"
             variant="standard"
+            onChange={handleNumber}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -40,6 +61,7 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-exp"
             variant="standard"
+            onChange={handleExpiry}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -51,6 +73,7 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-csc"
             variant="standard"
+            onChange={handleCVV}
           />
         </Grid>
         <Grid item xs={12}>
