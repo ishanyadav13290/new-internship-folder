@@ -25,7 +25,7 @@ const theme = createTheme();
 
 
 export default function Login(){
-    let {isAuth,setAuth,setCart, setUserName,userID,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart,setUserPhone, setUserName,userID,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -79,12 +79,14 @@ export default function Login(){
           //  if(element.isSelling) localStorage.setItem(`allSellerItems`,JSON.stringify(element.sellerItems))
            if(element.isSelling) setIsSeller(element.isSelling)
             setUserName(element.name)
-            setWalletBalance(element.walletBalance)
+            // setWalletBalance(element.walletBalance)
             setCart(element.cart)
             setIsSeller(element.isSelling)
             setUserEmail(element.email)
             setUserPassword(element.password)
-            setUserAddress(element.address)
+            console.log(element)
+            setUserPhone(element.phone)
+            // setUserAddress(element.address)
             setUserOrders(element.orders)
         }
     });

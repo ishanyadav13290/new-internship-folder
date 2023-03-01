@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 import axios from "axios";
+import { db, lb } from "../Static/theme";
 
 function Copyright(props) {
   return (
@@ -37,43 +38,69 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  let { isAuth, setAuth, setUserName, setIsSeller, cart, walletBalance } =
+  let { isAuth, setAuth,otp, setOTP,userPhone, setUserPhone, setUserName, setIsSeller, cart, walletBalance } =
     React.useContext(AuthContext);
   let [sell, setSell] = React.useState(false);
+  let [step, setStep] = React.useState(1);
+  let [OneTimePass, setOneTimePass] = React.useState(0)
 
+  function handleOTP(){
+    var digits = '0123456789';
+    let OTP = '';
+    for (let i = 0; i < 6; i++ ) {
+        OTP += digits[Math.floor(Math.random() * 10)];
+    }
+    setOTP(OTP)
+    return alert(`Your OTP is ${OTP}`)
+  }
+
+  let tempPhone
+  function handleNumber(e){
+    let val = e.target.value
+    tempPhone= val
+    setUserPhone(tempPhone)
+  }
+  let tempOtp
+  function handleOTPChange(e){
+    let val = e.target.value
+    tempOtp = val
+  }
+
+  function handleNext(){
+    if (tempOtp!==otp) return alert("Wrong OTP")
+    setStep(2)
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    let name = data.get("firstName") + " " + data.get("lastName");
-    let address = data.get("Address");
     let email = data.get("email");
-    let password = data.get("password");
-    let confPass = data.get("conPassword");
+    let password = data.get("password")
+    let confPass = data.get("confPass")
+    
     let isSelling = sell;
 
     let letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
     let specialChar = /[!@#$%^&*(),.?":{}|<>]/;
 
-    if((confPass.length<=6 || password<=6)) return alert("Password Cannot be less than 6 Characters!")
-    if(!password.match(letterNumber)) return alert("Password must contain atleast one Number, Upper Case and Lower Case Character")
-    if(!password.match(specialChar)) return alert ("Provide atleast one Special Case Character")
+
+    // if((confPass.length<=6 || password<=6)) return alert("Password Cannot be less than 6 Characters!")
+    // if(!password.match(letterNumber)) return alert("Password must contain atleast one Number, Upper Case and Lower Case Character")
+    // if(!password.match(specialChar)) return alert ("Provide atleast one Special Case Character")
     if(confPass!= password) return alert("Password Mismatched")
 
 
     
     let obj = {
-      name,
-      address,
+      phone:userPhone,
       email,
       password,
       cart,
-      walletBalance,
       isSelling,
       sellerItems: sell ? [] : null,
     };
-    setUserName(name);
+    // console.log(obj)
     sell === true ? setIsSeller(true) : setIsSeller(false);
 
     // await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
@@ -109,70 +136,69 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <>
+                <Grid item xs={12} sm={8}  sx={{display:step==2?"none":"block"}}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete="phone"
+                  name="phoneNumber"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  type={"number"}
+                  id="phoneNumber"
+                  label="Phone Number"
+                  autoFocus
+                  onChange={handleNumber}
+                />
+              </Grid>
+              <Grid  item xs={12} sm={4} sx={{display:step==2?"none":"flex", alignItems:"center"}}>
+                <Button onClick={handleOTP} variant="outlined" sx={{color:lb, borderColor:lb}}>Send OTP</Button>
+              </Grid>
+              <Grid  sx={{display:step==2?"none":"block"}} item xs={12} sm={12}>
+                <TextField
+                  name="otp"
+                  required
+                  fullWidth
+                  id="otp"
+                  label="OTP"
+                  type={"number"}
+                  onChange={handleOTPChange}
+                />
+              </Grid>
+              </>
+              <>
+              <Grid item xs={12} sm={12}  sx={{display:step==2?"block":"none"}}>
+                <TextField
+                  autoComplete="email"
+                  name="email"
+                  required
+                  fullWidth
+                  type={"email"}
+                  id="email"
+                  label="Email ID"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12} sx={{display:step==2?"block":"none"}}>
                 <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
                   name="password"
-                  label="Password"
-                  type="password"
+                  required
+                  fullWidth
                   id="password"
-                  autoComplete="new-password"
+                  label="Password"
+                  type={"text"}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12} sx={{display:step==2?"block":"none"}}>
                 <TextField
+                  name="confPass"
                   required
                   fullWidth
-                  name="conPassword"
+                  id="confPass"
                   label="Confirm Password"
-                  type="password"
-                  id="conPassword"
-                  autoComplete="confirm-password"
+                  type={"text"}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="Address"
-                  label="Address"
-                  type="text"
-                  id="address"
-                  autoComplete="address"
-                />
-              </Grid>
+              </>
               <Grid item xs={12} width={"100%"}>
                 <FormControlLabel
                   control={
@@ -183,7 +209,7 @@ export default function SignUp() {
                       color="primary"
                     />
                   }
-                  label="Want To Sell?"
+                  label="I Want To Sell"
                   name="sell"
                 />
               </Grid>
@@ -197,10 +223,22 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
+            sx={{display:step==2?"none":"block",mt: 3, mb: 2,bgcolor:lb, "&:hover": {
+              bgcolor: db,
+            }}}
+            onClick={handleNext}
+              fullWidth
+              variant="contained"
+            >
+              Next
+            </Button>
+            <Button
+            sx={{display:step==2?"block":"none",mt: 3, mb: 2, bgcolor:lb, "&:hover": {
+              bgcolor: db,
+            } }}
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
             </Button>

@@ -8,10 +8,13 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import AccountSettings from "./AccountSettings/accountSettings";
 import {
+  Build,
+  InfoSharp,
     Payment, SettingsRounded, ShoppingBag
 } from "@mui/icons-material";
 import Orders from "./Orders/Orders";
 import Payments from "./Payments/payments";
+import CompanyInfo from "./CompanyInfo/companyInfo";
 
 let icons = { bgcolor: lb };
 
@@ -117,8 +120,9 @@ export default function Settings() {
           sx={{ borderRight: 1, borderColor: "divider" }}
         >
           <Tab sx={{color:lb}} label={<AccSettings />} {...a11yProps(0)} />
-          <Tab label={<PaySettings />} {...a11yProps(1)} />
-          <Tab label={<OrderSettings />} {...a11yProps(2)} />
+          <Tab sx={{color:lb}} label={<CompanySettings />} {...a11yProps(1)} />
+          <Tab sx={{color:lb}} label={<PaySettings />} {...a11yProps(2)} />
+          <Tab sx={{color:lb}} label={<OrderSettings />} {...a11yProps(3)} />
         </Tabs>
       </Box>
 
@@ -126,11 +130,15 @@ export default function Settings() {
         <AccountSettings />
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Payments />
+        <CompanyInfo />
       </TabPanel>
       <TabPanel value={value} index={2}>
+      <Payments />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
         <Orders />
       </TabPanel>
+      
     </Box>
   );
 }
@@ -198,6 +206,21 @@ function OrderSettings(){
           <Box sx={{ display: "flex", alignItems: "center"}}>
             <ShoppingBag sx={{color:lb}} />
             <Typography pl="5px">Orders</Typography>
+          </Box>
+        </Box>
+      );
+}
+function CompanySettings(){
+    return (
+        <Box
+          display={"flex"}
+          width={"100%"}
+          padding={"10px 0"}
+          justifyContent={"flex-start"}
+        >
+          <Box sx={{ display: "flex", alignItems: "center"}}>
+            <Build sx={{color:lb}} />
+            <Typography pl="5px">Company Information</Typography>
           </Box>
         </Box>
       );

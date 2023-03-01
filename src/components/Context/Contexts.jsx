@@ -23,6 +23,7 @@ export default function ContextProvider({ children }) {
   let [userGender, setUserGender] = useState("other")
   let [userPhone, setUserPhone] = useState(1234567890)
   let [userOrders, setUserOrders] = useState([])
+  let [otp, setOTP] = useState(Number("012345"))
   let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
     "name": "kjsajdflajsdla;kjdf",
     "description": "kljasdhflajsd",
@@ -81,7 +82,8 @@ export default function ContextProvider({ children }) {
     userPhone, setUserPhone,
     userOrders, setUserOrders,
     shippingAddress, setShippingAddress,
-    cardDetails, setCardDetails
+    cardDetails, setCardDetails,
+    otp, setOTP
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
