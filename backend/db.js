@@ -14,7 +14,8 @@ const newUsersSchema = mongoose.Schema({
     isSelling:Boolean,
     sellerItems:Array,
     phone:Number,
-    gender:String
+    gender:String,
+    pendingItems:Array
 })
 const allItemsSchema = mongoose.Schema({
     name:String,
@@ -27,11 +28,25 @@ const allItemsSchema = mongoose.Schema({
     sellerID:String
 })
 
+const verifyItemsSchema = mongoose.Schema({
+    name:String,
+    description:String,
+    address:String,
+    price:Number,
+    Img:String,
+    category:String,
+    brand:String,
+    sellerID:String,
+    status:String,
+})
+
 const newUsersModel = mongoose.model("user", newUsersSchema)
 const allItemsModel = mongoose.model("allItem", allItemsSchema)
+const verifyItemsModel = mongoose.model("verifyItem", verifyItemsSchema)
 
 module.exports = {
     connection,
     newUsersModel,
-    allItemsModel
+    allItemsModel,
+    verifyItemsModel
 }

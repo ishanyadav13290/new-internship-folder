@@ -25,7 +25,7 @@ const theme = createTheme();
 
 
 export default function Login(){
-    let {isAuth,setAuth,setCart,setUserPhone, setUserName,userID,setUserID,setUserAddress, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart,setUserPhone, setUserName,userID,setUserID,setUserAddress,pendingItems, setPendingItems, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
