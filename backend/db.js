@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const connection = mongoose.connect("mongodb://127.0.0.1:27017/Gofra");
+const connection = mongoose.connect("mongodb+srv://gofra:gofra@cluster0.a9uxn51.mongodb.net/Gofra");
+// const connection = mongoose.connect("mongodb://127.0.0.1:27017/Gofra");
 
 const newUsersSchema = mongoose.Schema({
     name: String,
