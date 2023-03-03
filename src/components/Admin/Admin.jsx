@@ -39,7 +39,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Admin() {
-  let { isAuth, userName, userID, allSellerItems, setAllSellerItems } =
+  let { isAuth, userName, userID, allSellerItems, setAllSellerItems, pendingItems, setPendingItems } =
     React.useContext(AuthContext);
   let imgInput = React.useRef(null);
   let [isLoading, setIsLoading] = React.useState(false);
@@ -48,6 +48,7 @@ export default function Admin() {
   );
   // temporarily storing seller items to show in the panel
   let [tempSellerItems, setTempSellerITems] = React.useState([]);
+  let [tempPendingItems, setTempPendingItems] = React.useState([])
 
   React.useEffect(() => {
     (async () => {
@@ -57,6 +58,7 @@ export default function Admin() {
         // `https://sedate-laced-chestnut.glitch.me/users/${userID}`
       );
       setTempSellerITems(temp.data.sellerItems);
+      setTempPendingItems(temp.data.pendingItems)
       setAllSellerItems(temp.data.sellerItems);
       setIsLoading(false);
     })();
@@ -94,43 +96,55 @@ export default function Admin() {
     let address = data.get("sellerAddress");
     let price = Number(data.get("price"));
 
+    // let obj = {
+    //   sellerItems: [
+    //     ...tempSellerItems,
+    //     { name, description, address, price, Img, category, brand,sellerID:userID },
+    //   ],
+    // };
     let obj = {
-      sellerItems: [
-        ...tempSellerItems,
-        { name, description, address, price, Img, category, brand,sellerID:userID },
-      ],
+      pendingItems:[
+        ...tempPendingItems,
+        {name,
+          description,
+          address,
+          price,
+          Img,
+          category,
+          brand,
+          sellerID: userID,
+          status: "pending",}
+      ]
     };
+    console.log(obj)
     event.currentTarget.reset();
     setCategory("default");
 
-    setTempSellerITems(obj.sellerItems);
-    setAllSellerItems(obj.sellerItems);
+    // setTempSellerITems(obj.sellerItems);
+    // setAllSellerItems(obj.sellerItems);
+    setTempPendingItems(obj.pendingItems)
+    setPendingItems(obj.pendingItems)
 
     setImg(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
     );
-    // await axios.patch(
-    //   `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
-    //   obj
-    // );
 
-    await axios.post(
-      "http://localhost:3001/allItems",
-      obj.sellerItems[obj.sellerItems.length - 1]
-    );
-
-    let temp = await axios.get(`http://localhost:3001/allItems`);
-
-    let tempData = temp.data.data;
-    tempData = tempData[tempData.length - 1];
-    obj.sellerItems[obj.sellerItems.length - 1]["_id"] = tempData["_id"];
-    await axios.patch(`http://localhost:3001/users/${userID}`, obj);
-
-    // axios.post(
-    //   "https://sedate-laced-chestnut.glitch.me/allItems",
+    // await axios.post(
+    //   "http://localhost:3001/allItems",
     //   obj.sellerItems[obj.sellerItems.length - 1]
     // );
-    console.log(userID)
+
+    // let temp = await axios.get(`http://localhost:3001/allItems`);
+
+    // let tempData = temp.data.data;
+    // tempData = tempData[tempData.length - 1];
+    // obj.sellerItems[obj.sellerItems.length - 1]["_id"] = tempData["_id"];
+    // await axios.patch(`http://localhost:3001/users/${userID}`, obj);
+
+    await axios.post("http://localhost:3001/verifyItems", obj.pendingItems[obj.pendingItems.length-1]);
+
+    axios.patch(`http://localhost:3001/users/${userID}`,obj)
+
   };
   return !isAuth ? (
     <Navigate to="/login" />
@@ -340,20 +354,22 @@ export default function Admin() {
         </Box>
       ) : (
         <>
-        <br />
-        <Typography variant="h5" fontWeight={700}>Your Listed Products</Typography>
-        <Box
-          minHeight={"200px"}
-          maxHeight={"600px"}
-          width={"90%"}
-          margin={"auto"}
-          sx={{ overflowX: "hidden" }}
-        >
-          {/* <AdminCards  /> */}
-          {allSellerItems.map((el, i) => {
-            return <AdminCards key={i} data={el} />;
-          })}
-        </Box>
+          <br />
+          <Typography variant="h5" fontWeight={700}>
+            Your Listed Products
+          </Typography>
+          <Box
+            minHeight={"200px"}
+            maxHeight={"600px"}
+            width={"90%"}
+            margin={"auto"}
+            sx={{ overflowX: "hidden" }}
+          >
+            {/* <AdminCards  /> */}
+            {allSellerItems.map((el, i) => {
+              return <AdminCards key={i} data={el} />;
+            })}
+          </Box>
         </>
       )}
       <Copyright sx={{ mt: 5 }} />

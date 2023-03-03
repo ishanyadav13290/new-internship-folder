@@ -4,7 +4,8 @@ const cors = require("cors")
 const port = process.env.PORT || 3001;
 const { connection,
     newUsersModel,
-    allItemsModel } = require("./db");
+    allItemsModel,
+    verifyItemsModel } = require("./db");
 
 app.use(express.json({ limit: '50mb' }))
 app.use(cors())
@@ -181,14 +182,27 @@ app.post("/sendOtp", (req, res) => {
         .create({
             body: message,
             from: '+12762966437',
-            to: "+91"+mobileNumber
+            to: "+91" + mobileNumber
         })
         .then(message => console.log(`OTP sent to ${message.to}`))
         .catch(error => console.error(error));
     res.send(message)
 })
+// verify Items Endpoint
+app.get("/verifyItems", async (req, res) => {
+    const { page, limit } = req.query;
+    let temp = await verifyItemsModel.find()
+    let skip = (page - 1) * limit
+    let data = await verifyItemsModel.find().skip(skip).limit(limit)
+    res.send({ data, count: temp.length })
+})
 
-
+app.post("/verifyItems", async (req, res) => {
+    const data = req.body;
+    const testimonials = new verifyItemsModel(data);
+    await testimonials.save()
+    res.send(data)
+})
 
 
 

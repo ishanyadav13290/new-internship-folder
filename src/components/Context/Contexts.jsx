@@ -24,6 +24,7 @@ export default function ContextProvider({ children }) {
   let [userPhone, setUserPhone] = useState(1234567890)
   let [userOrders, setUserOrders] = useState([])
   let [otp, setOTP] = useState(Number("012345"))
+  let [pendingItems, setPendingItems] = useState([])
   let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
     "name": "kjsajdflajsdla;kjdf",
     "description": "kljasdhflajsd",
@@ -74,6 +75,7 @@ export default function ContextProvider({ children }) {
     userPassword, setUserPassword,
     total, setTotal,
     userAddress, setUserAddress,
+    pendingItems, setPendingItems,
     allSellerItems, setAllSellerItems,
     isInputSearch, setIsInputSearch,
     filterCategory, setFilterCategory,

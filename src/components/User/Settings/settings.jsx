@@ -10,11 +10,12 @@ import AccountSettings from "./AccountSettings/accountSettings";
 import {
   Build,
   InfoSharp,
-    Payment, SettingsRounded, ShoppingBag
+    Payment, Pending, SettingsRounded, ShoppingBag
 } from "@mui/icons-material";
 import Orders from "./Orders/Orders";
 import Payments from "./Payments/payments";
 import CompanyInfo from "./CompanyInfo/companyInfo";
+import YourListings from "./YourListings/Listings";
 
 let icons = { bgcolor: lb };
 
@@ -123,6 +124,7 @@ export default function Settings() {
           <Tab sx={{color:lb}} label={<CompanySettings />} {...a11yProps(1)} />
           <Tab sx={{color:lb}} label={<PaySettings />} {...a11yProps(2)} />
           <Tab sx={{color:lb}} label={<OrderSettings />} {...a11yProps(3)} />
+          <Tab sx={{color:lb}} label={<ListingSettings />} {...a11yProps(4)} />
         </Tabs>
       </Box>
 
@@ -137,6 +139,9 @@ export default function Settings() {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <Orders />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <YourListings />
       </TabPanel>
       
     </Box>
@@ -221,6 +226,21 @@ function CompanySettings(){
           <Box sx={{ display: "flex", alignItems: "center"}}>
             <Build sx={{color:lb}} />
             <Typography pl="5px">Company Information</Typography>
+          </Box>
+        </Box>
+      );
+}
+function ListingSettings(){
+    return (
+        <Box
+          display={"flex"}
+          width={"100%"}
+          padding={"10px 0"}
+          justifyContent={"flex-start"}
+        >
+          <Box sx={{ display: "flex", alignItems: "center"}}>
+            <Pending sx={{color:lb}} />
+            <Typography pl="5px">Your Listings</Typography>
           </Box>
         </Box>
       );
