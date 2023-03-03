@@ -23,6 +23,7 @@ const newAdmins = mongoose.Schema({
     password: String,
     isAdmin:Boolean,
 })
+
 const allItemsSchema = mongoose.Schema({
     name:String,
     description:String,

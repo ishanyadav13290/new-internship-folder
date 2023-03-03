@@ -20,7 +20,7 @@ let exportedMenu;
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setAuth,setIsSeller,setUserOrders,setAllSellerItems,setUserPhone,setUserGender,userName,setUserName, setUserID,setUserEmail,setUserAddress,setCart,setWalletBalance } = React.useContext(AuthContext);
+  let { setAuth, setIsSeller, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,24 +55,25 @@ export default function BasictMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: ["block"], alignItems: "center", textAlign: "center" }}>
-      <LordAccount onClick={handleClick} />
+        <LordAccount onClick={handleClick} />
         <Typography
           fontSize={"14px"}
           onClick={handleClick}
-          display={["none","block","block"]}
+          display={["none", "block", "block"]}
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           color={"white"}
-          sx={{ cursor: "pointer", p:"0" }}
+          sx={{ cursor: "pointer", p: "0" }}
           fontWeight={700}
-          
+
         >
-        
+
           My Account
         </Typography>
       </Box>
       <Menu
+        disableScrollLock={true}
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -118,11 +119,11 @@ export default function BasictMenu() {
           Add another account
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <NavLink to="/account" style={{ all:"unset",display:"flex",width:"100%",alignItems:"center"}}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Account Settings
+          <NavLink to="/account" style={{ all: "unset", display: "flex", width: "100%", alignItems: "center" }}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Account Settings
           </NavLink>
         </MenuItem>
         <MenuItem onClick={LogOut}>
@@ -135,5 +136,4 @@ export default function BasictMenu() {
     </React.Fragment>
   );
 }
-
 export { exportedMenu };
