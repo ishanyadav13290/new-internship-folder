@@ -11,8 +11,7 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { AuthContext } from "../../Context/Contexts";
-import { Person, Wallet } from "@mui/icons-material";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { LordAccount } from "../../Features/LordIcons";
 
 let exportedMenu;
