@@ -4,6 +4,7 @@ const cors = require("cors")
 const port = process.env.PORT || 3001;
 const { connection,
     newUsersModel,
+    newAdminsModel,
     allItemsModel,
 verifyItemsModel } = require("./db");
 
@@ -190,8 +191,14 @@ app.post("/verifyItems", async (req, res) => {
 })
 
 
-
-
+// admins endpoint
+app.get("/admins", async (req, res) => {
+    const {page,limit} = req.query;
+    let temp = await newAdminsModel.find()
+    let skip=(page-1)*limit
+    let data = await newAdminsModel.find().skip(skip).limit(limit)
+    res.send({data,count:temp.length})
+})
 
 
 app.listen(port, async () => {

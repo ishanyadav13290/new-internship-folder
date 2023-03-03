@@ -14,7 +14,7 @@ import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
 import { lb } from "../Static/theme";
 
-export default function AdminCards({ data }) {
+export default function SellerCards({ data }) {
   let { userID, allSellerItems, setAllSellerItems } = useContext(AuthContext);
 
   function removeItem(data) {

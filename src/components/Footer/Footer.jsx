@@ -87,7 +87,7 @@ export default function Footer(){
             <ArrowUpwardIcon  style={{color:db}} />
           </Box>
         </a>
-        {isSeller?<NavLink to="/admin" >
+        {isSeller?<NavLink to="/sell" >
         <Box  position="fixed"
             bottom={20}
             left={10}

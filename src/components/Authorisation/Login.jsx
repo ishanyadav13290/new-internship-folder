@@ -84,7 +84,7 @@ export default function Login(){
             setIsSeller(element.isSelling)
             setUserEmail(element.email)
             setUserPassword(element.password)
-            console.log(element)
+            setPendingItems(element.pendingItems)
             setUserPhone(element.phone)
             // setUserAddress(element.address)
             setUserOrders(element.orders)
@@ -293,6 +293,11 @@ return <ThemeProvider theme={theme}>
         <Grid item>
           <NavLink to="/signup">
             {"Don't have an account? Sign Up"}
+          </NavLink>
+        </Grid>
+        <Grid item>
+          <NavLink to="/adminLogin">
+            {"Admin Login"}
           </NavLink>
         </Grid>
       </Grid>

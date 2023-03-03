@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Admin from "../Admin/Admin";
+import SellerPanel from "../Seller/SellerPanel";
 import Login from "../Authorisation/Login";
 import SignUp from "../Authorisation/SignUp";
 import Cart from "../Cart/Cart";
@@ -14,13 +14,16 @@ import HomePage from "../Landing Page/HomePage";
 import Products from "../Products Page/products";
 import SingleProductPage from "../Products Page/SingleProductPage";
 import Settings from "../User/Settings/settings";
+import AdminLogin from "../Authorisation/AdminLogin";
 
 export default function AllRoutes(){
     return <Routes> 
     <Route path="/" element=<HomePage /> />
     <Route path="/login" element=<Login /> />
     <Route path="/cart" element=<Cart /> />
-    <Route path="/admin" element=<Admin /> />
+    <Route path="/sell" element=<SellerPanel /> />
+    <Route path="/admins" element=<SellerPanel /> />
+    <Route path="/adminLogin" element=<AdminLogin /> />
     <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
     <Route path="/about" element=<About /> />

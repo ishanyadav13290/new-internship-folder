@@ -17,6 +17,12 @@ const newUsersSchema = mongoose.Schema({
     gender:String,
     pendingItems:Array
 })
+const newAdmins = mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    isAdmin:Boolean,
+})
 const allItemsSchema = mongoose.Schema({
     name:String,
     description:String,
@@ -41,12 +47,14 @@ const verifyItemsSchema = mongoose.Schema({
 })
 
 const newUsersModel = mongoose.model("user", newUsersSchema)
+const newAdminsModel = mongoose.model("admin",newAdmins)
 const allItemsModel = mongoose.model("allItem", allItemsSchema)
 const verifyItemsModel = mongoose.model("verifyItem", verifyItemsSchema)
 
 module.exports = {
     connection,
     newUsersModel,
+    newAdminsModel,
     allItemsModel,
     verifyItemsModel
 }

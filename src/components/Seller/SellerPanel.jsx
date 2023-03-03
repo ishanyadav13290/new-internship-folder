@@ -15,7 +15,7 @@ import { v4 as uid } from "uuid";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { AttachFile, Sell } from "@mui/icons-material";
 import { db, lb } from "../Static/theme";
-import AdminCards from "./AdminCards";
+import SellerCards from "./SellerCards";
 import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
@@ -38,7 +38,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Admin() {
+export default function SellerPanel() {
   let { isAuth, userName, userID, allSellerItems, setAllSellerItems, pendingItems, setPendingItems } =
     React.useContext(AuthContext);
   let imgInput = React.useRef(null);
@@ -367,7 +367,7 @@ export default function Admin() {
           >
             {/* <AdminCards  /> */}
             {allSellerItems.map((el, i) => {
-              return <AdminCards key={i} data={el} />;
+              return <SellerCards key={i} data={el} />;
             })}
           </Box>
         </>
