@@ -44,16 +44,18 @@ export default function SignUp() {
   let [step, setStep] = React.useState(1);
   let [OneTimePass, setOneTimePass] = React.useState(0)
 
-  function handleOTP(){
+ async function handleOTP(){
     var digits = '0123456789';
     let OTP = '';
     for (let i = 0; i < 6; i++ ) {
         OTP += digits[Math.floor(Math.random() * 10)];
     }
+    console.log(await axios.post("http://localhost:3001/sendOtp",{
+      mobileNumber:userPhone,
+      otp:OTP
+    }))
     setOTP(OTP)
-    return alert(`Your OTP is ${OTP}`)
   }
-
   let tempPhone
   function handleNumber(e){
     let val = e.target.value

@@ -16,6 +16,7 @@ const newUsersSchema = mongoose.Schema({
     phone:Number,
     gender:String
 })
+
 const allItemsSchema = mongoose.Schema({
     name:String,
     description:String,
