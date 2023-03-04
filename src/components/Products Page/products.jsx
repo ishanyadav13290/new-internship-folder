@@ -20,7 +20,7 @@ import { AuthContext } from "../Context/Contexts";
 import { lb } from "../Static/theme";
 import MediaCard from "./ProductsCards/ProductsCards";
 import SkeletonCard from "./ProductsCards/Skeleton";
-
+import useAlert from "../AlertPopUp/Alert";
 let LoadingArray = new Array(16).fill("a");
 
 export default function Products() {
@@ -28,7 +28,7 @@ export default function Products() {
     useContext(AuthContext);
   let [isLoading, setIsLoading] = useState(false);
   let { query } = useParams();
-  
+  const [Alert,trigger] = useAlert()
   let [sortPrice, setSortPrice] = useState("");
 
   // price slider
@@ -232,6 +232,7 @@ export default function Products() {
         display={["block", "block", "flex", "flex"]}
         padding={"20px"}
       >
+        <Alert />
         <Box
           width={["100%", "100%", "20%", "20%"]}
           position={["initial", "initial", "sticky", "sticky"]}
@@ -521,7 +522,7 @@ export default function Products() {
                   return <SkeletonCard key={i} />;
                 })
               : allSellerItems.map((el, i) => {
-                  return <MediaCard key={i} el={el} />;
+                  return <MediaCard key={i} func={trigger} el={el} />;
                 })}
           </Box>
         </Box>

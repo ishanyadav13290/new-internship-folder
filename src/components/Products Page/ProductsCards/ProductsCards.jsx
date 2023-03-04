@@ -10,14 +10,14 @@ import { AuthContext } from "../../Context/Contexts";
 import { motion, useInView } from "framer-motion";
 import { db, lb } from "../../Static/theme";
 
-export default function MediaCard({ el, broad, gap }) {
+export default function MediaCard({ el, broad, gap,func }) {
   let { isAuth } = React.useContext(AuthContext);
   let temp = useAddToCart();
-
+  
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: false });
   const variants = {
-    hidden: { opacity: 0, x: 150 },
+    hidden: { opacity: 0, x: -150 },
     visible: { opacity: 1, x: 0 },
   };
   return (
@@ -98,6 +98,7 @@ export default function MediaCard({ el, broad, gap }) {
               bgcolor: db,
             } }}
               onClick={() => {
+                
                 if (!isAuth) return alert("Login First");
                 let data1 = {
                   Img: el.Img,
@@ -107,6 +108,7 @@ export default function MediaCard({ el, broad, gap }) {
                   id: el._id,
                 };
                 temp(data1);
+                func("lightgreen","Added to cart")
               }}
             >
               <ShoppingCart />

@@ -1,5 +1,7 @@
 *{
   scroll-behavior: smooth;
+  box-sizing: border-box;
+  
 }
 body {
   margin: 0;
@@ -9,7 +11,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  transition: all 1s ease-in;
+  /* transition: all 1s ease-in; */
+  width: 100vw;
 }
 
 code {
@@ -26,7 +29,7 @@ code {
 
 /* background of the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: #360086;
+  background-color: #885cc9;
 }
 
 /* color of the scrollbar arrows */
@@ -36,7 +39,7 @@ code {
 
 /* color on hover for scrollbar thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #444342;
+  background-color: #cdaffa;
 }
 
 .carouselContainer::-webkit-scrollbar{
@@ -46,6 +49,4 @@ code {
 input:focus{
   outline: none;
 }
-
-
 

@@ -7,7 +7,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 import { db, lb } from "../Static/theme";
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -25,7 +24,8 @@ const theme = createTheme();
 
 
 export default function Login(){
-    let {isAuth,setAuth,setCart,setUserPhone, setUserName,userID,setUserID,setUserAddress,pendingItems, setPendingItems, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
+
+    let {trigger,isAuth,setAuth,setCart,setUserPhone, setUserName,userID,setUserID,setUserAddress,pendingItems, setPendingItems, setWalletBalance, setIsSeller, setUserEmail, setUserPassword, setUserOrders} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -89,6 +89,7 @@ export default function Login(){
             // setUserAddress(element.address)
             setUserOrders(element.orders)
         }
+        trigger("lightgreen","Login Successfully")
     });
     };
   if(isAuth) return <Navigate to="/" />

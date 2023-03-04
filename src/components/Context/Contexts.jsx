@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import useAlert from "../AlertPopUp/Alert";
 
 export let AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export default function ContextProvider({ children }) {
   let [walletBalance, setWalletBalance] = useState(10000);
   let [isSeller, setIsSeller]= useState(false)
   let [userEmail, setUserEmail] = useState("")
+  let [Alert,trigger] = useAlert();
   // let [isAuth, setAuth] = useState((JSON.parse(localStorage.getItem("isAuth")) || false));
   // let [cart, setCart] = useState((JSON.parse(localStorage.getItem("cart")) || []));
   // let [userName, setUserName] = useState((JSON.parse(localStorage.getItem("userName")) || ""));
@@ -91,7 +93,8 @@ export default function ContextProvider({ children }) {
     userOrders, setUserOrders,
     shippingAddress, setShippingAddress,
     cardDetails, setCardDetails,
-    otp, setOTP
+    otp, setOTP,
+    Alert,trigger
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
