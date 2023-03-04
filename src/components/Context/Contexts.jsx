@@ -4,18 +4,18 @@ import useAlert from "../AlertPopUp/Alert";
 export let AuthContext = createContext();
 
 export default function ContextProvider({ children }) {
-  let [isAuth, setAuth] = useState(false);
+  // let [isAuth, setAuth] = useState(false);
   let [cart, setCart] = useState([]);
   let [userName, setUserName] = useState("");
-  let [userID, setUserID] = useState("");
+  // let [userID, setUserID] = useState("");
   let [walletBalance, setWalletBalance] = useState(10000);
   let [isSeller, setIsSeller]= useState(false)
   let [userEmail, setUserEmail] = useState("")
   let [Alert,trigger] = useAlert();
-  // let [isAuth, setAuth] = useState((JSON.parse(localStorage.getItem("isAuth")) || false));
+  let [isAuth, setAuth] = useState((JSON.parse(localStorage.getItem("isAuth")) || false));
   // let [cart, setCart] = useState((JSON.parse(localStorage.getItem("cart")) || []));
   // let [userName, setUserName] = useState((JSON.parse(localStorage.getItem("userName")) || ""));
-  // let [userID, setUserID] = useState((JSON.parse(localStorage.getItem("userID")) || ""));
+  let [userID, setUserID] = useState((JSON.parse(localStorage.getItem("userID")) || ""));
   // let [walletBalance, setWalletBalance] = useState((JSON.parse(localStorage.getItem("walletBalance")) || 10000));
   // let [isSeller, setIsSeller]= useState((JSON.parse(localStorage.getItem("isSeller")) || false))
   // let [userEmail, setUserEmail] = useState((JSON.parse(localStorage.getItem("userEmail")) || ""))
