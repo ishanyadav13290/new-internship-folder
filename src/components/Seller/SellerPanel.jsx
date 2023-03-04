@@ -142,6 +142,11 @@ export default function SellerPanel() {
     // await axios.patch(`http://localhost:3001/users/${userID}`, obj);
 
     await axios.post("http://localhost:3001/verifyItems", obj.pendingItems[obj.pendingItems.length-1]);
+    let temp = await axios.get(`http://localhost:3001/verifyItems`);
+
+    let tempData = temp.data.data;
+    tempData = tempData[tempData.length - 1];
+    obj.pendingItems[obj.pendingItems.length - 1]["_id"] = tempData["_id"];
 
     axios.patch(`http://localhost:3001/users/${userID}`,obj)
 

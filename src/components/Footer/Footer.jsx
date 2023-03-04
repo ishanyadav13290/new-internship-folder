@@ -3,12 +3,12 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
-import { Call, Email, Facebook, Instagram, LinkedIn, Sell, Twitter } from "@mui/icons-material";
+import { AdminPanelSettings, Call, Email, Facebook, Instagram, LinkedIn, Sell, Twitter } from "@mui/icons-material";
 import { db } from "../Static/theme";
 import SocialMedia from "./SocialMedia";
 
 export default function Footer(){
-  let {isSeller} = useContext(AuthContext)
+  let {isSeller, isAdmin} = useContext(AuthContext)
     let style={
       background: "rgb(37,9,121)",
       background: "linear-gradient(90deg, rgba(37,9,121,1) 0%, rgba(51,22,105,1) 32%, rgba(56,33,91,1) 59%, rgba(86,9,121,1) 93%)",backgroundColor:db,
@@ -106,6 +106,27 @@ export default function Footer(){
             fontWeight={700}
             fontSize="xl">
             <Sell sx={{color:db}} />
+        </Box>
+        </NavLink>:null}  
+        {isAdmin?<NavLink to="/admins" >
+        <Box  position="fixed"
+            bottom={20}
+            left={10}
+            bgcolor={"white"}
+            color={"black"}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            zIndex={1}
+            p="10px"
+            sx={{"&:hover": {
+                  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                }}}
+            borderRadius="50%"
+            border="2px solid #1f003c"
+            fontWeight={700}
+            fontSize="xl">
+            <AdminPanelSettings sx={{color:db}} />
         </Box>
         </NavLink>:null}  
     </>
