@@ -25,7 +25,7 @@ export default function Navbar() {
         zIndex={"10"}
         position={["static", "static", "static", "static"]}
       >
-        <Box width={["100%","90%"]}>
+        <Box width={["100vw","90%"]}>
         <Box display={"flex"} alignItems={"center"}  >
         <Hamburger  />
         <NavLink to={"/"} style={{color:"white",textDecoration:"none"}}>

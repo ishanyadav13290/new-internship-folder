@@ -95,6 +95,7 @@ export default function CompanyInfo() {
       setGST(reader.result);
     };
   };
+  
   const handleFileChange1 = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
