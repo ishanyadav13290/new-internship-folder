@@ -4,19 +4,18 @@ import useAlert from "../AlertPopUp/Alert";
 export let AuthContext = createContext();
 
 export default function ContextProvider({ children }) {
-  let [isAuth, setAuth] = useState(false);
-  let [isAdmin, setIsAdmin] = useState(false);
+  // let [isAuth, setAuth] = useState(false);
   let [cart, setCart] = useState([]);
   let [userName, setUserName] = useState("");
-  let [userID, setUserID] = useState("");
+  // let [userID, setUserID] = useState("");
   let [walletBalance, setWalletBalance] = useState(10000);
-  let [isSeller, setIsSeller]= useState(false)
+  let [isSeller, setIsSeller] = useState(false)
   let [userEmail, setUserEmail] = useState("")
   let [Alert,trigger] = useAlert();
-  // let [isAuth, setAuth] = useState((JSON.parse(localStorage.getItem("isAuth")) || false));
+  let [isAuth, setAuth] = useState((JSON.parse(localStorage.getItem("isAuth")) || false));
   // let [cart, setCart] = useState((JSON.parse(localStorage.getItem("cart")) || []));
   // let [userName, setUserName] = useState((JSON.parse(localStorage.getItem("userName")) || ""));
-  // let [userID, setUserID] = useState((JSON.parse(localStorage.getItem("userID")) || ""));
+  let [userID, setUserID] = useState((JSON.parse(localStorage.getItem("userID")) || ""));
   // let [walletBalance, setWalletBalance] = useState((JSON.parse(localStorage.getItem("walletBalance")) || 10000));
   // let [isSeller, setIsSeller]= useState((JSON.parse(localStorage.getItem("isSeller")) || false))
   // let [userEmail, setUserEmail] = useState((JSON.parse(localStorage.getItem("userEmail")) || ""))
@@ -35,12 +34,12 @@ export default function ContextProvider({ children }) {
     "price": 659087,
     "Img": "imgdata",
     "category": "Angles"
-    }))
+  }))
 
-    // for filter 
-    let [filterCategory, setFilterCategory] = useState("all");
+  // for filter 
+  let [filterCategory, setFilterCategory] = useState("all");
 
-    let [brand, setBrand] = useState("all");
+  let [brand, setBrand] = useState("all");
   // let [allSellerItems, setAllSellerItems] = useState((JSON.parse(localStorage.getItem("allSellerItems")) || new Array(16).fill({
   //   "name": "kjsajdflajsdla;kjdf",
   //   "description": "kljasdhflajsd",
@@ -53,27 +52,22 @@ export default function ContextProvider({ children }) {
 
   // for shipping details
   let [shippingAddress, setShippingAddress] = useState({
-    firstName:"",
-    secondName:"",
-    address:"",
-    state:"",
-    zip:"",
-    city:"",
+    firstName: "",
+    secondName: "",
+    address: "",
+    state: "",
+    zip: "",
+    city: "",
   })
   let [cardDetails, setCardDetails] = useState({
-    name:"",
-    cardNumber:0,
-    expiry:"",
-    cvv:""
+    name: "",
+    cardNumber: 0,
+    expiry: "",
+    cvv: ""
   })
-
-  // for admin verification 
-  let [verificationItems, setVerificationItems] = useState([])
 
   let value = {
     isAuth, setAuth,
-    isAdmin, setIsAdmin,
-    verificationItems, setVerificationItems,
     cart, setCart,
     userName, setUserName,
     userID, setUserID,
@@ -94,7 +88,7 @@ export default function ContextProvider({ children }) {
     shippingAddress, setShippingAddress,
     cardDetails, setCardDetails,
     otp, setOTP,
-    Alert,trigger
+    Alert, trigger
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

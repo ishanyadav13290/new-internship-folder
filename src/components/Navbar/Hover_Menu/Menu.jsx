@@ -19,7 +19,7 @@ let exportedMenu;
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setAuth, setIsSeller, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
+  let { setAuth, setIsSeller, userEmail, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,6 +27,7 @@ export default function BasictMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   function LogOut() {
     setAuth(false);
     setIsSeller(false)
@@ -107,8 +108,8 @@ export default function BasictMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <Avatar /> {userName}
+        <MenuItem onClick={()=>console.log(userEmail)}>
+          <Avatar /> {userEmail}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
