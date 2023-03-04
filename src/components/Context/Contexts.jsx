@@ -4,6 +4,7 @@ export let AuthContext = createContext();
 
 export default function ContextProvider({ children }) {
   let [isAuth, setAuth] = useState(false);
+  let [isAdmin, setIsAdmin] = useState(false);
   let [cart, setCart] = useState([]);
   let [userName, setUserName] = useState("");
   let [userID, setUserID] = useState("");
@@ -64,8 +65,13 @@ export default function ContextProvider({ children }) {
     cvv:""
   })
 
+  // for admin verification 
+  let [verificationItems, setVerificationItems] = useState([])
+
   let value = {
     isAuth, setAuth,
+    isAdmin, setIsAdmin,
+    verificationItems, setVerificationItems,
     cart, setCart,
     userName, setUserName,
     userID, setUserID,

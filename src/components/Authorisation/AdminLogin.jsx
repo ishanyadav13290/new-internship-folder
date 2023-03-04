@@ -25,16 +25,16 @@ const theme = createTheme();
 
 
 export default function AdminLogin(){
-    let {isAuth,setAuth,setUserPhone, setUserName,userID,setUserID, setPendingItems, setUserEmail, setUserPassword} = useContext(AuthContext)
+    let {isAuth,setAuth,setUserPhone, setUserName,userID,setUserID, setPendingItems, setUserEmail, setUserPassword, isAdmin, setIsAdmin} = useContext(AuthContext)
   let Email = useRef(null);
-  let Pass = useRef("");
+  let Pass = useRef(null);
 
   let [users,setUsers] = useState([])
 
   useEffect(()=>{
     (async ()=>{
         let temp=await axios.get("http://localhost:3001/admins")
-        setUsers(temp.data)
+        setUsers(temp.data.data)
     })()
 
   },[])
@@ -67,16 +67,12 @@ export default function AdminLogin(){
       // });
       users.forEach(element => {
         // console.log(element.address)
-        if(email == element.email && pass == element.password){
+        if(element.isAdmin && email == element.email && pass == element.password){
             setAuth(true)
             setUserID(element._id)
-            // localStorage.setItem(`userName`,JSON.stringify(element.name))
-            // localStorage.setItem(`isAuth`,JSON.stringify(true))
-            // localStorage.setItem(`userID`,JSON.stringify(element.id))
-            // localStorage.setItem(`cart`,JSON.stringify(element.cart))
-            // localStorage.setItem(`isSeller`,JSON.stringify(element.isSelling))
-          //  if(element.isSelling) localStorage.setItem(`allSellerItems`,JSON.stringify(element.sellerItems))
-           
+            setIsAdmin(element.isAdmin)
+            setUserName(element.name)
+            setUserEmail(element.email)
         }
     });
     };

@@ -204,6 +204,11 @@ app.post("/verifyItems", async (req, res) => {
     await testimonials.save()
     res.send(data)
 })
+app.delete("/verifyItems/:id", async (req, res) => {
+    const id = req.params.id;
+    const deletedObject = await verifyItemsModel.findByIdAndDelete(id);
+    res.send(`Object with ID:${id} has been deleted`);
+})
 
 
 // admins endpoint

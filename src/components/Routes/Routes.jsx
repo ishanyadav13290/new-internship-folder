@@ -15,6 +15,7 @@ import Products from "../Products Page/products";
 import SingleProductPage from "../Products Page/SingleProductPage";
 import Settings from "../User/Settings/settings";
 import AdminLogin from "../Authorisation/AdminLogin";
+import Admin from "../Admins/Admin";
 
 export default function AllRoutes(){
     return <Routes> 
@@ -22,7 +23,7 @@ export default function AllRoutes(){
     <Route path="/login" element=<Login /> />
     <Route path="/cart" element=<Cart /> />
     <Route path="/sell" element=<SellerPanel /> />
-    <Route path="/admins" element=<SellerPanel /> />
+    <Route path="/admins" element=<Admin /> />
     <Route path="/adminLogin" element=<AdminLogin /> />
     <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
