@@ -4,6 +4,6 @@ import { lb } from "../../../Static/theme";
 
 export default function Suppliers(){
     return <Box>
-        <Typography color={lb}>Partner With Us</Typography>
+        <Typography color={lb} variant={"h4"} fontWeight={700}>Partner With Us</Typography>
     </Box>
 }

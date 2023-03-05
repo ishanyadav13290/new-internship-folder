@@ -15,6 +15,7 @@ import SingleProductPage from "../Products Page/SingleProductPage";
 import Settings from "../User/Settings/settings";
 import AdminLogin from "../Authorisation/AdminLogin";
 import Admin from "../Admins/Admin";
+import Suppliers from "../Gofra/Others/Suppliers/suppliers";
 
 export default function AllRoutes(){
     return <Routes> 
@@ -32,6 +33,7 @@ export default function AllRoutes(){
     <Route path="/home&care" element=<HomeCare /> />
     <Route path="/supplyChain" element=<SupplyChain /> />
     <Route path="/account" element=<Settings /> />
+    <Route path="/suppliers" element=<Suppliers /> />
     <Route path="/:category" element=<Products/> />
     <Route path="/search/:query" element=<Products/> />
     <Route path="/newarrivals/:id" element= <SingleProductPage /> />

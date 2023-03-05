@@ -1,7 +1,7 @@
 
 import { Typography } from "@mui/material"
 import { Box } from "@mui/system"
-import { lb } from "../../Static/theme"
+import { lb } from "../../../Static/theme"
 import s from "./team.module.css"
 export default function Team(){
   let images=["https://media.licdn.com/dms/image/C4D03AQF4K6yffRB7aA/profile-displayphoto-shrink_400_400/0/1657000982122?e=1682553600&v=beta&t=niXwaOoz36Oul1mVQOtcmek3SAgkN14OywQlOhtuILY","https://media.licdn.com/dms/image/C4D03AQF4K6yffRB7aA/profile-displayphoto-shrink_400_400/0/1657000982122?e=1682553600&v=beta&t=niXwaOoz36Oul1mVQOtcmek3SAgkN14OywQlOhtuILY","https://media.licdn.com/dms/image/C4D03AQF4K6yffRB7aA/profile-displayphoto-shrink_400_400/0/1657000982122?e=1682553600&v=beta&t=niXwaOoz36Oul1mVQOtcmek3SAgkN14OywQlOhtuILY"]
