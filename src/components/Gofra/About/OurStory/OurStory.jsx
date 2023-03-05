@@ -1,11 +1,12 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import {motion} from "framer-motion"
+import { lb } from "../../../Static/theme";
 
 export default function OurStory() {
   return (
     <>
-    <Typography component={"span"} variant="h4">About Us</Typography>
+    <Typography color={lb} fontWeight={700} variant="h3">About Us</Typography>
     <br />
       <motion.div
       initial={{ y: 10, opacity: 0 }}
@@ -19,7 +20,7 @@ export default function OurStory() {
         m={"auto"}
       >
         <Box width={"70%"}>
-          <Typography variant="h5" fontWeight={700}>
+          <Typography variant="h5" color={lb} fontWeight={700}>
             Our Mission
           </Typography>
           <br />
@@ -70,7 +71,7 @@ export default function OurStory() {
           />
         </Box>
         <Box width={"70%"}>
-          <Typography variant="h5" fontWeight={700}>
+          <Typography color={lb} variant="h5" fontWeight={700}>
             Our Story
           </Typography>
           <br />
