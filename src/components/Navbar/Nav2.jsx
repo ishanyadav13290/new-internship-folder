@@ -6,9 +6,9 @@ import { AuthContext } from "../Context/Contexts";
 import { db } from "../Static/theme";
 import HoverMenu from "./Nav2Menu/HoverMenu";
 
-let arr = ["About Us", "Our Team", "Contact"];
+let arr = ["About Us", "Contact"];
 
-let routes = ["about", "team", "contact"];
+let routes = ["about", "contact"];
 
 export default function Nav2() {
   let { setFilterCategory, setBrand } = useContext(AuthContext);
@@ -81,6 +81,14 @@ export default function Nav2() {
           "Artwork Management",
         ]}
         routes={["supplyChain", "digitalPlanning", "ArtworkManagement"]}
+      />
+      <HoverMenu
+        name={"Join Us"}
+        menuItems={[
+         "Buyers",
+         "Suppliers"
+        ]}
+        routes={["buyers", "suppliers"]}
       />
 
       {arr.map((el, i) => {

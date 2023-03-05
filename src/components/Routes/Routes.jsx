@@ -9,7 +9,6 @@ import Contact from "../Gofra/Contact/contact";
 import EcomRetail from "../Gofra/Others/Ecom&Retail/ecom&retail";
 import HomeCare from "../Gofra/Others/Home&PersonalCare/HomeCare";
 import SupplyChain from "../Gofra/Others/SupplyChainSolution/SupplyChain";
-import Team from "../Gofra/Team/Team";
 import HomePage from "../Landing Page/HomePage";
 import Products from "../Products Page/products";
 import SingleProductPage from "../Products Page/SingleProductPage";
@@ -28,7 +27,6 @@ export default function AllRoutes(){
     <Route path="/checkout" element=<Checkout /> />
     <Route path="/signup" element=<SignUp /> />
     <Route path="/about" element=<About /> />
-    <Route path="/team" element=<Team /> />
     <Route path="/contact" element=<Contact /> />
     <Route path="/ecom&retail" element=<EcomRetail /> />
     <Route path="/home&care" element=<HomeCare /> />
