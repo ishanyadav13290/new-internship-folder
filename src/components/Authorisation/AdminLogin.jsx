@@ -25,7 +25,7 @@ const theme = createTheme();
 
 
 export default function AdminLogin(){
-    let {isAuth,setAuth,setUserPhone, setUserName,userID,setUserID, setPendingItems, setUserEmail, setUserPassword, isAdmin, setIsAdmin} = useContext(AuthContext)
+    let {isAdmin,setIsAdmin,isAuth,setAuth,setUserPhone, setUserName,userID,setUserID, setPendingItems, setUserEmail, setUserPassword} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef(null);
 
@@ -34,7 +34,7 @@ export default function AdminLogin(){
   useEffect(()=>{
     (async ()=>{
         let temp=await axios.get("http://localhost:3001/admins")
-        setUsers(temp.data.data)
+        setUsers(temp.data)
     })()
 
   },[])
@@ -68,11 +68,18 @@ export default function AdminLogin(){
       users.forEach(element => {
         // console.log(element.address)
         if(element.isAdmin && email == element.email && pass == element.password){
+            localStorage.setItem("isAuth",true)
+            localStorage.setItem("userID",JSON.stringify(element._id));
+            localStorage.setItem("isAdmin",true)
+            console.log(element.isAdmin)
+            // setIsAdmin(element.isAdmin)
+            console.log(element.email)
+            setIsAdmin(true)
             setAuth(true)
             setUserID(element._id)
-            setIsAdmin(element.isAdmin)
-            setUserName(element.name)
+            setUserName(element.name);
             setUserEmail(element.email)
+            
         }
     });
     };

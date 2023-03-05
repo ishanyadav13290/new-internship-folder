@@ -15,11 +15,10 @@ import { NavLink } from "react-router-dom";
 import { LordAccount } from "../../Features/LordIcons";
 
 let exportedMenu;
-
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setAuth, setIsSeller, userEmail, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
+  let { setIsAdmin, setAuth, setIsSeller, userEmail, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,8 +26,11 @@ export default function BasictMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   function LogOut() {
+    localStorage.setItem("isAuth", JSON.stringify(null))
+    localStorage.setItem("userID", JSON.stringify(null))
+    localStorage.setItem("isAdmin", false)
+    setIsAdmin(false)
     setAuth(false);
     setIsSeller(false)
     setUserID("")
@@ -66,9 +68,7 @@ export default function BasictMenu() {
           color={"white"}
           sx={{ cursor: "pointer", p: "0" }}
           fontWeight={700}
-
         >
-
           My Account
         </Typography>
       </Box>
@@ -108,7 +108,7 @@ export default function BasictMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={()=>console.log(userEmail)}>
+        <MenuItem onClick={() => console.log(userEmail)}>
           <Avatar /> {userEmail}
         </MenuItem>
         <Divider />

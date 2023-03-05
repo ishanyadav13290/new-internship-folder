@@ -213,12 +213,54 @@ app.delete("/verifyItems/:id", async (req, res) => {
 
 // admins endpoint
 app.get("/admins", async (req, res) => {
-    const {page,limit} = req.query;
-    let temp = await newAdminsModel.find()
-    let skip=(page-1)*limit
-    let data = await newAdminsModel.find().skip(skip).limit(limit)
-    res.send({data,count:temp.length})
+    let data = await newAdminsModel.find()
+    res.send(data)
 })
+
+app.get("/admins/:id", async (req, res) => {
+    const _id = req.params.id;
+    const data = await newAdminsModel.findById({_id});
+    console.log(data)
+    res.send(data);
+});
+
+app.post("/admins", async (req, res) => {
+    const data = req.body;
+    try {
+        const member = new newAdminsModel(data);
+        await member.save();
+        res.send(data);
+    } catch (err) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.patch("/admins/:id", async (req, res) => {
+    const data = req.body;
+    const id = req.params.id;
+    console.log(id)
+    const updatedObject = await newAdminsModel.findOneAndUpdate({ _id: id }, data);
+    res.send(`Object with ID:${id} has been deleted`);
+})
+app.delete("/admins/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const deletedObject = await newAdminsModel.findByIdAndDelete(id);
+        if (!deletedObject) {
+            res.status(404).send("Object not found");
+        } else {
+            res.send(`Object with ID:${id} has been deleted`);
+        }
+    } catch (err) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
 
 
 app.listen(port, async () => {

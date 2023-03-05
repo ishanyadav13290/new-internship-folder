@@ -25,8 +25,10 @@ export default function ContextProvider({ children }) {
   let [userGender, setUserGender] = useState("other")
   let [userPhone, setUserPhone] = useState(1234567890)
   let [userOrders, setUserOrders] = useState([])
+  let [verificationItems, setVerificationItems] = useState([])
   let [otp, setOTP] = useState(Number("012345"))
-  let [pendingItems, setPendingItems] = useState([])
+  let [pendingItems, setPendingItems] = useState([]);
+  let [isAdmin,setIsAdmin] = useState(JSON.parse(localStorage.getItem("isAdmin")) || false)
   let [allSellerItems, setAllSellerItems] = useState(new Array(16).fill({
     "name": "kjsajdflajsdla;kjdf",
     "description": "kljasdhflajsd",
@@ -49,7 +51,6 @@ export default function ContextProvider({ children }) {
   //   "category": "Angles"
   //   })))
   let [isInputSearch, setIsInputSearch] = useState(false)
-
   // for shipping details
   let [shippingAddress, setShippingAddress] = useState({
     firstName: "",
@@ -88,7 +89,9 @@ export default function ContextProvider({ children }) {
     shippingAddress, setShippingAddress,
     cardDetails, setCardDetails,
     otp, setOTP,
-    Alert, trigger
+    Alert, trigger,
+    isAdmin,setIsAdmin,
+    verificationItems, setVerificationItems
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

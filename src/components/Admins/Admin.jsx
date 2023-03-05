@@ -13,12 +13,13 @@ export default function Admin(){
         (async ()=>{
             setIsLoading(true)
             let temp=await axios.get("http://localhost:3001/verifyItems")
-            setVerificationItems(temp.data.data)
+            setVerificationItems(temp.data.data);
+            console.log(temp.data.data)
             setIsLoading(false)
         })()
     },[])
     return <Box minHeight={"100vh"}>
-    { isLoading? <Typography variant={"h3"}>Loading...</Typography>: verificationItems.length===0?<NoItemsToVerify />:verificationItems.map((el,i)=>{
+    { isLoading? <Typography variant={"h3"}>Loading...</Typography>: verificationItems?.length===0?<NoItemsToVerify />:verificationItems.map((el,i)=>{
         return <AdminApprovalCards key={i} data={el} />
     })}
     </Box>
