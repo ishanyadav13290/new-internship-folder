@@ -60,12 +60,7 @@ export default function ContextProvider({ children }) {
     zip: "",
     city: "",
   })
-  let [cardDetails, setCardDetails] = useState({
-    name: "",
-    cardNumber: 0,
-    expiry: "",
-    cvv: ""
-  })
+  let [paymentMethod, setPaymentMethod] = useState("")
 
   let value = {
     isAuth, setAuth,
@@ -87,7 +82,7 @@ export default function ContextProvider({ children }) {
     userPhone, setUserPhone,
     userOrders, setUserOrders,
     shippingAddress, setShippingAddress,
-    cardDetails, setCardDetails,
+    paymentMethod, setPaymentMethod,
     otp, setOTP,
     Alert, trigger,
     isAdmin,setIsAdmin,

@@ -17,6 +17,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import axios from 'axios';
 import { AuthContext } from '../Context/Contexts';
+import { db, lb } from '../Static/theme';
 
 function Copyright() {
   return (
@@ -85,7 +86,7 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, }}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -108,7 +109,7 @@ export default function Checkout() {
               {getStepContent(activeStep)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1, color:lb }}>
                     Back
                   </Button>
                 )}
@@ -124,14 +125,18 @@ export default function Checkout() {
                     setCart([])
 
                   }}
-                  sx={{ mt: 3, ml: 1,display:activeStep===steps.length-1?"block":"none" }}
+                  sx={{bgcolor:lb,"&:hover": {
+              bgcolor: db
+            }, mt: 3, ml: 1,display:activeStep===steps.length-1?"block":"none", }}
                 >
                   Place Order
                 </Button>
                 <Button
                   variant="contained"
                   onClick={handleNext}
-                  sx={{ mt: 3, ml: 1,display:activeStep===steps.length-1?"none":"block" }}
+                  sx={{bgcolor:lb,"&:hover": {
+              bgcolor: db
+            }, mt: 3, ml: 1,display:activeStep===steps.length-1?"none":"block" }}
                 >
                   Next
                 </Button>
