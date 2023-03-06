@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function useAlert() {
     const [bgColor, setBgColor] = useState("");
     const [text, setText] = useState("");
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     function trigger(color, words) {
         setBgColor(color);
@@ -23,7 +23,7 @@ export default function useAlert() {
                 zIndex={100}
                 height={"60px"}
                 position={"fixed"}
-                top={"0"}
+                top={"10px"}
                 left={"calc( 50% - 150px )"}
             >
                 <motion.div
@@ -33,9 +33,11 @@ export default function useAlert() {
                         height: "100%",
                         transition: "opacity 1s linear",
                         opacity: isVisible ? 1 : 0,
-                        padding:"20px",
                         borderRadius:"20px",
-                        fontWeight:"900"
+                        fontWeight:"900",
+                        display:"flex",
+                        alignItems:"center",
+                        justifyContent:"center"
                     }}
                     animate={{ opacity: isVisible ? 1 : 0 }}
                 >
