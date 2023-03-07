@@ -93,35 +93,6 @@ export default function AccountSettings() {
       </Box>
       <br />
       <Box display={"flex"}>
-      <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        defaultValue={"other"}
-        value={userGender}
-      >
-        <FormControlLabel onClick={()=>{
-          if(isDisable) return
-            setUserGender("female")
-          setNewChangedItem({...newChangedItem,gender:"female"})
-        }} disabled={isDisable} value="female" control={<Radio />} label="Female" />
-        <FormControlLabel onClick={()=>{
-          if(isDisable) return
-            setUserGender("male")
-            setNewChangedItem({...newChangedItem,gender:"male"})
-        }} disabled={isDisable} value="male" control={<Radio />} label="Male" />
-        <FormControlLabel onClick={()=>{
-          if(isDisable) return
-            setUserGender("other")
-            setNewChangedItem({...newChangedItem,gender:"other"})
-        }} disabled={isDisable} value="other" control={<Radio />} label="Other" />
-      </RadioGroup>
-    </FormControl>
-      </Box>
-      <br />
-      <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
             <Typography variant={"body1"}>Saved Address</Typography>
             <TextField sx={{width:["100%","50%"]}} type="text" fullWidth onChange={changeAddress} disabled={isDisable} placeholder={ userAddress || "Address"} />

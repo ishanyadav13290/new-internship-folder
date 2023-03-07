@@ -21,6 +21,7 @@ import { lb } from "../Static/theme";
 import MediaCard from "./ProductsCards/ProductsCards";
 import SkeletonCard from "./ProductsCards/Skeleton";
 import useAlert from "../AlertPopUp/Alert";
+import NoResultsFound from "./NoResultsFound";
 let LoadingArray = new Array(16).fill("a");
 
 export default function Products() {
@@ -521,7 +522,7 @@ export default function Products() {
               ? LoadingArray.map((el, i) => {
                   return <SkeletonCard key={i} />;
                 })
-              : allSellerItems.map((el, i) => {
+              : allSellerItems.length===0?<NoResultsFound /> :allSellerItems.map((el, i) => {
                   return <MediaCard key={i} func={trigger} el={el} />;
                 })}
           </Box>

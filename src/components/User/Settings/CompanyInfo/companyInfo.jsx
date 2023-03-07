@@ -38,18 +38,31 @@ const names = [
 ];
 
 export default function CompanyInfo() {
-  let { userID, userName, setUserName, userEmail, setUserEmail, userPhone, setUserPhone, userGender, setUserGender, userAddress, setUserAddress } = useContext(AuthContext)
+  let { userID, trigger } = useContext(AuthContext)
   let [isDisable, setIsDisable] = useState(true)
-  let [newChangedItem, setNewChangedItem] = useState({})
-  const [GST, setGST] = useState("")
+  const [GSTCertificate, setGSTCertificate] = useState("")
   const [panCardImg, setPanCardImg] = useState("")
   const [categoryName, setCategoryName] = useState([]);
   const [subCategoryName, setSubCategoryName] = useState([]);
   const [subCategoryValue, setSubCategoryValue] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [postalAddress, setPostalAddress] = useState([]);
+  const [postalAddress, setPostalAddress] = useState("");
   const [turnover, setTurnover] = useState("")
+  const [pinCode, setPinCode] = useState("000000")
+  let [newChangedItem, setNewChangedItem] = useState({
+    companyName:"",
+    turnover,
+    categories:[],
+    subCategories:[],
+    pinCode:Number("000000"),
+    postalAddress,
+    GST_Number:Number("000000"),
+    GST_Certificate:"",
+    PAN_Number:"",
+    PAN_Photo:"",
+  })
 
+  //For Categories
   const handleChange = (event) => {
     const {
       target: { value },
@@ -58,10 +71,9 @@ export default function CompanyInfo() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    setNewChangedItem({ ...newChangedItem, categories: value })
   };
-  const handleTurnoverChange = (e)=>{
-    setTurnover(e.target.value)
-  }
+  // For SubCategories
   const handleChange2 = (event) => {
     const {
       target: { value },
@@ -70,24 +82,35 @@ export default function CompanyInfo() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
-  };
-
-  const handlePostalChange = (event) => {
-    setPostalAddress(event.target.value);
+    setNewChangedItem({ ...newChangedItem, subCategories: value })
   };
 
   function companyNameChange(newValue) {
     let val = newValue.target.value
     setNewChangedItem({ ...newChangedItem, companyName: val })
   }
+  const handleTurnoverChange = (e)=>{
+    let val = e.target.value
+    setTurnover(val)
+    setNewChangedItem({ ...newChangedItem, turnover: val })
+
+  }
+  
+
+  const handlePostalChange = (event) => {
+    let val = event.target.value
+    setPostalAddress(val)
+    setNewChangedItem({ ...newChangedItem, postalAddress: val })
+  };
 
   function pinCodeChange(newValue) {
     let val = newValue.target.value;
+    setPinCode(val)
     if (val.length == 6) {
       axios.get(`https://api.postalpincode.in/pincode/${val}`).then(res => setLocations(res.data[0].PostOffice ? res.data[0].PostOffice : []))
+      setNewChangedItem({ ...newChangedItem, pinCode: val })
     }
     else setLocations([])
-    setNewChangedItem({ ...newChangedItem, pinCode: val })
   }
 
   function GSTChange(newValue) {
@@ -95,47 +118,42 @@ export default function CompanyInfo() {
     setNewChangedItem({ ...newChangedItem, GST_Number: val })
   }
 
-  function PostalAddress(newValue) {
-    let val = newValue.target.value
-    if (val.length === 0) val = userAddress
-    setNewChangedItem({ ...newChangedItem, PostalAddress: val })
-  }
-
-  function submit() {
-    if (isDisable) return
-    setUserName(newChangedItem.name)
-    setUserEmail(newChangedItem.email)
-    setUserPhone(newChangedItem.phone)
-    setUserAddress(newChangedItem.address)
-    // axios.patch(`http://localhost:3001/users/${userID}`,newChangedItem)
-    setIsDisable(true)
-  }
-  const handleFileChange = (e) => {
+  
+  const handleGSTCertificate = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setGST(reader.result);
+      setGSTCertificate(reader.result);
+      setNewChangedItem({ ...newChangedItem, GST_Certificate: reader.result })
     };
   };
 
-  const handleFileChange1 = (e) => {
+  const handlePanCardPhoto = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPanCardImg(reader.result);
-      console.log(reader.result);
+      setNewChangedItem({ ...newChangedItem, PAN_Photo: reader.result })
     };
   };
 
-  let subCategroies = {}
+  let subCategories = {}
   for (let i = 0; i < cardNames.length; i++) {
     let arr = [];
     for (let j = 0; j < 5; j++) {
       arr.push(cardNames[i] + " " + (j + 1));
     }
-    subCategroies[cardNames[i]] = arr
+    subCategories[cardNames[i]] = arr
+  }
+
+  function submit() {
+    if (isDisable) return
+    axios.patch(`http://localhost:3001/users/${userID}`,{
+      companyInfo:newChangedItem
+    })
+    trigger("lightgreen","Information Updated Successfully")
   }
   return <>
     <Box minHeight={"90vh"} minWidth={"60vw"}>
@@ -196,10 +214,9 @@ export default function CompanyInfo() {
                 onChange={(e) => {
                   let arr = [];
                   for (let i of e.target.value) {
-                    arr = [...arr, ...subCategroies[i]]
+                    arr = [...arr, ...subCategories[i]]
                   }
                   setSubCategoryName(arr);
-                  console.log(arr)
                   handleChange(e)
                 }}
                 input={<OutlinedInput />}
@@ -263,7 +280,7 @@ export default function CompanyInfo() {
                 onChange={handlePostalChange}
               >
                 {locations.map((name, i) => (
-                  <MenuItem key={i} value={name}>{`${name.Name}, ${name.District}, ${name.State}`}</MenuItem>
+                  <MenuItem key={i} value={`${name.Name}, ${name.District}, ${name.State}`}>{`${name.Name}, ${name.District}, ${name.State}`}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -281,21 +298,14 @@ export default function CompanyInfo() {
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Upload GST Document</Typography>
-          <Input onChange={handleFileChange} sx={{ width: ["100%", "50%"] }} type="file" fullWidth disabled={isDisable} placeholder={"GST Number"} />
-        </Box>
-      </Box>
-      <br />
-      <Box display={"flex"}>
-        <Box textAlign={"left"} width={"100%"}>
-          <Typography variant={"body1"}>PAN Card</Typography>
-          <TextField sx={{ width: ["100%", "50%"] }} type="text" fullWidth onChange={PostalAddress} disabled={isDisable} placeholder={"PAN Card"} />
+          <Input onChange={handleGSTCertificate} sx={{ width: ["100%", "50%"] }} type="file" fullWidth disabled={isDisable} placeholder={"GST Number"} />
         </Box>
       </Box>
       <br />
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>PAN Card Image</Typography>
-          <Input sx={{ width: ["100%", "50%"] }} type="file" fullWidth onChange={handleFileChange1} disabled={isDisable} placeholder={"PAN Card"} />
+          <Input sx={{ width: ["100%", "50%"] }} type="file" fullWidth onChange={handlePanCardPhoto} disabled={isDisable} placeholder={"PAN Card"} />
         </Box>
       </Box>
       <br />
