@@ -44,9 +44,6 @@ export default function HomePage() {
       <WaveSection content={<Reasons />} />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
       <Typography variant="h4" textAlign={"left"} m={"0 5%"}>
         Customer Stories
       </Typography>

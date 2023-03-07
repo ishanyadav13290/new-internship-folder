@@ -1,13 +1,20 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../../Context/Contexts";
 import { lb } from "../../../Static/theme";
 import ListingCards from "./ListingCards";
 
 export default function YourListings() {
-  let { pendingItems } = useContext(AuthContext);
-  console.log(pendingItems)
+  let { pendingItems, setPendingItems, userID } = useContext(AuthContext);
+
+  useEffect(()=>{
+    (async()=>{
+     let temp = await axios.get(`http://localhost:3001/users/${userID}`)
+     setPendingItems(temp.data.pendingItems)
+    })()
+  },[])
   return (
     <Box minHeight={"100vh"} minWidth={"60vw"} textAlign={"left"}>
       <Box>

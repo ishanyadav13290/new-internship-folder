@@ -66,7 +66,7 @@ export default function Login() {
     // });
     users.forEach(element => {
       // console.log(element.address)
-      if (email == element.email && pass == element.password) {
+      if ((email == element.email || email == element.phone) && pass == element.password) {
         localStorage.setItem(`isAuth`, JSON.stringify(true));
         localStorage.setItem(`userID`, JSON.stringify(element._id))
         setAuth(true)
@@ -89,7 +89,7 @@ export default function Login() {
         // setUserAddress(element.address)
         setUserOrders(element.orders)
       }
-      trigger("lightgreen", "Login Successfully")
+      trigger("lightgreen", "Login Successful")
     });
   };
   if (isAuth) return <Navigate to="/" />
@@ -116,9 +116,9 @@ export default function Login() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email Or Password"
             name="email"
-            autoComplete="email"
+            autoComplete={"email"}
             autoFocus
           />
           <TextField

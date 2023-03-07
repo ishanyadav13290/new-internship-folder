@@ -44,6 +44,7 @@ export default function CompanyInfo() {
   const [GST, setGST] = useState("")
   const [panCardImg, setPanCardImg] = useState("")
   const [categoryName, setCategoryName] = useState([]);
+  const [postalAddress, setPostalAddress] = useState("");
   const [subCategoryName, setSubCategoryName] = useState([]);
   const [locations, setLocations] = useState([]);
 
@@ -55,6 +56,9 @@ export default function CompanyInfo() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+  };
+  const handlePostalChange = (event) => {
+    setPostalAddress(event.target.value);
   };
 
   function companyNameChange(newValue) {
@@ -135,12 +139,13 @@ export default function CompanyInfo() {
           <TextField onChange={companyNameChange} sx={{ width: ["100%", "50%"] }} type="text" disabled={isDisable} placeholder={"Company's Name"} />
         </Box>
       </Box>
+      
       <br />
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Categories</Typography>
           <div>
-            <FormControl sx={{ width: ["100%", "50%"] }}>
+            <FormControl disabled={isDisable} sx={{ width: ["100%", "50%"] }}>
               <InputLabel id="demo-multiple-checkbox-label">Select Categories You Deal With</InputLabel>
               <Select
                 MenuProps={{
@@ -179,7 +184,7 @@ export default function CompanyInfo() {
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Sub Categories</Typography>
           <div>
-            <FormControl sx={{ width: ["100%", "50%"] }}>
+            <FormControl disabled={isDisable} sx={{ width: ["100%", "50%"] }}>
               <InputLabel id="demo-multiple-checkbox-label">Select Categories You Deal With</InputLabel>
               <Select
                 MenuProps={{
@@ -215,47 +220,26 @@ export default function CompanyInfo() {
       <br />
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
-          <Typography variant={"body1"}>Categories</Typography>
-          <div>
-            <FormControl sx={{ width: ["100%", "50%"] }}>
-              <InputLabel id="demo-multiple-checkbox-label">Select Categories You Deal With</InputLabel>
-              <Select
-                MenuProps={{
-                  variant: 'menu',
-                  disableScrollLock: true,
-                }}
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
-                multiple
-                value={categoryName}
-                onChange={(e) => {
-                  console.log(e.target.value)
-                }}
-                input={<OutlinedInput label="Select Categories You Deal With" />}
-                renderValue={(selected) => selected.join(', ')}
-              >
-                {locations.map((name, i) => (
-                  <MenuItem key={name + Date.now() + i} value={name}>
-                    <Checkbox checked={categoryName.indexOf(name) > -1} />
-                    <ListItemText primary={`${name.Name}, ${name.District}, ${name.State},`} />
-                  </MenuItem>
+          <Typography variant={"body1"}>Postal Address</Typography>
+          <Box sx={{ width: ["100%", "50%"] }}>
+      <FormControl fullWidth disabled={isDisable}>
+        <InputLabel id="demo-simple-select-label">Postal Address</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={postalAddress}
+          label="Postal Address"
+          onChange={handlePostalChange}
+        >
+          {locations.map((name, i) => (
+            <MenuItem key={i} value={name}>{`${name.Name}, ${name.District}, ${name.State}`}</MenuItem>
                 ))}
-              </Select>
-            </FormControl>
-          </div>
+        </Select>
+      </FormControl>
+    </Box>
         </Box>
       </Box>
       <br />
-
-
-
-      {/* <Box display={"flex"}>
-        <Box textAlign={"left"} width={"100%"}>
-          <Typography variant={"body1"}>Postal Address</Typography>
-          <TextField sx={{ width: ["100%", "50%"] }} type="text" fullWidth onChange={PostalAddress} disabled={isDisable} placeholder={userAddress || "Address"} />
-        </Box>
-      </Box>
-      <br /> */}
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>GST Number</Typography>
@@ -267,13 +251,6 @@ export default function CompanyInfo() {
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Upload GST Document</Typography>
           <Input onChange={handleFileChange} sx={{ width: ["100%", "50%"] }} type="file" fullWidth disabled={isDisable} placeholder={"GST Number"} />
-        </Box>
-      </Box>
-      <br />
-      <Box display={"flex"}>
-        <Box textAlign={"left"} width={"100%"}>
-          <Typography variant={"body1"}>GST Certificate</Typography>
-          <TextField sx={{ width: ["100%", "50%"] }} type="number" fullWidth disabled={isDisable} placeholder={"GST Certificate"} />
         </Box>
       </Box>
       <br />
