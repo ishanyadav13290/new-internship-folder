@@ -48,6 +48,7 @@ export default function CompanyInfo() {
   const [subCategoryValue, setSubCategoryValue] = useState([]);
   const [locations, setLocations] = useState([]);
   const [postalAddress, setPostalAddress] = useState([]);
+  const [turnover, setTurnover] = useState("")
 
   const handleChange = (event) => {
     const {
@@ -58,11 +59,13 @@ export default function CompanyInfo() {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+  const handleTurnoverChange = (e)=>{
+    setTurnover(e.target.value)
+  }
   const handleChange2 = (event) => {
     const {
       target: { value },
     } = event;
-    console.log(value)
     setSubCategoryValue(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -151,13 +154,40 @@ export default function CompanyInfo() {
           <TextField onChange={companyNameChange} sx={{ width: ["100%", "50%"] }} type="text" disabled={isDisable} placeholder={"Company's Name"} />
         </Box>
       </Box>
-      
+      <br />
+      <Box display={"flex"}>
+        <Box textAlign={"left"} width={"100%"}>
+          <Typography variant={"body1"}>Turnover</Typography>
+          <Box sx={{ width: ["100%", "50%"] }}>
+      <FormControl fullWidth disabled={isDisable}>
+        <InputLabel id="demo-simple-select-label">Turnover (in Crores)</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={turnover}
+          label="Turnover (in Crores)"
+          onChange={handleTurnoverChange}
+        >
+            <MenuItem value={"0-10Cr"}>0-10 Cr</MenuItem>
+            <MenuItem value={"11-25Cr"}>11-25 Cr</MenuItem>
+            <MenuItem value={"25-50Cr"}>25-50 Cr</MenuItem>
+            <MenuItem value={"50-100Cr"}>50-100 Cr</MenuItem>
+            <MenuItem value={"100-200Cr"}>100-200 Cr</MenuItem>
+            <MenuItem value={"200-300Cr"}>200-300 Cr</MenuItem>
+            <MenuItem value={"300-400Cr"}>300-400 Cr</MenuItem>
+            <MenuItem value={"400-500Cr"}>400-500 Cr</MenuItem>
+            <MenuItem value={"500+Cr"}>500+ Cr</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+        </Box>
+      </Box>
       <br />
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Categories</Typography>
           <div>
-            <FormControl sx={{ width: ["100%", "50%"] }}>
+            <FormControl sx={{ width: ["100%", "50%"] }} disabled={isDisable}>
               <Select
                 MenuProps={{
                   variant: 'menu',
@@ -195,7 +225,7 @@ export default function CompanyInfo() {
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Sub Categories</Typography>
           <div>
-            <FormControl sx={{ width: ["100%", "50%"] }}>
+            <FormControl sx={{ width: ["100%", "50%"] }} disabled={isDisable}>
               <Select
                 MenuProps={{
                   variant: 'menu',
