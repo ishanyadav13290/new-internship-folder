@@ -44,9 +44,10 @@ export default function CompanyInfo() {
   const [GST, setGST] = useState("")
   const [panCardImg, setPanCardImg] = useState("")
   const [categoryName, setCategoryName] = useState([]);
-  const [postalAddress, setPostalAddress] = useState("");
   const [subCategoryName, setSubCategoryName] = useState([]);
+  const [subCategoryValue, setSubCategoryValue] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [postalAddress, setPostalAddress] = useState([]);
 
   const handleChange = (event) => {
     const {
@@ -57,6 +58,17 @@ export default function CompanyInfo() {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+  const handleChange2 = (event) => {
+    const {
+      target: { value },
+    } = event;
+    console.log(value)
+    setSubCategoryValue(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
   const handlePostalChange = (event) => {
     setPostalAddress(event.target.value);
   };
@@ -117,8 +129,8 @@ export default function CompanyInfo() {
   let subCategroies = {}
   for (let i = 0; i < cardNames.length; i++) {
     let arr = [];
-    for (let i = 0; i < 5; i++) {
-      arr.push(cardNames[i] + " " + (i + 1))
+    for (let j = 0; j < 5; j++) {
+      arr.push(cardNames[i] + " " + (j + 1));
     }
     subCategroies[cardNames[i]] = arr
   }
@@ -145,8 +157,7 @@ export default function CompanyInfo() {
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Categories</Typography>
           <div>
-            <FormControl disabled={isDisable} sx={{ width: ["100%", "50%"] }}>
-              <InputLabel id="demo-multiple-checkbox-label">Select Categories You Deal With</InputLabel>
+            <FormControl sx={{ width: ["100%", "50%"] }}>
               <Select
                 MenuProps={{
                   variant: 'menu',
@@ -165,7 +176,7 @@ export default function CompanyInfo() {
                   console.log(arr)
                   handleChange(e)
                 }}
-                input={<OutlinedInput label="Select Categories You Deal With" />}
+                input={<OutlinedInput />}
                 renderValue={(selected) => selected.join(', ')}
               >
                 {cardNames.map((name, i) => (
@@ -184,8 +195,7 @@ export default function CompanyInfo() {
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Sub Categories</Typography>
           <div>
-            <FormControl disabled={isDisable} sx={{ width: ["100%", "50%"] }}>
-              <InputLabel id="demo-multiple-checkbox-label">Select Categories You Deal With</InputLabel>
+            <FormControl sx={{ width: ["100%", "50%"] }}>
               <Select
                 MenuProps={{
                   variant: 'menu',
@@ -194,14 +204,14 @@ export default function CompanyInfo() {
                 labelId="demo-multiple-checkbox-label"
                 id="demo-multiple-checkbox"
                 multiple
-                value={categoryName}
-                onChange={handleChange}
-                input={<OutlinedInput label="Select Categories You Deal With" />}
+                value={subCategoryValue}
+                onChange={handleChange2}
+                input={<OutlinedInput />}
                 renderValue={(selected) => selected.join(', ')}
               >
                 {subCategoryName.map((name, i) => (
                   <MenuItem key={name + i} value={name}>
-                    <Checkbox checked={categoryName.indexOf(name) > -1} />
+                    <Checkbox checked={subCategoryValue.indexOf(name) > -1} />
                     <ListItemText primary={name} />
                   </MenuItem>
                 ))}
@@ -222,21 +232,20 @@ export default function CompanyInfo() {
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Postal Address</Typography>
           <Box sx={{ width: ["100%", "50%"] }}>
-      <FormControl fullWidth disabled={isDisable}>
-        <InputLabel id="demo-simple-select-label">Postal Address</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={postalAddress}
-          label="Postal Address"
-          onChange={handlePostalChange}
-        >
-          {locations.map((name, i) => (
-            <MenuItem key={i} value={name}>{`${name.Name}, ${name.District}, ${name.State}`}</MenuItem>
+            <FormControl fullWidth disabled={isDisable}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={postalAddress}
+                label="Postal Address"
+                onChange={handlePostalChange}
+              >
+                {locations.map((name, i) => (
+                  <MenuItem key={i} value={name}>{`${name.Name}, ${name.District}, ${name.State}`}</MenuItem>
                 ))}
-        </Select>
-      </FormControl>
-    </Box>
+              </Select>
+            </FormControl>
+          </Box>
         </Box>
       </Box>
       <br />
