@@ -11,7 +11,7 @@ const { connection,
 app.use(express.json({ limit: '50mb' }))
 app.use(cors())
 const accountSid = 'ACa1c52fac29bd069f21b8f8348dfe50a6';
-const authToken = '62120d09ccb6028ab59de042147284e4';
+const authToken = '2bbaf56f15aa921739b1d28ea2255ddb';
 const client = require('twilio')(accountSid, authToken);
 const Razorpay = require("razorpay");
 
@@ -230,7 +230,7 @@ app.post("/sendOtp", (req, res) => {
     client.messages
         .create({
             body: message,
-            from: '+12762966437',
+            from: '+15672352582',
             to: "+91" + mobileNumber
         })
         .then(message => console.log(`OTP sent to ${message.to}`))

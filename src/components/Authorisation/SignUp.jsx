@@ -38,11 +38,12 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  let { isAuth, setAuth, otp, setOTP, userPhone, setUserPhone, setUserName, setIsSeller, cart, walletBalance,trigger } =
+  let { setUserEmail,isAuth, setAuth, otp, setOTP, userPhone, setUserPhone, setUserName, setIsSeller, cart, walletBalance,trigger } =
     React.useContext(AuthContext);
   let [sell, setSell] = React.useState(false);
   let [step, setStep] = React.useState(1);
   let [OneTimePass, setOneTimePass] = React.useState(0)
+  let [inputOTP, setInputOTP] = React.useState(0)
 
   async function handleOTP() {
     var digits = '0123456789';
@@ -54,7 +55,7 @@ export default function SignUp() {
       mobileNumber: userPhone,
       otp: OTP
     }))
-    setOTP(OTP)
+    setOneTimePass(OTP)
   }
   let tempPhone
   function handleNumber(e) {
@@ -62,14 +63,13 @@ export default function SignUp() {
     tempPhone = val
     setUserPhone(tempPhone)
   }
-  let tempOtp
   function handleOTPChange(e) {
     let val = e.target.value
-    tempOtp = val
+    setInputOTP(val)
   }
 
   function handleNext() {
-    if (tempOtp !== otp) return alert("Wrong OTP")
+    if (OneTimePass !== inputOTP) return alert("Wrong OTP")
     setStep(2)
   }
 
@@ -95,25 +95,13 @@ export default function SignUp() {
     checking = checking.data;
     console.log(checking)
     for(let i of checking){
-      if(i.email==email){
+      if(i.email==email || i.phone==userPhone){
         return alert("The Account already Exists")
       }
     }
-    // name: String, he
-    // address: String,
-    // email: String,
-    // password: String,
-    // cart:Array,
-    // orders:Array,
-    // credits:Number,
-    // creditHistory:Array,
-    // isSelling:Boolean,
-    // sellerItems:Array,
-    // phone:Number,
-    // pendingItems:Array,
-    // companyInfo:Object
 
     let obj = {
+      name:"",
       phone: userPhone,
       email,
       password,
@@ -135,6 +123,8 @@ export default function SignUp() {
     trigger("lightgreen","Login SuccessFully")
     // after uploading
     setAuth(true);
+    console.log(email)
+    setUserEmail(email)
   };
 
   if (isAuth) return <Navigate to="/" />;
