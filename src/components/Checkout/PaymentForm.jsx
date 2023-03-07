@@ -21,7 +21,6 @@ export default function PaymentForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
         <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label">Payment Method</FormLabel>
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
