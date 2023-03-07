@@ -13,6 +13,54 @@ app.use(cors())
 const accountSid = 'AC3426d4ce4b5031d7e1a48acb63dd6079';
 const authToken = '0265625be0af2dea44bea1eddd843625';
 const client = require('twilio')(accountSid, authToken);
+const Razorpay = require("razorpay");
+
+
+
+
+
+// Payment Gateway Integration Starts Here
+
+var instance = new Razorpay({
+    key_id: 'rzp_test_nSahl5FThvw7uJ',
+    key_secret: 'd4p6ON5LLXwJXM8gg9mB93qo'
+})
+
+app.post("/create/orderId", async (req, res) => {
+    const data = req.body;
+
+    const options = {
+        amount: req.body.amount * 100,
+        currency: "INR",
+        receipt: "rcp1"
+    }
+    console.log(data)
+    instance.orders.create(options, (err, order) => {
+        console.log(order);
+        res.send({
+            orderId: order.id
+        })
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get("/", async (req, res) => {
     res.send("Welcome Bhai")

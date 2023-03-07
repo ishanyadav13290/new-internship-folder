@@ -15,7 +15,7 @@ export default function AdminApprovalCards({ data }) {
 
     // to delete items from verifyItems endpoint
     function Delete(){
-        axios.delete(`http://localhost:3001/verifyItems/${data._id}`)
+        axios.delete(`http://localhost:3001/verifyItems/${data._id}`);
         let newArr = verificationItems.filter((el,i)=>{
             return el._id!==data._id
          })
