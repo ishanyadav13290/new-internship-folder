@@ -10,8 +10,8 @@ const { connection,
 
 app.use(express.json({ limit: '50mb' }))
 app.use(cors())
-const accountSid = 'AC3426d4ce4b5031d7e1a48acb63dd6079';
-const authToken = '0265625be0af2dea44bea1eddd843625';
+const accountSid = 'ACa1c52fac29bd069f21b8f8348dfe50a6';
+const authToken = '62120d09ccb6028ab59de042147284e4';
 const client = require('twilio')(accountSid, authToken);
 const Razorpay = require("razorpay");
 
