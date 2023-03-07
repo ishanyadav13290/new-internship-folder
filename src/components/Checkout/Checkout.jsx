@@ -51,15 +51,82 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-  let {userID,cart,setCart,setUserOrders} = React.useContext(AuthContext)
+  let { userID, cart, setCart, setUserOrders } = React.useContext(AuthContext);
+  let [isPaymentSucess, setIsPaymentSucess] = React.useState(false);
+  let { paymentMethod, setPaymentMethod } = React.useContext(AuthContext);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+
+
+  async function displayRazorPay() {
+    const res = await handlePayment();
+    if (!res) {
+      alert("Error");
+      return
+    }
+    let obj = {
+      amount: 700
+    }
+    const options = {
+      "key": "rzp_test_nSahl5FThvw7uJ", // Enter the Key ID generated from the Dashboard
+      "amount": 700 * 100 + "", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Ishan Yadav",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": async function (response) {
+        if (response.razorpay_payment_id) {
+            handleNext()
+            await axios.patch(`http://localhost:3001/users/${userID}`, {
+              cart: [],
+              orders: cart
+            })
+            setUserOrders(cart)
+            setCart([])
+            return;
+        } else {
+          console.log("Error");
+        }
+      },
+      "prefill": {
+        "name": "ishan Yadav",
+        "email": "vdsvsv",
+        "contact": "contactRef.current.value",
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#564fa4"
+      }
+    };
+
+    let { data } = await axios.post("http://localhost:3001/create/orderId", obj)
+    options.order_id = data.orderId;
+    let rzp = new window.Razorpay(options);
+    return rzp.open();
+  }
+  const handlePayment = async () => {
+    return new Promise(resolve => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true)
+      }
+      script.onerror = () => {
+        resolve(false)
+      }
+      document.body.appendChild(script);
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -70,8 +137,8 @@ export default function Checkout() {
         // elevation={-1}
         sx={{
           position: 'relative',
-          zIndex:"0",
-          boxShadow:"none"
+          zIndex: "0",
+          boxShadow: "none"
           // borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
@@ -109,34 +176,42 @@ export default function Checkout() {
               {getStepContent(activeStep)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1, color:lb }}>
+                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1, color: lb }}>
                     Back
                   </Button>
                 )}
                 <Button
                   variant="contained"
-                  onClick={async ()=>{
-                    handleNext()
-                    await axios.patch(`http://localhost:3001/users/${userID}`,{
-                      cart:[],
-                      orders:cart
-                    })
-                    setUserOrders(cart)
-                    setCart([])
-
+                  onClick={async () => {
+                    if (paymentMethod == "online") {
+                      await displayRazorPay()
+                    }
+                    else {
+                      handleNext()
+                      await axios.patch(`http://localhost:3001/users/${userID}`, {
+                        cart: [],
+                        orders: cart
+                      })
+                      setUserOrders(cart)
+                      setCart([])
+                    }
                   }}
-                  sx={{bgcolor:lb,"&:hover": {
-              bgcolor: db
-            }, mt: 3, ml: 1,display:activeStep===steps.length-1?"block":"none", }}
+                  sx={{
+                    bgcolor: lb, "&:hover": {
+                      bgcolor: db
+                    }, mt: 3, ml: 1, display: activeStep === steps.length - 1 ? "block" : "none",
+                  }}
                 >
                   Place Order
                 </Button>
                 <Button
                   variant="contained"
                   onClick={handleNext}
-                  sx={{bgcolor:lb,"&:hover": {
-              bgcolor: db
-            }, mt: 3, ml: 1,display:activeStep===steps.length-1?"none":"block" }}
+                  sx={{
+                    bgcolor: lb, "&:hover": {
+                      bgcolor: db
+                    }, mt: 3, ml: 1, display: activeStep === steps.length - 1 ? "none" : "block"
+                  }}
                 >
                   Next
                 </Button>

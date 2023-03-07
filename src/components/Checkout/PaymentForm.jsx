@@ -8,7 +8,7 @@ import { AuthContext } from '../Context/Contexts';
 import { FormControl, FormLabel, Radio, RadioGroup } from '@mui/material';
 
 export default function PaymentForm() {
-  let {setPaymentMethod} = React.useContext(AuthContext)
+  let {paymentMethod,setPaymentMethod} = React.useContext(AuthContext);
 
   function handlePaymentMethod(e){
     setPaymentMethod(e.target.value)

@@ -1,5 +1,6 @@
 import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, Input, InputLabel, ListItemText, MenuItem, OutlinedInput, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/Contexts";
 import { cardNames } from "../../../Static/db";
@@ -44,6 +45,7 @@ export default function CompanyInfo() {
   const [panCardImg, setPanCardImg] = useState("")
   const [categoryName, setCategoryName] = useState([]);
   const [subCategoryName, setSubCategoryName] = useState([]);
+  const [locations, setLocations] = useState([]);
 
   const handleChange = (event) => {
     const {
@@ -57,13 +59,15 @@ export default function CompanyInfo() {
 
   function companyNameChange(newValue) {
     let val = newValue.target.value
-    if (val.length === 0) val = userName
     setNewChangedItem({ ...newChangedItem, companyName: val })
   }
 
   function pinCodeChange(newValue) {
-    let val = newValue.target.value
-    if (val.length === 0) val = userEmail
+    let val = newValue.target.value;
+    if (val.length == 6) {
+      axios.get(`https://api.postalpincode.in/pincode/${val}`).then(res => setLocations(res.data[0].PostOffice ? res.data[0].PostOffice : []))
+    }
+    else setLocations([])
     setNewChangedItem({ ...newChangedItem, pinCode: val })
   }
 
@@ -95,7 +99,7 @@ export default function CompanyInfo() {
       setGST(reader.result);
     };
   };
-  
+
   const handleFileChange1 = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -107,10 +111,10 @@ export default function CompanyInfo() {
   };
 
   let subCategroies = {}
-  for(let i = 0;i<cardNames.length;i++){
+  for (let i = 0; i < cardNames.length; i++) {
     let arr = [];
-    for(let i = 0;i<5;i++){
-      arr.push(cardNames[i] + " " + (i+1))
+    for (let i = 0; i < 5; i++) {
+      arr.push(cardNames[i] + " " + (i + 1))
     }
     subCategroies[cardNames[i]] = arr
   }
@@ -147,10 +151,10 @@ export default function CompanyInfo() {
                 id="demo-multiple-checkbox"
                 multiple
                 value={categoryName}
-                onChange={(e)=>{
+                onChange={(e) => {
                   let arr = [];
-                  for(let i of e.target.value){
-                    arr = [...arr,...subCategroies[i]]
+                  for (let i of e.target.value) {
+                    arr = [...arr, ...subCategroies[i]]
                   }
                   setSubCategoryName(arr);
                   console.log(arr)
@@ -191,7 +195,7 @@ export default function CompanyInfo() {
                 renderValue={(selected) => selected.join(', ')}
               >
                 {subCategoryName.map((name, i) => (
-                  <MenuItem key={name+i} value={name}>
+                  <MenuItem key={name + i} value={name}>
                     <Checkbox checked={categoryName.indexOf(name) > -1} />
                     <ListItemText primary={name} />
                   </MenuItem>
@@ -211,11 +215,47 @@ export default function CompanyInfo() {
       <br />
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
+          <Typography variant={"body1"}>Categories</Typography>
+          <div>
+            <FormControl sx={{ width: ["100%", "50%"] }}>
+              <InputLabel id="demo-multiple-checkbox-label">Select Categories You Deal With</InputLabel>
+              <Select
+                MenuProps={{
+                  variant: 'menu',
+                  disableScrollLock: true,
+                }}
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-checkbox"
+                multiple
+                value={categoryName}
+                onChange={(e) => {
+                  console.log(e.target.value)
+                }}
+                input={<OutlinedInput label="Select Categories You Deal With" />}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                {locations.map((name, i) => (
+                  <MenuItem key={name + Date.now() + i} value={name}>
+                    <Checkbox checked={categoryName.indexOf(name) > -1} />
+                    <ListItemText primary={`${name.Name}, ${name.District}, ${name.State},`} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        </Box>
+      </Box>
+      <br />
+
+
+
+      {/* <Box display={"flex"}>
+        <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Postal Address</Typography>
           <TextField sx={{ width: ["100%", "50%"] }} type="text" fullWidth onChange={PostalAddress} disabled={isDisable} placeholder={userAddress || "Address"} />
         </Box>
       </Box>
-      <br />
+      <br /> */}
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>GST Number</Typography>

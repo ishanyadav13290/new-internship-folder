@@ -13,7 +13,6 @@ export default function Payments() {
       <Typography color={lb} variant="h4" fontWeight={700}>
         Payments
       </Typography>
-
       <Divider />
       <br />
       <Typography variant="h5" sx={{color:lb}}>Wallet</Typography>
