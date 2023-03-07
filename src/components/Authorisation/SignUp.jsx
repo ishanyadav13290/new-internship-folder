@@ -99,7 +99,19 @@ export default function SignUp() {
         return alert("The Account already Exists")
       }
     }
-
+    // name: String, he
+    // address: String,
+    // email: String,
+    // password: String,
+    // cart:Array,
+    // orders:Array,
+    // credits:Number,
+    // creditHistory:Array,
+    // isSelling:Boolean,
+    // sellerItems:Array,
+    // phone:Number,
+    // pendingItems:Array,
+    // companyInfo:Object
 
     let obj = {
       phone: userPhone,
@@ -107,7 +119,13 @@ export default function SignUp() {
       password,
       cart,
       isSelling,
-      sellerItems: sell ? [] : null
+      sellerItems: sell ? [] : null,
+      credits:0,
+      creditHistory:[],
+      pendingItems:[],
+      companyInfo:{},
+      orders:[],
+      address:{}
     };
     console.log(obj)
     sell === true ? setIsSeller(true) : setIsSeller(false);

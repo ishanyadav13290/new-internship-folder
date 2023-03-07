@@ -13,7 +13,7 @@ export default function useAlert() {
         setTimeout(() => {
             setIsVisible(false);
         }, 3000);
-    }
+    }   
 
     function Jsx() {
         return (

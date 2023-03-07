@@ -5,18 +5,20 @@ const connection = mongoose.connect("mongodb+srv://gofra:gofra@cluster0.a9uxn51.
 
 const newUsersSchema = mongoose.Schema({
     name: String,
-    address: String,
+    address: Object,
     email: String,
     password: String,
     cart:Array,
     orders:Array,
-    walletBalance:Number,
+    credits:Number,
+    creditHistory:Array,
     isSelling:Boolean,
     sellerItems:Array,
     phone:Number,
-    gender:String,
-    pendingItems:Array
+    pendingItems:Array,
+    companyInfo:Object
 })
+
 const newAdmins = mongoose.Schema({
     name: String,
     email: String,

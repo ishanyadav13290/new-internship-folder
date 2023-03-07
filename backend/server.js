@@ -226,7 +226,7 @@ app.patch("/allItems/:id", async (req, res) => {
 app.post("/sendOtp", (req, res) => {
     const { otp, mobileNumber } = req.body;
     const message = `Your OTP is: ${otp}`;
-
+    console.log(message)
     client.messages
         .create({
             body: message,
@@ -237,6 +237,7 @@ app.post("/sendOtp", (req, res) => {
         .catch(error => console.error(error));
     res.send(message)
 })
+
 // verify Items Endpoint
 app.get("/verifyItems", async (req, res) => {
     const { page, limit } = req.query;
@@ -267,7 +268,7 @@ app.get("/admins", async (req, res) => {
 
 app.get("/admins/:id", async (req, res) => {
     const _id = req.params.id;
-    const data = await newAdminsModel.findById({_id});
+    const data = await newAdminsModel.findById({ _id });
     console.log(data)
     res.send(data);
 });

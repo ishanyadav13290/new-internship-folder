@@ -189,10 +189,6 @@ export default function CompanyInfo() {
           <div>
             <FormControl sx={{ width: ["100%", "50%"] }} disabled={isDisable}>
               <Select
-                MenuProps={{
-                  variant: 'menu',
-                  disableScrollLock: true,
-                }}
                 labelId="demo-multiple-checkbox-label"
                 id="demo-multiple-checkbox"
                 multiple
@@ -227,10 +223,6 @@ export default function CompanyInfo() {
           <div>
             <FormControl sx={{ width: ["100%", "50%"] }} disabled={isDisable}>
               <Select
-                MenuProps={{
-                  variant: 'menu',
-                  disableScrollLock: true,
-                }}
                 labelId="demo-multiple-checkbox-label"
                 id="demo-multiple-checkbox"
                 multiple
