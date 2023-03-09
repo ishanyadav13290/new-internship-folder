@@ -38,7 +38,8 @@ const names = [
 ];
 
 export default function CompanyInfo() {
-  let { userID, trigger } = useContext(AuthContext)
+
+  let { userID, trigger, isSeller } = useContext(AuthContext)
   let [isDisable, setIsDisable] = useState(true)
   const [GSTCertificate, setGSTCertificate] = useState("")
   const [panCardImg, setPanCardImg] = useState("")
@@ -294,7 +295,8 @@ export default function CompanyInfo() {
           <TextField onChange={GSTChange} sx={{ width: ["100%", "50%"] }} type="number" fullWidth disabled={isDisable} placeholder={"GST Number"} />
         </Box>
       </Box>
-      <br />
+      {isSeller?<>
+        <br />
       <Box display={"flex"}>
         <Box textAlign={"left"} width={"100%"}>
           <Typography variant={"body1"}>Upload GST Document</Typography>
@@ -308,6 +310,8 @@ export default function CompanyInfo() {
           <Input sx={{ width: ["100%", "50%"] }} type="file" fullWidth onChange={handlePanCardPhoto} disabled={isDisable} placeholder={"PAN Card"} />
         </Box>
       </Box>
+      </>:null}
+      
       <br />
       <Button disabled={isDisable} variant={"contained"} sx={buttonStyle} onClick={() => {
         submit()

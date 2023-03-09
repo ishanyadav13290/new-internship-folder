@@ -88,8 +88,10 @@ export default function Login() {
         setUserPhone(element.phone)
         // setUserAddress(element.address)
         setUserOrders(element.orders)
-      }
-      trigger("lightgreen", "Login Successful")
+        trigger("lightgreen", "Login Successful")
+        return
+      } 
+      trigger("tomato", "ID or Password Mismatched")
     });
   };
   if (isAuth) return <Navigate to="/" />
