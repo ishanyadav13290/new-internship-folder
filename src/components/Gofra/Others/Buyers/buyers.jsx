@@ -55,5 +55,6 @@ export default function Buyers(){
         <br />
             <FAQAccordion content={faqs} />
         </Box>
+        <br />
     </Box>
 }
