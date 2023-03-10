@@ -39,7 +39,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SellerPanel() {
-  let { isAuth, userName, userID, allSellerItems, setAllSellerItems, pendingItems, setPendingItems } =
+  let { isAuth,trigger, userName, userID, allSellerItems, setAllSellerItems, pendingItems, setPendingItems } =
     React.useContext(AuthContext);
   let imgInput = React.useRef(null);
   let [isLoading, setIsLoading] = React.useState(false);
@@ -90,6 +90,7 @@ export default function SellerPanel() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    trigger("lightgreen", "Product Sent For Approval")
     const data = new FormData(event.currentTarget);
     let name = data.get("prodName");
     let description = data.get("prodDescription");
@@ -116,7 +117,6 @@ export default function SellerPanel() {
           status: "pending",}
       ]
     };
-    console.log(obj)
     event.currentTarget.reset();
     setCategory("default");
 
@@ -149,7 +149,7 @@ export default function SellerPanel() {
     obj.pendingItems[obj.pendingItems.length - 1]["_id"] = tempData["_id"];
 
     axios.patch(`http://localhost:3001/users/${userID}`,obj)
-
+    
   };
   return !isAuth ? (
     <Navigate to="/login" />

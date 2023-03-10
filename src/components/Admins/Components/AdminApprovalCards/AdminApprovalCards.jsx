@@ -10,11 +10,12 @@ import toIndianNumberingSystem from "../../../Features/RupeeConversion";
 import { lb } from "../../../Static/theme";
 
 export default function AdminApprovalCards({ data }) {
-    let {verificationItems, setVerificationItems}= useContext(AuthContext)
+    let {verificationItems,trigger, setVerificationItems}= useContext(AuthContext)
     let sellerID = data.sellerID
 
     // to delete items from verifyItems endpoint
     function Delete(){
+      
         axios.delete(`http://localhost:3001/verifyItems/${data._id}`);
         let newArr = verificationItems.filter((el,i)=>{
             return el._id!==data._id
@@ -22,7 +23,7 @@ export default function AdminApprovalCards({ data }) {
          setVerificationItems(newArr)
     }
    async function Approve(){
-
+    trigger("yellow", "Confirming Approval...Please Wait!")
     let temp = await axios.get(`http://localhost:3001/users/${data.sellerID}`)
         temp = temp.data
         let {pendingItems, sellerItems} = temp
@@ -42,9 +43,11 @@ export default function AdminApprovalCards({ data }) {
         pendingItems
     })
     axios.post(`http://localhost:3001/allItems`,data)
+    trigger("lightgreen", "Product Approved")
     Delete()
     }
     async function Reject(){
+      trigger("yellow", "Removing Product....Please Wait!")
         let temp = await axios.get(`http://localhost:3001/users/${data.sellerID}`)
         temp = temp.data
         let {pendingItems} = temp
@@ -55,6 +58,7 @@ export default function AdminApprovalCards({ data }) {
             obj=pendingItems[i]
             break;
         }
+        trigger("lightgreen", "Product Removed!")
         
     }
     axios.patch(`http://localhost:3001/users/${data.sellerID}`,{

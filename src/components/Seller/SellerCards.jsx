@@ -11,7 +11,7 @@ import toIndianNumberingSystem from "../Features/RupeeConversion";
 import { lb } from "../Static/theme";
 
 export default function SellerCards({ data }) {
-  let { userID, allSellerItems, setAllSellerItems } = useContext(AuthContext);
+  let { userID,trigger, allSellerItems, setAllSellerItems } = useContext(AuthContext);
 
   function removeItem(data) {
     axios.delete(`http://localhost:3001/allItems/${data._id}`)
@@ -24,6 +24,7 @@ export default function SellerCards({ data }) {
     axios.patch(`http://localhost:3001/users/${userID}`, {
       sellerItems:newArr
     });
+    trigger("lightgreen", "Listing Removed")
   }
 //   useEffect(() => {}, []);
 
