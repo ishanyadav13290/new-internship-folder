@@ -31,8 +31,10 @@ export default function Login() {
 
   useEffect(() => {
     (async () => {
+      console.log("hoing")
       // let temp=await axios.get("https://sedate-laced-chestnut.glitch.me/users")
       let temp = await axios.get("http://localhost:3001/users")
+      console.log(temp.data)
       setUsers(temp.data)
     })()
 
