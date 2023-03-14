@@ -70,7 +70,6 @@ app.get("/", async (req, res) => {
 app.get("/users", async (req, res) => {
     try {
         const data = await newUsersModel.find();
-        console.log(data)
         res.send(data);
     } catch (err) {
         res.status(500).send("Internal Server Error");
@@ -90,6 +89,16 @@ app.get("/users/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+app.get("/users", async (req, res) => {
+    let isSeller = req.params.isSeller
+    try {
+        const data = await newUsersModel.find({isSeller:isSeller});
+        res.send(data);
+    } catch (err) {
+        res.status(500).send("Internal Server Error");
+    }
+
+})
 
 app.post("/users", async (req, res) => {
     const data = req.body;

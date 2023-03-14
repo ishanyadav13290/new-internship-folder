@@ -13,12 +13,13 @@ import Logout from "@mui/icons-material/Logout";
 import { AuthContext } from "../../Context/Contexts";
 import { NavLink } from "react-router-dom";
 import { LordAccount } from "../../Features/LordIcons";
+import { CheckCircle, CreditCard, Sell } from "@mui/icons-material";
 
 let exportedMenu;
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  let { setIsAdmin, setAuth, setIsSeller, userEmail, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
+  let { setIsAdmin, isAdmin,  setAuth, setIsSeller, userEmail, setUserOrders, setAllSellerItems, setUserPhone, setUserGender, userName, setUserName, setUserID, setUserEmail, setUserAddress, setCart, setWalletBalance } = React.useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -117,6 +118,30 @@ export default function BasictMenu() {
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Add another account
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <NavLink to="/allSellers" style={{ all: "unset", display: "flex", width: "100%", alignItems: "center" }}>
+            <ListItemIcon>
+              <Sell fontSize="small" />
+            </ListItemIcon>
+            View Sellers
+          </NavLink>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <NavLink to="/admins" style={{ all: "unset", display: "flex", width: "100%", alignItems: "center" }}>
+            <ListItemIcon>
+              <CheckCircle fontSize="small" />
+            </ListItemIcon>
+            Verify Items
+          </NavLink>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <NavLink to="/creditApprove" style={{ all: "unset", display: "flex", width: "100%", alignItems: "center" }}>
+            <ListItemIcon>
+              <CreditCard fontSize="small" />
+            </ListItemIcon>
+            Approve Credit
+          </NavLink>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <NavLink to="/account" style={{ all: "unset", display: "flex", width: "100%", alignItems: "center" }}>

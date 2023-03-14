@@ -160,7 +160,6 @@ export default function Products() {
       let temp;
     if (filterCategory == "all" && selectBrand=="all") {
       setIsLoading(true);
-      console.log("shak")
       temp = await axios.get(
         `http://localhost:3001/allItems?page=${page}&limit=16`
       );
